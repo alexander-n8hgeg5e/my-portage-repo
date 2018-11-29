@@ -1,0 +1,9 @@
+DEFINED_PHASES=unpack
+DEPEND=>=dev-libs/efl-1.18 virtual/pkgconfig >=dev-vcs/git-1.8.2.1
+DESCRIPTION=Feature rich terminal emulator using the Enlightenment Foundation Libraries
+EAPI=6
+HOMEPAGE=https://www.enlightenment.org/p.php?p=about/terminology
+RDEPEND=>=dev-libs/efl-1.18
+SLOT=0
+_eclasses_=git-r3	fec09a83ae965b041b47f5ff7c8ba29a
+_md5_=209fe5a2d7c15f8452513121629d1523

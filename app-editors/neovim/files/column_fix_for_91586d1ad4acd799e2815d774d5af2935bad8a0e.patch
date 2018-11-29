@@ -1,0 +1,13 @@
+diff --git a/src/nvim/eval.c b/src/nvim/eval.c
+index aab777955..b41fdda75 100644
+--- a/src/nvim/eval.c
++++ b/src/nvim/eval.c
+@@ -16725,7 +16725,7 @@ static void f_termopen(typval_T *argvars, typval_T *rettv, FunPtr fptr)
+ 
+   TerminalJobData *data = common_job_init(argv, on_stdout, on_stderr, on_exit,
+                                           true, false, false, cwd);
+-  data->proc.pty.width = curwin->w_width;
++  data->proc.pty.width = curwin->w_width -5; // my winoffset is ~5
+   data->proc.pty.height = curwin->w_height;
+   data->proc.pty.term_name = xstrdup("xterm-256color");
+   if (!common_job_start(data, rettv)) {

@@ -1,0 +1,6 @@
+DEFINED_PHASES=install prepare unpack
+DESCRIPTION=emergency ebuild if gcc was deleted
+EAPI=6
+SLOT=0
+SRC_URI=http://distfiles.gentoo.org/releases/amd64/autobuilds/20171228T214501Z/stage3-amd64-nomultilib-20171228T214501Z.tar.xz
+_md5_=b389e3355fb155d0410331141642a5b7

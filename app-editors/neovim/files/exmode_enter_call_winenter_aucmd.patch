@@ -1,0 +1,13 @@
+diff --git a/src/nvim/ex_getln.c b/src/nvim/ex_getln.c
+index 4b9ef5d81..f307564a1 100644
+--- a/src/nvim/ex_getln.c
++++ b/src/nvim/ex_getln.c
+@@ -6056,7 +6056,7 @@ static int open_cmdwin(void)
+   cmdmsg_rl = false;
+   curbuf->b_p_ma = true;
+   curwin->w_p_fen = false;
+-
++  apply_autocmds(EVENT_WINENTER, NULL, NULL, false, curbuf);
+   // Do execute autocommands for setting the filetype (load syntax).
+   unblock_autocmds();
+   // But don't allow switching to another buffer.

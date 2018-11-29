@@ -1,0 +1,22 @@
+diff --git a/src/nvim/ex_getln.c b/src/nvim/ex_getln.c
+index 5c02c4c4d..007400759 100644
+--- a/src/nvim/ex_getln.c
++++ b/src/nvim/ex_getln.c
+@@ -6184,8 +6184,7 @@ static int open_cmdwin(void)
+       }
+     }
+ 
+-    /* Don't execute autocommands while deleting the window. */
+-    block_autocmds();
++    /* i want aucmd here */
+     // Avoid command-line window first character being concealed
+     curwin->w_p_cole = 0;
+     wp = curwin;
+@@ -6202,7 +6201,6 @@ static int open_cmdwin(void)
+     /* Restore window sizes. */
+     win_size_restore(&winsizes);
+ 
+-    unblock_autocmds();
+   }
+ 
+   ga_clear(&winsizes);
