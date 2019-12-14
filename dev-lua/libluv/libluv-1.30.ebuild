@@ -13,7 +13,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND="dev-lua/luajit dev-lua/libuv"
+DEPEND="dev-lang/luajit dev-libs/libuv"
 RDEPEND="${DEPEND}"
 BDEPEND=""
 
