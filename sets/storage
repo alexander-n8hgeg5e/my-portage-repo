@@ -1,0 +1,5 @@
+sys-apps/smartmontools
+sys-fs/cryptsetup
+sys-fs/lvm2
+sys-fs/mdadm
+app-misc/btrfsbenc

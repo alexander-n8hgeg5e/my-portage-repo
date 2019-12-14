@@ -13,6 +13,7 @@ EGIT_COMMIT="cd94dd6bb29f3140cb25b30e98fba9123bfd408f"
 
 LICENSE="Apache-2.0 vim"
 SLOT="0"
+KEYWORDS="~amd64 ~x86"
 IUSE="+clipboard +luajit +nvimpager python ruby +tui +jemalloc"
 
 CDEPEND=">=dev-libs/libuv-1.2.0

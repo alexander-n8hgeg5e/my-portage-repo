@@ -16,7 +16,9 @@ dev-python/setuptools[${PYTHON_USEDEP}] \
 >=dev-python/pillow-4.0.0[${PYTHON_USEDEP}] \
 =sci-biology/ruffus-2.6.3[${PYTHON_USEDEP}] \
 "
-DEPEND="${RDEPEND}"
+DEPEND="${RDEPEND} \
+	app-text/tesseract
+	"
 
 SRC_URI="https://pypi.python.org/packages/cd/14/1b22a4521f7d3d0a2f855332243592f99315aaa598a3ed958b359cf9c612/ocrmypdf-5.3.3.tar.gz"
 

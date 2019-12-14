@@ -7,5 +7,6 @@ DESCRIPTION=""
 HOMEPAGE=""
 LICENSE=""
 SLOT="6"
+KEYWORDS="~amd64"
 SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 

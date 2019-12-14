@@ -1,0 +1,9 @@
+sys-apps/openrc-init-scripts::my
+sys-fs/eudev
+x11-drivers/xf86-video-nouveau
+x11-base/xorg-drivers
+sys-boot/grub
+sys-apps/pciutils
+sys-kernel/linux-firmware
+sys-block/nbd
+@xserver

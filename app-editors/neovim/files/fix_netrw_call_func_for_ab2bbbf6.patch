@@ -1,0 +1,25 @@
+diff --git a/runtime/autoload/netrw.vim b/runtime/autoload/netrw.vim
+index 76485c2f3..97fd190c3 100644
+--- a/runtime/autoload/netrw.vim
++++ b/runtime/autoload/netrw.vim
+@@ -5819,7 +5819,6 @@ fun! s:NetrwMakeDir(usrhost)
+ "   call Dret("s:NetrwMakeDir : user aborted with bare <cr>")
+    return
+   endif
+-
+   if a:usrhost == ""
+ "   call Decho("local mkdir",'~'.expand("<slnum>"))
+ 
+@@ -10856,7 +10855,11 @@ endfun
+ fun! netrw#Call(funcname,...)
+ "  call Dfunc("netrw#Call(funcname<".a:funcname.">,".string(a:000).")")
+   if a:0 > 0
+-   exe "call s:".a:funcname."(".string(a:000).")"
++   let a="'" + a:000[0] + "'"
++   for i in a:000[1:]
++	   let a= a + ', ' + "'" + i + "'"
++   endfor
++   exe "call s:".a:funcname."(".a.")"
+   else
+    exe "call s:".a:funcname."()"
+   endif

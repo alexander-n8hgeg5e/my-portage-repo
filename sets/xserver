@@ -1,0 +1,5 @@
+x11-base/xorg-server
+x11-apps/xconsole
+x11-apps/xbacklight
+x11-base/xorg-proto::gentoo
+x11-apps/xdpyinfo

@@ -26,27 +26,24 @@ RDEPEND="${CDEPEND}
          virtual/python-pathlib[${PYTHON_USEDEP}]
          dev-python/traitlets\
          dev-python/pickleshare\
-         dev-python/prompt_toolkit\
+         <=dev-python/prompt_toolkit-2\
          dev-python/typing\
          dev-python/backcall[${PYTHON_USEDEP}]
                             "
 
-###   I want Ipython V6  and V5 parallel installed. So this is Slot 0 and Target python3
-###   Slot 1 is only pythontarget 2.7.
-###   Collisions detected only:
-###   /usr/bin/iptest , /usr/share/man/man1/ipython.1.bz2 , /usr/bin/ipython
-###   I will rename them for slot6 from ipython to ipython6.
-###   slot 1 is not changed because it is a dependency for sagemath.
-###   Sagemath needs pythontarget 2.7.
+PATCHES=(
+            "${FILESDIR}/${PV}-slot6_no_collision_with_ipython5.patch"
+)
 
+python_install_all() {
+	# call default function
+	distutils-r1_python_install_all
 
-#pkg_preinst(){ ##actually called after install phase but before merging to filesystem
-	#Rename the prementioned files
-	#This expands to the temporary installation dir: ${D}
-#	mv ${D}/usr/bin/iptest ${D}/usr/bin/iptest6 || die "rename failed!"
-#	mv ${D}/usr/share/man/man1/ipython.1.bz2 ${D}/usr/share/man/man1/ipython6.1.bz2 || die "rename failed!"
-#	mv ${D}/usr/bin/ipython ${D}/usr/bin/ipython6|| die "rename failed!"
-#	}
+	#Rename the colliding files
+	#mv "${D}/usr/bin/iptest" "${D}/usr/bin/iptest6" || die "rename failed!"
+	mv "${D}/usr/share/man/man1/ipython.1" "${D}/usr/share/man/man1/ipython6.1" || die "rename failed!"
+	#mv "${D}/usr/bin/ipython" "${D}/usr/bin/ipython6" || die "rename failed!"
+}
 
 #pkg_setup()
 #{
