@@ -50,7 +50,7 @@ EGIT_REPO_URI="/usr/src/kernel_config.git"
 
 LICENSE=""
 SLOT="0"
-KEYWORDS="amd64"
+KEYWORDS="~amd64"
 IUSE="${IUSE} -test -set-perms kernel-inst-method-copy2boot kernel-inst-method-mkinstall\
 	kernel_install_method-sbin-instkern +backup mount-boot -eat-the-cat"
 
