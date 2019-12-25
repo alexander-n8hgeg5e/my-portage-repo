@@ -4,9 +4,7 @@ app-vim/nerdtree::my
 dev-python/PyGithub
 dev-util/diffstat
 media-fonts/anonymous-pro
-#=app-editors/neovim-1557833940::my[python]
-#app-editors/neovim[python]
-app-editors/neovim
+=app-editors/neovim-0.4.3[luajit nvimpager tui]
 =app-vim/mycalendar-9999::my
 =app-misc/btrfsbenc-9999::my
 =app-misc/getcalendaroverview-9999::my
