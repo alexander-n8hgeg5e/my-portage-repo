@@ -200,6 +200,7 @@ src_install(){
 		newins "${S}/System.map"     "System.map-${kernelrelease}" || die
 		newins "${S}/${image_path}"  "${image_name}-${kernelrelease}" || die
 		newins "${S}/.config"        "config-${kernelrelease}" || die
+		dosym "System.map-${kernelrelease}" /boot/System.map || die
 		dosym "${image_name}-${kernelrelease}" /boot/vmlinuz || die
 		fperms ug=rx,o=   /boot/"${image_name}-${kernelrelease}" || die
 		fperms ug=r,o=    /boot/"System.map-${kernelrelease}"
