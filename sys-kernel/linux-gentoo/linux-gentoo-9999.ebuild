@@ -197,9 +197,13 @@ src_install(){
 
 		dodir   /boot || die
 		insinto /boot || die
+		insopts "-m440"
 		newins "${S}/System.map"     "System.map-${kernelrelease}" || die
+		insopts "-m550"
 		newins "${S}/${image_path}"  "${image_name}-${kernelrelease}" || die
+		insopts "-m440"
 		newins "${S}/.config"        "config-${kernelrelease}" || die
+		dosym "System.map-${kernelrelease}" /boot/System.map || die
 		dosym "${image_name}-${kernelrelease}" /boot/vmlinuz || die
 		fperms ug=rx,o=   /boot/"${image_name}-${kernelrelease}" || die
 		fperms ug=r,o=    /boot/"System.map-${kernelrelease}"
