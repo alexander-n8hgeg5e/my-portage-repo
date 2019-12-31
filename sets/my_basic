@@ -20,6 +20,8 @@ app-admin/pass
 app-admin/sudo
 app-admin/eselect
 app-misc/vimwiki
+app-misc/tmux
+app-editors/vim
 app-vim/bash-support
 app-vim/colorschemes
 app-vim/mycalendar
