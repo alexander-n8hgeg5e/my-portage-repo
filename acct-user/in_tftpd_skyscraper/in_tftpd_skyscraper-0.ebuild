@@ -7,6 +7,6 @@ ACCT_USER_ID=998
 ACCT_USER_HOME=/skyscraper/boot
 ACCT_USER_HOME_OWNER=root:in_tftpd_skyscraper
 ACCT_USER_HOME_PERMS=2750
-ACCT_USER_GROUPS=( in_tftpd_skyscraper )
+ACCT_USER_GROUPS=( in_tftpd_skyscraper daemon )
 
 acct-user_add_deps

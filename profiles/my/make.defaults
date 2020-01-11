@@ -1,0 +1,124 @@
+# Copyright 2018 Alexander Wilhelmi
+#
+#
+#
+# This file is part of mydefaults.
+# 
+# mydefaults is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# mydefaults is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with mydefaults.  If not, see <http://www.gnu.org/licenses/>.
+# 
+# Diese Datei ist Teil von mydefaults.
+# 
+# mydefaults ist Freie Software: Sie koennen es unter den Bedingungen
+# der GNU General Public License, wie von der Free Software Foundation,
+# Version 3 der Lizenz oder (nach Ihrer Wahl) jeder neueren
+# veroeffentlichten Version, weiter verteilen und/oder modifizieren.
+# 
+# mydefaults wird in der Hoffnung, dass es nuetzlich sein wird, aber
+# OHNE JEDE GEWAEHRLEISTUNG, bereitgestellt; sogar ohne die implizite
+# Gewaehrleistung der MARKTFAEHIGKEIT oder EIGNUNG FUER EINEN BESTIMMTEN ZWECK.
+# Siehe die GNU General Public License fuer weitere Details.
+# 
+# Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
+# Programm erhalten haben. Wenn nicht, siehe <https://www.gnu.org/licenses/>.
+
+## software
+#ACCEPT_LICENSE="-* @FREE"
+
+# files and dir here allowed
+CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/fish/conf.d"
+CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/ssh/ssh_config"
+CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/vim"
+
+CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/portage/package.use"
+CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/portage/package.accept_keywords"
+CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/portage/package.mask"
+CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/portage/package.unmask"
+CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/portage/env"
+CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/portage/package.env"
+CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/portage/package.license"
+CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/git_hooks"
+CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/init.d"
+CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/resolvconf.conf"
+
+#CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/locale.conf"
+CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/locale.gen"
+
+FEATURES="${FEATURES} candy"                                                      # look
+FEATURES="${FEATURES} python-trace unknown-features-warn"                         # debugging
+FEATURES="${FEATURES} preserve-libs protect-owned buildsyspkg"                    # function 
+FEATURES="${FEATURES} sandbox usersandbox userpriv"                               # security
+FEATURES="${FEATURES} strict suidctl"                                             # security
+FEATURES="${FEATURES} parallel-install parallel-fetch python-trace cgroup"        # speed
+
+USE="${USE} tcpd pulseaudio opengl X bluetooth truetype jpeg tiff ogg -nls -javascript"
+PYTHON_TARGETS="python2_7 python3_6 python3_7"
+RUBY_TARGETS="ruby24"
+
+PROFILE_ONLY_VARIABLES=""
+##PROFILE_ONLY_VARIABLES="${PROFILE_ONLY_VARIABLES/USE_EXPAND_IMPLICIT/}"
+USE_EXPAND="${USE_EXPAND} TFTPD_FCAP_USERS"
+USE_EXPAND_IMPLICIT="${USE_EXPAND_IMPLICIT} TFTPD_FCAP_USERS"
+TFTPD_FCAP_USERS="skyscraper dusteater"
+
+#L10N="en"
+#LINGUAS="en"
+
+## some vars
+CODEDIR="${EROOT}code"
+MYGITHUB_URIBASE="https://github.com/alexander-n8hgeg5e/"
+
+## portage config
+GENTOO_MIRRORS="${GENTOO_MIRRORS} \
+http://mirrors.soeasyto.com/distfiles.gentoo.org/ \
+http://mirror.eu.oneandone.net/linux/distributions/gentoo/gentoo/ \
+ftp://ftp.wh2.tu-dresden.de/pub/mirrors/gentoo \
+ftp://mirror.netcologne.de/gentoo/ \
+http://linux.rz.ruhr-uni-bochum.de/download/gentoo-mirror/ \
+http://gentoo.inode.at/ \
+http://gd.tuwien.ac.at/opsys/linux/gentoo/ \
+http://mirror.netcologne.de/gentoo/ \
+http://ftp-stud.hs-esslingen.de/pub/Mirrors/gentoo/ \
+ftp://mirror.leaseweb.com/gentoo/ \
+http://ftp.heanet.ie/pub/gentoo/ \
+http://ftp.halifax.rwth-aachen.de/gentoo/ \
+http://distfiles.gentoo.org \
+http://www.ibiblio.org/pub/Linux/distributions/gentoo"
+
+PORTDIR="${EROOT}usr/portage"
+PORTAGE_LOGDIR="${EROOT}var/log/portage"
+PORTAGE_GPG_DIR="${EROOT}etc/portage/gpg"
+PKGDIR="${EROOT}usr/portage/packages"
+CCACHE_DIR="${EROOT}var/tmp/ccache"
+SYNC=""
+PORTAGE_ELOG_CLASSES="warn error log"
+PORTAGE_ELOG_SYSTEM="echo save:error"
+PORTAGE_WORKDIR_MODE="0750"
+
+EMERGE_DEFAULT_OPTS="\
+                     --keep-going y                          \
+                     --quiet-build                           \
+                     --autounmask y                          \
+                     --autounmask-continue y                 \
+                     --autounmask-keep-keywords y            \
+                     --autounmask-keep-masks y               \
+                     --autounmask-write y                    \
+                     --autounmask-backtrack y                \
+                     --backtrack=30"                          
+#                     --complete-graph                        \
+#                     --use-ebuild-visibility"
+#                     --newrepo                               \
+#                     --rebuild-if-new-slot y                 \
+#                     --rebuild-if-unbuilt y                  \
+#                     --rebuild-if-new-rev y                  \
+#                     --rebuild-if-new-ver y                  \
