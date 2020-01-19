@@ -71,6 +71,6 @@ src_install() {
 
 pkg_postinst() {
 	for username in $TFTPD_FCAP_USERS ;do
-		fcaps cap_net_bind_service "usr/sbin/in_tftpd_${username}" || die
+		fcaps cap_net_bind_service,cap_setgid,cap_setuid,cap_sys_chroot=ep "usr/sbin/in_tftpd_${username}" || die
 	done
 }
