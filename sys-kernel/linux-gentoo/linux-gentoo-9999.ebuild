@@ -210,11 +210,11 @@ src_install(){
 
 		group_id=$(stat /boot --printf "%g") || die
 		fperms ug=rx,o=        "/boot/${image_name}-${kernelrelease}" || die
-		fowner ":${group_id}"  "/boot/${image_name}-${kernelrelease}" || die
+		fowners ":${group_id}"  "/boot/${image_name}-${kernelrelease}" || die
 		fperms ug=r,o=         "/boot/System.map-${kernelrelease}"
-		fowner ":${group_id}"  "/boot/System.map-${kernelrelease}"
+		fowners ":${group_id}"  "/boot/System.map-${kernelrelease}"
 		fperms ug=rx,o=        "/boot/config-${kernelrelease}"
-		fowner ":${group_id}"  "/boot/config-${kernelrelease}"
+		fowners ":${group_id}"  "/boot/config-${kernelrelease}"
 	else
 		die \
 			"Sorry, only install method copy2boot is currently implemented.
