@@ -5,6 +5,7 @@ dev-python/PyGithub
 dev-util/diffstat
 media-fonts/anonymous-pro
 =app-editors/neovim-0.4.3
+dev-python/pynvim
 =app-vim/mycalendar-9999::my
 =app-misc/btrfsbenc-9999::my
 =app-misc/getcalendaroverview-9999::my
