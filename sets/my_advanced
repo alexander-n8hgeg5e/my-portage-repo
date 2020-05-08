@@ -65,7 +65,7 @@ app-portage/euses
 media-fonts/fira-sans
 media-fonts/exo
 x11-apps/setxkbmap
-app-misc/offlineimap-openrc-service
+net-mail/offlineimap-openrc-service
 media-fonts/clearsans
 media-fonts/roboto
 sys-block/parted
