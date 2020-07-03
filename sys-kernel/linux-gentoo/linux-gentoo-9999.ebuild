@@ -170,7 +170,6 @@ src_unpack(){
 	rsync --info=none,progress2 -ac --delete --partial \
 		--progress --exclude='/.git' \
 		--exclude='/.git/***' \
-		--exclude='/Documentation/***' \
 		--exclude='/.config' \
 		/usr/src/linux/ "${S}" \
 			|| die "ERROR: rsync failed"
@@ -221,7 +220,7 @@ src_install(){
 			FIXME"
 	fi
 
-	if use set-kernel-source-link;then
+	if [[ ${PV} != 999935 ]] && use set-kernel-source-link;then
 		symlink_target="$(cat "${EPREFIX}"/var/db/pkg/sys-kernel/gentoo-sources-"${PV}"/CONTENTS \
 			| grep -E '^dir[ ]+[/]usr[/]src[/]linux[-][^/]+$' \
 			| sed -E 's@^dir[ ]+/usr/src/(linux[-][^/]+$)@\1@')" \
@@ -230,8 +229,10 @@ src_install(){
 		symlink_path="${EPREFIX}/usr/src/linux"
 
 		einfo "installing kernel source link at \"${symlink_path}\",  pointing at: \"${symlink_target}\""
+		dosym "${symlink_target}" "${symlink_path}" || die
 
-		dosym "${symlink_target}" "${symlink_path}"
+		einfo "installing kernel git symlink"
+		dosym "/usr/src/kernel_config.git" "${symlink_path}/.git" || die
 	fi
 }
 

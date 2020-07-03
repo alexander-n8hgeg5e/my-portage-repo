@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -11,10 +11,10 @@ PYTHON_REQ_USE="threads,sqlite?,ssl?"
 inherit eutils distutils-r1
 
 DESCRIPTION="Powerful IMAP/Maildir synchronization and reader support"
-HOMEPAGE="http://offlineimap.org"
+HOMEPAGE="https://www.offlineimap.org/"
 SRC_URI="https://github.com/OfflineIMAP/${PN}/tarball/v${PV} -> ${P}.tar.gz"
 
-LICENSE="GPL-2"
+LICENSE="GPL-2+"
 SLOT="0"
 KEYWORDS="~alpha amd64 ~ia64 ppc x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos"
 IUSE="doc ssl sqlite"
@@ -31,7 +31,6 @@ src_unpack() {
 src_prepare() {
 	distutils-r1_src_prepare
 	# see http://pogma.com/2009/09/09/snow-leopard-and-offlineimap/ and bug 284925
-	epatch "${FILESDIR}"/"${P}"-logging-time.patch
 	epatch "${FILESDIR}"/"${PN}-6.5.3.1"-darwin10.patch
 }
 
@@ -48,7 +47,7 @@ src_install() {
 	dodoc offlineimap.conf offlineimap.conf.minimal
 	if use doc ; then
 		cd docs
-		doman offlineimap.1 || die "installing manpage failed"
+		doman offlineimap.1
 	fi
 }
 
