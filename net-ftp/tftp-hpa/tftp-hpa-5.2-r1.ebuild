@@ -64,7 +64,7 @@ src_install() {
 			insinto "${rel_inst_path}"
 			newins tftpd/tftpd "${name}"
 			fperms 0750 "/${rel_inst_path}/${name}"
-			fowners "root:${name}" "/${rel_inst_path}/${name}"
+			fowners "root:${username}" "/${rel_inst_path}/${name}"
 		done
 	fi
 }
