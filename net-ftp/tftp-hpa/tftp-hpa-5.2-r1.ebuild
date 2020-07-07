@@ -60,7 +60,7 @@ src_install() {
 		rm "${ED}/${rel_inst_path}/in.tftpd"
 
 		for username in $TFTPD_FCAP_USERS ;do
-			name="in_tftpd_${username}"
+			name="in_tftpd_fc_${username}"
 			insinto "${rel_inst_path}"
 			newins tftpd/tftpd "${name}"
 			fperms 0750 "/${rel_inst_path}/${name}"
@@ -71,6 +71,6 @@ src_install() {
 
 pkg_postinst() {
 	for username in $TFTPD_FCAP_USERS ;do
-		fcaps cap_net_bind_service,cap_setgid,cap_setuid,cap_sys_chroot=ep "usr/sbin/in_tftpd_${username}" || die
+		fcaps cap_net_bind_service,cap_setgid,cap_setuid,cap_sys_chroot=ep "usr/sbin/in_tftpd_fc_${username}" || die
 	done
 }
