@@ -1,0 +1,46 @@
+From 2efb43d3449a25a93e38f4671b13e04c71a03a9f Mon Sep 17 00:00:00 2001
+From: alexander-n8hgeg5e <alexander.w.email@gmail.com>
+Date: Tue, 7 Jul 2020 16:58:18 +0200
+Subject: [PATCH 5/8] makefile
+
+---
+ Makefile | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index a02f3c1..7761d9e 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,16 +1,16 @@
+ # Makefile for systems with GNU tools
+-CC 	=	gcc
++CC 	?=	gcc
+ INSTALL	=	install
+ IFLAGS  = -idirafter dummyinc
+ #CFLAGS = -g
+-CFLAGS	=	-O2 -fPIE -fstack-protector --param=ssp-buffer-size=4 \
+-	-Wall -W -Wshadow -Werror -Wformat-security \
++CFLAGS	+=	-fPIE -fstack-protector --param=ssp-buffer-size=4 \
++	-Wall -W -Wshadow -Wformat-security \
+ 	-D_FORTIFY_SOURCE=2 \
+ 	#-pedantic -Wconversion
+ 
+ LIBS	=	`./vsf_findlibs.sh`
+ LINK	=	
+-LDFLAGS	=	-fPIE -pie -Wl,-z,relro -Wl,-z,now
++LDFLAGS +=	-fPIE -pie -Wl,-z,relro -Wl,-z,now
+ 
+ OBJS	=	main.o utility.o prelogin.o ftpcmdio.o postlogin.o privsock.o \
+ 		tunables.o ftpdataio.o secbuf.o ls.o \
+@@ -26,7 +26,7 @@ OBJS	=	main.o utility.o prelogin.o ftpcmdio.o postlogin.o privsock.o \
+ 	$(CC) -c $*.c $(CFLAGS) $(IFLAGS)
+ 
+ vsftpd: $(OBJS) 
+-	$(CC) -o vsftpd $(OBJS) $(LINK) $(LDFLAGS) $(LIBS)
++	$(CC) -o vsftpd $(LDFLAGS) $(OBJS) $(LINK) $(LDFLAGS) $(LIBS)
+ 
+ install:
+ 	if [ -x /usr/local/sbin ]; then \
+-- 
+2.26.2
+

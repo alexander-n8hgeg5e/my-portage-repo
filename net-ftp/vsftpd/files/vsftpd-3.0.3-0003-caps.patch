@@ -1,0 +1,28 @@
+From 1edd598e102de7f44c5984062f092c8a4fe420a5 Mon Sep 17 00:00:00 2001
+From: alexander-n8hgeg5e <alexander.w.email@gmail.com>
+Date: Tue, 7 Jul 2020 16:53:39 +0200
+Subject: [PATCH 3/8] caps
+
+---
+ sysdeputil.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/sysdeputil.c b/sysdeputil.c
+index 06f01f4..20d550a 100644
+--- a/sysdeputil.c
++++ b/sysdeputil.c
+@@ -181,10 +181,8 @@
+ #include <sys/capability.h>
+ 
+ #if defined(VSF_SYSDEP_HAVE_CAPABILITIES) && !defined(VSF_SYSDEP_HAVE_LIBCAP)
+-#include <linux/unistd.h>
+ #include <linux/capability.h>
+-#include <errno.h>
+-#include <syscall.h>
++#include <sys/syscall.h>
+ int capset(cap_user_header_t header, const cap_user_data_t data)
+ {
+   return syscall(__NR_capset, header, data);
+-- 
+2.26.2
+

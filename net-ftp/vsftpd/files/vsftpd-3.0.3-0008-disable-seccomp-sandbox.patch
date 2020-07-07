@@ -1,0 +1,25 @@
+From 9c84f6efd9a6e1c78d4561df674d603b6f6a2ba7 Mon Sep 17 00:00:00 2001
+From: alexander-n8hgeg5e <alexander.w.email@gmail.com>
+Date: Tue, 7 Jul 2020 17:06:11 +0200
+Subject: [PATCH 8/8] disable-seccomp-sandbox
+
+---
+ tunables.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tunables.c b/tunables.c
+index 001cd98..c63c30b 100644
+--- a/tunables.c
++++ b/tunables.c
+@@ -226,7 +226,7 @@ tunables_load_defaults()
+   tunable_isolate_network = 1;
+   tunable_ftp_enable = 1;
+   tunable_http_enable = 0;
+-  tunable_seccomp_sandbox = 1;
++  tunable_seccomp_sandbox = 0;
+   tunable_allow_writeable_chroot = 0;
+ 
+   tunable_accept_timeout = 60;
+-- 
+2.26.2
+

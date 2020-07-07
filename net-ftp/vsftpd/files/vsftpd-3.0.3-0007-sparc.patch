@@ -1,0 +1,27 @@
+From 37cdf0c14bb25805ef0c50b698b1e0efc6507ad9 Mon Sep 17 00:00:00 2001
+From: alexander-n8hgeg5e <alexander.w.email@gmail.com>
+Date: Tue, 7 Jul 2020 17:06:11 +0200
+Subject: [PATCH 7/8] sparc
+
+---
+ sysdeputil.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/sysdeputil.c b/sysdeputil.c
+index b9dd571..6282ef9 100644
+--- a/sysdeputil.c
++++ b/sysdeputil.c
+@@ -67,7 +67,9 @@
+ #if defined(__linux__)
+   #include <errno.h>
+   #include <syscall.h>
+-  #define VSF_SYSDEP_HAVE_LINUX_CLONE
++  #ifndef __sparc__
++    #define VSF_SYSDEP_HAVE_LINUX_CLONE
++  #endif
+   #include <sched.h>
+   #ifndef CLONE_NEWPID
+     #define CLONE_NEWPID 0x20000000
+-- 
+2.26.2
+

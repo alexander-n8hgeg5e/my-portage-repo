@@ -1,0 +1,32 @@
+From 1ccfd997535e73e1037c875824ed8101ba0a15c8 Mon Sep 17 00:00:00 2001
+From: alexander-n8hgeg5e <alexander.w.email@gmail.com>
+Date: Tue, 7 Jul 2020 18:01:48 +0200
+Subject: [PATCH 1/8] kerberos
+
+---
+ twoprocess.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/twoprocess.c b/twoprocess.c
+index 33d84dc..781b949 100644
+--- a/twoprocess.c
++++ b/twoprocess.c
+@@ -297,6 +297,7 @@ process_login_req(struct vsf_session* p_sess)
+ {
+   enum EVSFPrivopLoginResult e_login_result = kVSFLoginNull;
+   char cmd;
++  vsf_sysutil_install_null_sighandler(kVSFSysUtilSigCHLD);
+   /* Blocks */
+   cmd = priv_sock_get_cmd(p_sess->parent_fd);
+   if (cmd != PRIV_SOCK_LOGIN)
+@@ -385,7 +386,6 @@ common_do_login(struct vsf_session* p_sess, const struct mystr* p_user_str,
+   int was_anon = anon;
+   const struct mystr* p_orig_user_str = p_user_str;
+   int newpid;
+-  vsf_sysutil_install_null_sighandler(kVSFSysUtilSigCHLD);
+   /* Tells the pre-login child all is OK (it may exit in response) */
+   priv_sock_send_result(p_sess->parent_fd, PRIV_SOCK_RESULT_OK);
+   if (!p_sess->control_use_ssl)
+-- 
+2.26.2
+

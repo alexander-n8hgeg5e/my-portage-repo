@@ -1,0 +1,67 @@
+From 9c3d44252165cdacc45206cf2e16663052f38e40 Mon Sep 17 00:00:00 2001
+From: alexander-n8hgeg5e <alexander.w.email@gmail.com>
+Date: Tue, 7 Jul 2020 17:37:18 +0200
+Subject: [PATCH 6/8] rm legacy cap
+
+---
+ sysdeputil.c | 20 +++++++++++---------
+ 1 file changed, 11 insertions(+), 9 deletions(-)
+
+diff --git a/sysdeputil.c b/sysdeputil.c
+index 6e76714..b9dd571 100644
+--- a/sysdeputil.c
++++ b/sysdeputil.c
+@@ -562,11 +562,17 @@ vsf_sysdep_has_capabilities(void)
+ }
+   
+   #ifndef VSF_SYSDEP_HAVE_LIBCAP
++static struct __user_cap_header_struct sys_cap_head;
+ static int
+ do_checkcap(void)
+ {
++  int retval;
++
++  /* Store preferred version in sys_cap_head */
++  vsf_sysutil_memclr(&sys_cap_head, sizeof(sys_cap_head));
+   /* EFAULT (EINVAL if page 0 mapped) vs. ENOSYS */
+-  int retval = capset(0, 0);
++  retval = capset(&sys_cap_head, 0);
++
+   if (!vsf_sysutil_retval_is_error(retval) ||
+       vsf_sysutil_get_error() != kVSFSysUtilErrNOSYS)
+   {
+@@ -580,17 +586,13 @@ vsf_sysdep_adopt_capabilities(unsigned int caps)
+ {
+   /* n.b. yes I know I should be using libcap!! */
+   int retval;
+-  struct __user_cap_header_struct cap_head;
+-  struct __user_cap_data_struct cap_data;
++  struct __user_cap_data_struct cap_data[2];
+   __u32 cap_mask = 0;
+   if (!caps)
+   {
+     bug("asked to adopt no capabilities");
+   }
+-  vsf_sysutil_memclr(&cap_head, sizeof(cap_head));
+   vsf_sysutil_memclr(&cap_data, sizeof(cap_data));
+-  cap_head.version = _LINUX_CAPABILITY_VERSION;
+-  cap_head.pid = 0;
+   if (caps & kCapabilityCAP_CHOWN)
+   {
+     cap_mask |= (1 << CAP_CHOWN);
+@@ -599,9 +601,9 @@ vsf_sysdep_adopt_capabilities(unsigned int caps)
+   {
+     cap_mask |= (1 << CAP_NET_BIND_SERVICE);
+   }
+-  cap_data.effective = cap_data.permitted = cap_mask;
+-  cap_data.inheritable = 0;
+-  retval = capset(&cap_head, &cap_data);
++  cap_data[0].effective = cap_data[0].permitted = cap_mask;
++  cap_data[0].inheritable = 0;
++  retval = capset(&sys_cap_head, &cap_data[0]);
+   if (retval != 0)
+   {
+     die("capset");
+-- 
+2.26.2
+
