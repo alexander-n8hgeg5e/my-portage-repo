@@ -10,9 +10,9 @@ HOMEPAGE="https://www.kernel.org/pub/software/network/tftp/"
 SRC_URI="https://www.kernel.org/pub/software/network/tftp/${PN}/${P}.tar.xz"
 
 LICENSE="BSD-4"
-SLOT="0"
+SLOT="0" #  vim slot change: %s/s0/s1/g|%s/SLOT="0"/SLOT="1"/
 KEYWORDS="alpha amd64 arm arm64 hppa ia64 ~mips ppc ppc64 s390 sh sparc x86 ~ppc-macos"
-IUSE="ipv6 readline selinux tcpd"
+IUSE="ipv6 readline selinux tcpd systemd"
 
 CDEPEND="
 	readline? ( sys-libs/readline:0= )
@@ -45,22 +45,39 @@ src_install() {
 	# iputils installs this
 	rm "${ED}"/usr/share/man/man8/tftpd.8 || die
 
-	newconfd "${FILESDIR}"/in.tftpd.confd-0.44 in.tftpd
-	newinitd "${FILESDIR}"/in.tftpd.rc6 in.tftpd
+	newconfd "${FILESDIR}"/in.tftpd.confd-0.44 in.tftpd_s0
+	newinitd "${FILESDIR}"/in.tftpd.rc6 in.tftpd_s0
 
-	systemd_dounit "${FILESDIR}"/tftp.service
-	systemd_dounit "${FILESDIR}"/tftp.socket
+	if use systemd;then
+		systemd_dounit "${FILESDIR}"/tftp_s0.service
+		systemd_dounit "${FILESDIR}"/tftp_s0.socket
+	fi
 
 	insinto /etc/xinetd.d
-	newins "${FILESDIR}"/tftp.xinetd tftp
+	newins "${FILESDIR}"/tftp.xinetd tftp_s0
 
+	#---------------------------#
+	#  handle colliding files   #
+	#---------------------------#
+	mv "${ED}/usr/sbin/in.tftpd"             "${ED}/usr/sbin/in.tftpd_s0"             || die
+	mv "${ED}/usr/bin/tftp"                  "${ED}/usr/bin/tftp_s0"                  || die
+	mv "${ED}/usr/share/man/man1/tftp.1"     "${ED}/usr/share/man/man1/tftp_s0.1"     || die
+	mv "${ED}/usr/share/man/man8/in.tftpd.8" "${ED}/usr/share/man/man8/in.tftpd_s0.8" || die
+	if [[ $SLOT -eq 0 ]];then
+		dosym "in.tftpd_s0" 	"usr/sbin/in.tftpd"                  || die
+		dosym "tftp_s0"     	"/usr/bin/tftp"                      || die
+		dosym "tftp_s0.1"     	"/usr/share/man/man1/tftp.1"         || die
+		dosym "in.tftpd_s0.8"   "/usr/share/man/man8/in.tftpd.8"     || die
+	fi
+
+	#------------#
+	# fcap_users #
+	#------------#
+	rel_inst_path="usr/sbin"
 	regex="([a-zA-Z_-]+)"
 	if [[ "${TFTPD_FCAP_USERS}" =~ $regex ]];then
-		rel_inst_path="usr/sbin"
-		rm "${ED}/${rel_inst_path}/in.tftpd"
-
 		for username in $TFTPD_FCAP_USERS ;do
-			name="in_tftpd_fc_${username}"
+			name="in_tftpd_fc_s0_${username}"
 			insinto "${rel_inst_path}"
 			newins tftpd/tftpd "${name}"
 			fperms 0750 "/${rel_inst_path}/${name}"
@@ -71,6 +88,6 @@ src_install() {
 
 pkg_postinst() {
 	for username in $TFTPD_FCAP_USERS ;do
-		fcaps cap_net_bind_service,cap_setgid,cap_setuid,cap_sys_chroot=ep "usr/sbin/in_tftpd_fc_${username}" || die
+		fcaps cap_net_bind_service,cap_setgid,cap_setuid,cap_sys_chroot=ep "usr/sbin/in_tftpd_fc_s0_${username}" || die
 	done
 }
