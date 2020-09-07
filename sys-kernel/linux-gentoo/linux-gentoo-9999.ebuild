@@ -237,7 +237,6 @@ src_install(){
 }
 
 pkg_preinst(){
-
 	# mount the boot partition
 	use mount-boot && mount /boot && mounted_boot=1 || mounted_boot=0
 
@@ -249,9 +248,10 @@ pkg_preinst(){
 			btrfs sub snap -r "/boot/." "/boot/snapshots/$(date +%y_%m_%d_%H_%M_%S)" \
 				|| die
 		elif [[ $backupmethod = tar ]] ; then
-    			inc_tarfilepath=/boot/backup_tar_incremental.inc \
-    			&& tar -cf $tarfilepath -g "${inc_tarfilepath}" --exclude '*backup*' /boot \
-				|| die "faild to do backup"
+			inc_tarfilepath="/boot/kernel_backup.tar.inc"
+			tarfilepath="/boot/kernel_backup.tar"
+    		tar -cf $tarfilepath -g "${inc_tarfilepath}" --exclude '*backup*' /boot \
+				|| die "failed to do backup"
 		else
 			die "No backupmethod could be infered."
 		fi

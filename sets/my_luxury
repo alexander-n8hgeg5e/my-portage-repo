@@ -28,3 +28,4 @@ dev-util/meson
 dev-embedded/arduino
 app-misc/chkcrontab
 dev-util/meld
+sys-process/glances

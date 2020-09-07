@@ -1,9 +1,10 @@
 @my_basic
+@mail
+
 x11-misc/redshift
 app-misc/fdupes
 app-misc/dictccpy
-@mail
-dev-python/ipython:6::my
+dev-python/ipython
 net-misc/whois
 sys-apps/memtest86+
 sys-process/iotop
@@ -16,9 +17,9 @@ dev-util/strace
 app-text/pinfo
 net-analyzer/nmap
 app-portage/layman
-x11-apps/xrandr
 sys-process/nmon
 net-ftp/tnftp
+x11-misc/clipster::my
 x11-wm/spectrwm::my
 sys-devel/distcc
 dev-util/ccache
@@ -70,4 +71,5 @@ media-fonts/clearsans
 media-fonts/roboto
 sys-block/parted
 x11-apps/xhost
+x11-apps/xrandr
 x11-misc/xcalib

@@ -1,11 +1,13 @@
 =x11-terms/st-9999::my
 app-portage/emerge-delta-webrsync
 app-vim/nerdtree::my
+app-text/tree
 dev-python/PyGithub
 dev-util/diffstat
 media-fonts/anonymous-pro
 =app-editors/neovim-0.4.3
 dev-python/pynvim
+dev-util/strace
 =app-vim/mycalendar-9999::my
 =app-misc/btrfsbenc-9999::my
 =app-misc/getcalendaroverview-9999::my
@@ -16,12 +18,15 @@ dev-python/pynvim
 app-misc/gentooify::my
 app-misc/mydefaults::my
 app-crypt/gnupg
+app-arch/cpio
+app-misc/color
 app-misc/gentoo-getebuild
 app-admin/pass
 app-admin/sudo
+app-crypt/openpgp-keys-gentoo-release
 app-admin/eselect
 app-misc/vimwiki
-app-misc/tmux
+>=app-misc/tmux-2.9a
 app-editors/vim
 app-vim/bash-support
 app-vim/colorschemes
@@ -43,8 +48,8 @@ sys-process/lsof
 sys-process/time
 www-client/w3m
 app-portage/pfl
-app-text/mupdf
 app-portage/eix
+app-shells/bash-completion
 app-shells/fish
 net-dialup/minicom
 app-portage/gentoolkit
@@ -57,3 +62,6 @@ dev-util/scons
 dev-python/pylib
 dev-vcs/git_hooks
 dev-util/ctags
+dev-python/columnize
+~dev-python/github3-1.3.0
+~dev-python/jwcrypto-0.8.0
