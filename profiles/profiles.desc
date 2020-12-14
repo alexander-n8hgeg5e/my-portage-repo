@@ -1,1 +1,9 @@
-amd64 my dev
+#############################################
+# This is a list of valid profiles for each architecture.  This file is used by
+# repoman when doing a repoman scan or repoman full.
+# DO NOT ADD PROFILES WITH A "die" or "exit" IN THEM OR IT KILLS REPOMAN
+#
+#layout:
+#arch		profile_directory				               status
+
+amd64       default/linux/amd64/17.1/no-multilib/my        dev

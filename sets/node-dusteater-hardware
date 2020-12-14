@@ -2,6 +2,6 @@ sys-apps/ethtool
 net-fs/nfs-utils
 net-ftp/tftp-hpa
 net-misc/dhcp
-net-misc/ntp
+net-misc/openntpd
 net-misc/wol
 net-firewall/iptables

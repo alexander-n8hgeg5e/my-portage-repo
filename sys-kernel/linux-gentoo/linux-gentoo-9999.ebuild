@@ -207,7 +207,7 @@ src_install(){
 		dosym "System.map-${kernelrelease}" /boot/System.map || die
 		dosym "${image_name}-${kernelrelease}" /boot/vmlinuz || die
 
-		group_id=$(stat /boot --printf "%g") || die
+		group_id=$(stat /boot --printf "%g") || die "error: could not stat /boot"
 		fperms ug=rx,o=        "/boot/${image_name}-${kernelrelease}" || die
 		fowners ":${group_id}"  "/boot/${image_name}-${kernelrelease}" || die
 		fperms ug=r,o=         "/boot/System.map-${kernelrelease}"

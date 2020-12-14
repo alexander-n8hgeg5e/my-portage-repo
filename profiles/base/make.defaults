@@ -62,8 +62,9 @@ FEATURES="${FEATURES} sandbox usersandbox userpriv"                             
 FEATURES="${FEATURES} strict suidctl"                                             # security
 FEATURES="${FEATURES} parallel-install parallel-fetch python-trace cgroup"        # speed
 
-USE="${USE} tcpd pulseaudio opengl X bluetooth truetype jpeg tiff ogg -nls -javascript"
-PYTHON_TARGETS="python2_7 python3_6 python3_7 python3_8"
+USE="${USE} tcpd -nls -javascript"
+PYTHON_TARGETS="-* python3_8"
+PYTHON_SINGLE_TARGET="-* python3_8"
 RUBY_TARGETS="ruby24"
 
 USE_EXPAND="${USE_EXPAND} TFTPD_FCAP_USERS"
@@ -74,7 +75,7 @@ USE_EXPAND_VALUES_TFTPD_FCAP_USERS="dusteater skyscraper ftpscan"
 #LINGUAS="en"
 
 ## some vars
-CODEDIR="${EROOT}code"
+CODEDIR="${EROOT}var/src"
 MYGITHUB_URIBASE="https://github.com/alexander-n8hgeg5e/"
 
 ## portage config
@@ -94,10 +95,9 @@ http://ftp.halifax.rwth-aachen.de/gentoo/ \
 http://distfiles.gentoo.org \
 http://www.ibiblio.org/pub/Linux/distributions/gentoo"
 
-PORTDIR="${EROOT}usr/portage"
 PORTAGE_LOGDIR="${EROOT}var/log/portage"
 PORTAGE_GPG_DIR="${EROOT}etc/portage/gpg"
-PKGDIR="${EROOT}usr/portage/packages"
+PKGDIR="${EROOT}var/db/distfiles"
 CCACHE_DIR="${EROOT}var/tmp/ccache"
 SYNC=""
 PORTAGE_ELOG_CLASSES="warn error log"
@@ -107,15 +107,15 @@ PORTAGE_WORKDIR_MODE="0750"
 EMERGE_DEFAULT_OPTS="\
                      --keep-going y                          \
                      --quiet-build                           \
-                     --autounmask y                          \
-                     --autounmask-continue y                 \
-                     --autounmask-keep-keywords y            \
-                     --autounmask-keep-masks y               \
-                     --autounmask-write y                    \
-                     --autounmask-backtrack y                \
-                     --backtrack=30"                          
+                     --backtrack=30"
+#                     --autounmask-continue n                 \
+#                     --autounmask-keep-keywords y            \
+#                     --autounmask-keep-masks y               \
+#                     --autounmask-write n                    \
+#                     --autounmask-backtrack y                \
+#                    --autounmask n                           \
 #                     --complete-graph                        \
-#                     --use-ebuild-visibility"
+#                     --use-ebuild-visibility"                \
 #                     --newrepo                               \
 #                     --rebuild-if-new-slot y                 \
 #                     --rebuild-if-unbuilt y                  \
