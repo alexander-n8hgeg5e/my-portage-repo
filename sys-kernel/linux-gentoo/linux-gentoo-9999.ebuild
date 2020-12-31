@@ -240,7 +240,7 @@ pkg_preinst(){
 	# mount the boot partition
 	use mount-boot && mount /boot && mounted_boot=1 || mounted_boot=0
 
-	if use backup && use eat-the-cat;then
+	if use backup && use eat-the-cat ; then
 
 		# alright, doing backup
 
@@ -250,8 +250,13 @@ pkg_preinst(){
 		elif [[ $backupmethod = tar ]] ; then
 			inc_tarfilepath="/boot/kernel_backup.tar.inc"
 			tarfilepath="/boot/kernel_backup.tar"
-    		tar -cf $tarfilepath -g "${inc_tarfilepath}" --exclude '*backup*' /boot \
-				|| die "failed to do backup"
+			if find /boot -regextype 'posix-extended' -regex '.*[/][.](cvs|git|bzr|hg)ignore$' ; then
+				einfo "excluding \"vcs-ignores\" (tar option)"
+			fi
+    		tar -cf "${tarfilepath}" -g "${inc_tarfilepath}" \
+				--exclude-vcs-ignores \
+				--exclude '*backup*' \
+				/boot || die "failed to do backup"
 		else
 			die "No backupmethod could be infered."
 		fi
@@ -264,6 +269,7 @@ pkg_preinst(){
 		ewarn "Warning: No kernel backup will be made."
 	fi
 }
+
 pkg_config(){
 	[[ $mounted_boot -eq 1 ]] && umount /boot
 }
