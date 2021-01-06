@@ -63,12 +63,15 @@ x11-wm/i3
 net-vpn/openvpn
 app-portage/euses
 media-fonts/fira-sans
+media-fonts/fira-code
 media-fonts/exo
 x11-apps/setxkbmap
-net-mail/offlineimap-openrc-service
 media-fonts/clearsans
 media-fonts/roboto
 sys-block/parted
 x11-apps/xhost
 x11-apps/xrandr
 x11-misc/xcalib
+app-misc/terminal-colors
+app-portage/ufed
+app-text/apvlv::my

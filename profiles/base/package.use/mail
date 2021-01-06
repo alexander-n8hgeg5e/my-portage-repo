@@ -1,0 +1,4 @@
+# this line of useflags worked to send kit email
+mail-mta/msmtp -doc -gnome-keyring -gnutls -libressl idn mta sasl ssl vim-syntax
+mail-client/mutt -lmdb -qdbm -berkdb -hcache -imap -gdbm -nls
+#~net-mail/offlineimap-7.2.4-r1::my  PYTHON_SINGLE_TARGET: python2_7

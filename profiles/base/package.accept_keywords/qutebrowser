@@ -1,0 +1,6 @@
+=www-client/qutebrowser-9999  ~*
+=dev-python/pypeg2-2.15*      ~*
+=dev-python/PyQt5-sip-4.19*   ~* 
+=dev-python/sip-4.19*         ~*
+=dev-python/lxml-4.4*         ~*
+~dev-python/cython-0.29.14    ~*

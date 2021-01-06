@@ -1,8 +1,6 @@
 net-mail/notmuchfs::my
 net-mail/notmuch
 mail-filter/runbogomailfilter::my
-~net-mail/offlineimap-7.2.4-r1
-net-mail/offlineimap-openrc-service::my
 mail-client/mutt::gentoo
 mail-filter/bogofilter
 net-mail/mailcheck
