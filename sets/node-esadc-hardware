@@ -1,6 +1,6 @@
 sys-apps/openrc-init-scripts::my
 sys-fs/eudev
-sys-boot/grub
+sys-boot/syslinux
 sys-apps/pciutils
 sys-kernel/linux-firmware
 sys-block/nbd

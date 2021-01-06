@@ -1,2 +1,17 @@
 -tftpd_fcap_users_dusteater
 -tftpd_fcap_users_skyscraper
+
+# allowing libressl and openssl together
+# makes the system unstable
+# openssl was first so
+-libressl
+
+# I never distribute software in binary form
+# especially if someone claims to own
+# the algorithms it uses. I swear.
+# I work hard to pay all the people
+# owning all the algorithms on the world.
+# Some day i can afford to buy the algorithm
+# that tells how to go to the bathroom
+# upstanding instead of crawling.
+-bindist

@@ -62,10 +62,10 @@ FEATURES="${FEATURES} sandbox usersandbox userpriv"                             
 FEATURES="${FEATURES} strict suidctl"                                             # security
 FEATURES="${FEATURES} parallel-install parallel-fetch python-trace cgroup"        # speed
 
-USE="${USE} tcpd -nls -javascript"
+USE="-* tcpd -libressl threads openmp caps asm"
 PYTHON_TARGETS="-* python3_8 python3_9"
 PYTHON_SINGLE_TARGET="-* python3_8"
-RUBY_TARGETS="ruby24"
+RUBY_TARGETS="ruby26"
 
 USE_EXPAND="${USE_EXPAND} TFTPD_FCAP_USERS"
 USE_EXPAND_IMPLICIT="${USE_EXPAND_IMPLICIT} TFTPD_FCAP_USERS"

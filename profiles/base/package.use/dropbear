@@ -1,0 +1,2 @@
+net-misc/dropbear static
+>=dev-libs/libtommath-1.2.0 static-libs

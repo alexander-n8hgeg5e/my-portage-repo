@@ -61,6 +61,7 @@ BDEPEND="	dev-vcd/git
 			app-misc/shortcuts
 			>net-misc/rsync-3
 		"
+RESTRICT="distcc"
 
 pkg_setup(){
 	if [[ ${PV} = 999935 ]]; then
@@ -250,12 +251,19 @@ pkg_preinst(){
 		elif [[ $backupmethod = tar ]] ; then
 			inc_tarfilepath="/boot/kernel_backup.tar.inc"
 			tarfilepath="/boot/kernel_backup.tar"
-			if find /boot -regextype 'posix-extended' -regex '.*[/][.](cvs|git|bzr|hg)ignore$' ; then
-				einfo "excluding \"vcs-ignores\" (tar option)"
+			if [[ $(find /boot -regextype 'posix-extended' -regex '.*[/][.](cvs|git|bzr|hg)ignore'|wc -l) -gt 0 ]] ;then
+				einfo "excluding \"vcs-ignores\" from backup (tar option)"
+			fi
+			if [[ $(find /boot -path /boot/snapshots|wc -l) -gt 0 ]] ;then
+				einfo "excluding /boot/snapshots from backup"
 			fi
     		tar -cf "${tarfilepath}" -g "${inc_tarfilepath}" \
 				--exclude-vcs-ignores \
 				--exclude '*backup*' \
+    		tar -cf "${tarfilepath}" -g "${inc_tarfilepath}" \
+				--exclude-vcs-ignores \
+				--exclude '*backup*' \
+				--exclude 'snapshots' \
 				/boot || die "failed to do backup"
 		else
 			die "No backupmethod could be infered."
