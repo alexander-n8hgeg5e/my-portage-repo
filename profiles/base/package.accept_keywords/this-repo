@@ -1,0 +1,76 @@
+=app-misc/btrfsbenc-9999
+=app-misc/getcalendaroverview-9999
+=app-misc/openrc_keybord_rate-9999
+=app-misc/pyopen-9999
+=app-misc/rind-0.2
+
+=app-misc/gentoo-getebuild-9999 ~amd64
+=dev-python/msgpack-0.5.6 ~amd64
+=app-misc/kicad4_lib-9999 ~amd64
+
+=dev-python/github3-0.9.3 ~amd64
+
+=app-misc/xkbmap-9999 ~amd64
+=app-vim/nerdtree-9999 **
+=app-misc/vimwiki-9999 ~amd64
+=app-misc/433control-9999 ~amd64
+www-client/qutebrowser ~amd64
+
+=app-vim/vimorganizer-9999 **
+=x11-terms/st-9999 **
+=app-misc/autologin-9999 **
+
+
+=app-misc/dictcc-0.1 ~amd64
+
+
+app-misc/433control
+app-misc/btrfsbenc
+app-misc/dictccpy
+app-misc/gentoo-getebuild
+app-misc/gentooify
+app-misc/getcalendaroverview
+app-misc/offlineimap-openrc-service
+app-misc/openrc_keybord_rate
+app-misc/pyblueconnect
+app-misc/pyopen
+app-misc/rind
+app-misc/shortcuts
+app-misc/vimwiki
+app-misc/xserver_autostart
+app-text/info2html
+app-vim/mycalendar
+app-vim/nerdtree
+dev-python/MutatorMath
+dev-python/backcall
+dev-python/compreffor
+dev-python/cu2qu
+dev-python/fontMath
+dev-python/fontmake
+dev-python/glyphsLib
+dev-python/ipython
+dev-python/pylib
+dev-python/ufo2ft
+dev-python/ufoLib2
+dev-python/unicodedata2
+dev-python/vttLib
+dev-vcs/gitsuperpushpull
+mail-filter/runbogomailfilter
+media-fonts/cascadia-code
+net-mail/mailcheck
+net-mail/notmuchfs
+net-mail/offlineimap-openrc-service
+sys-apps/openrc-init-scripts
+x11-misc/hhpc
+x11-misc/synergy
+x11-terms/st
+x11-wm/spectrwm
+=sys-apps/klima-control-9999
+
+=dev-python/inotify_simple-9999 **
+=dev-python/python-prctl-9999 **
+=sys-apps/portage-nuitka-0.1 **
+
+=sys-kernel/linux-gentoo-999935
+=x11-misc/keyev-9999
+=dev-python/github3-1.3.0
