@@ -38,6 +38,7 @@ EROOT="/"
 
 # files and dir here allowed
 CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/fish/conf.d"
+CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/bash/bashrc.d"
 CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/ssh/ssh_config"
 CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/vim"
 
