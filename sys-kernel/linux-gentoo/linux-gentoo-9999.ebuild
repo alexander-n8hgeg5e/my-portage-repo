@@ -260,9 +260,6 @@ pkg_preinst(){
     		tar -cf "${tarfilepath}" -g "${inc_tarfilepath}" \
 				--exclude-vcs-ignores \
 				--exclude '*backup*' \
-    		tar -cf "${tarfilepath}" -g "${inc_tarfilepath}" \
-				--exclude-vcs-ignores \
-				--exclude '*backup*' \
 				--exclude 'snapshots' \
 				/boot || die "failed to do backup"
 		else
