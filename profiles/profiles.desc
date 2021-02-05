@@ -4,6 +4,7 @@
 # DO NOT ADD PROFILES WITH A "die" or "exit" IN THEM OR IT KILLS REPOMAN
 #
 #layout:
-#arch		profile_directory				               status
+#arch		profile_directory				               			status
 
-amd64       default/linux/amd64/17.1/no-multilib/my        dev
+amd64       default/linux/amd64/17.1/no-multilib        			dev
+amd64       default/linux/amd64/17.1/no-multilib/ui-node        	dev

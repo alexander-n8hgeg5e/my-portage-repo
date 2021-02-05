@@ -1,10 +1,10 @@
--tftpd_fcap_users_dusteater
--tftpd_fcap_users_skyscraper
+tftpd_fcap_users_dusteater
+tftpd_fcap_users_skyscraper
 
 # allowing libressl and openssl together
 # makes the system unstable
 # openssl was first so
--libressl
+libressl
 
 # I never distribute software in binary form
 # especially if someone claims to own
@@ -14,4 +14,4 @@
 # Some day i can afford to buy the algorithm
 # that tells how to go to the bathroom
 # upstanding instead of crawling.
--bindist
+bindist

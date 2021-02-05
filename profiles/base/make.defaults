@@ -37,6 +37,7 @@ EROOT="/"
 #ACCEPT_LICENSE="-* @FREE"
 
 # files and dir here allowed
+CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/env.d/shortcuts"
 CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/fish/conf.d"
 CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/bash/bashrc.d"
 CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/ssh/ssh_config"
@@ -63,7 +64,7 @@ FEATURES="${FEATURES} sandbox usersandbox userpriv"                             
 FEATURES="${FEATURES} strict suidctl"                                             # security
 FEATURES="${FEATURES} parallel-install parallel-fetch python-trace cgroup"        # speed
 
-USE="-* tcpd -libressl threads openmp caps asm"
+USE="-* tcpd threads openmp caps asm pie"
 PYTHON_TARGETS="-* python3_8 python3_9"
 PYTHON_SINGLE_TARGET="-* python3_8"
 RUBY_TARGETS="ruby26"

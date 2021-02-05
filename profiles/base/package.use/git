@@ -1,1 +1,4 @@
-dev-vcs/git curl
+dev-vcs/git curl gpg blksha1 test
+net-misc/curl ssl openssl curl_ssl_openssl
+
+# vim: set syntax=gentoo-package-use :
