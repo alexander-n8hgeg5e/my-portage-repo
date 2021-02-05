@@ -1,2 +1,2 @@
 sys-libs/ncurses-compat
-dev-lang/python:2.7
+dev-lang/python:2.7[xml]
