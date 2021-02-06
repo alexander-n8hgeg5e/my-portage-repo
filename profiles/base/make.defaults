@@ -64,10 +64,21 @@ FEATURES="${FEATURES} sandbox usersandbox userpriv"                             
 FEATURES="${FEATURES} strict suidctl"                                             # security
 FEATURES="${FEATURES} parallel-install parallel-fetch python-trace cgroup"        # speed
 
-USE="-* tcpd threads openmp caps asm pie"
-PYTHON_TARGETS="-* python3_8 python3_9"
-PYTHON_SINGLE_TARGET="-* python3_8"
-RUBY_TARGETS="ruby26"
+USE="-* sixel asm smp openmp tcpd threads caps pie \
+    python_targets_python3_8  python_targets_python3_9 \
+    python_single_target_python3_8 \
+    lua_targets_lua5-2 lua_targets_lua5-3 lua_targets_lua5-4 \
+    lua_single_target_lua5-3 \
+    ruby_targets_ruby26 \
+    "
+# these are not working with above USE="-* ..."
+# except by adding lines like RUBY_TARGETS="${RUBY_TARGETS}"
+# to /etc/portage/make.conf
+#RUBY_TARGETS="ruby26"
+#LUA_TARGETS="lua5-2 lua5-3 lua5-4"
+#LUA_SINGLE_TARGET="lua5-3"
+#PYTHON_SINGLE_TARGET="python3_8"
+#PYTHON_TARGETS="python3_8 python3_9"
 
 USE_EXPAND="${USE_EXPAND} TFTPD_FCAP_USERS"
 USE_EXPAND_IMPLICIT="${USE_EXPAND_IMPLICIT} TFTPD_FCAP_USERS"
