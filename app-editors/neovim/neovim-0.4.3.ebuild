@@ -31,9 +31,9 @@ DEPEND="
 	dev-libs/libuv:0=
 	>=dev-libs/libvterm-0.1.2
 	dev-libs/msgpack:0=
-	dev-lua/lpeg[luajit=]
-	dev-lua/luv[luajit=]
-	dev-lua/mpack[luajit=]
+	dev-lua/lpeg
+	dev-lua/luv
+	dev-lua/mpack
 	net-libs/libnsl
 	luajit? ( dev-lang/luajit:2 )
 	!luajit? (
