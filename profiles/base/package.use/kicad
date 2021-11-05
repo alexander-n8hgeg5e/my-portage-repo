@@ -1,0 +1,8 @@
+sci-electronics/kicad github doc l10n_en examples ngspice
+app-doc/kicad-doc pdf html l10n_en
+x11-libs/wxGTK gstreamer libnotify
+
+# use mpi needs
+sci-libs/netcdf hdf5
+
+# vim: set filetype=gentoo-package-use :
