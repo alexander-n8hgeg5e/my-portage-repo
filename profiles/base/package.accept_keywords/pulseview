@@ -1,0 +1,4 @@
+~sci-electronics/pulseview-0.4.2
+sci-libs/libsigrokdecode ~*
+sci-libs/libsigrok
+~sys-firmware/sigrok-firmware-fx2lafw-0.1.7
