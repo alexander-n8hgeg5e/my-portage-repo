@@ -20,7 +20,7 @@ app-portage/layman
 sys-process/nmon
 net-ftp/tnftp
 x11-misc/clipster::my
-x11-wm/spectrwm::my
+x11-wm/spectrwm
 sys-devel/distcc
 dev-util/ccache
 app-misc/xserver_autostart
@@ -33,7 +33,7 @@ dev-util/android-tools
 sys-apps/kexec-tools
 app-portage/conf-update
 media-sound/streamripper[vorbis]
-media-video/vlc
+#media-video/vlc
 net-analyzer/bmon
 net-analyzer/traceroute
 media-gfx/imagemagick
@@ -59,7 +59,6 @@ app-misc/binwalk
 dev-embedded/avrdude
 media-gfx/fbida
 net-dns/pdnsd
-x11-wm/i3
 net-vpn/openvpn
 app-portage/euses
 media-fonts/fira-sans
