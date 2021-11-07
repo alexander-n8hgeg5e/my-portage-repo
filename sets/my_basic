@@ -63,5 +63,5 @@ dev-python/pylib
 dev-vcs/git_hooks
 dev-util/ctags
 dev-python/columnize
-~dev-python/jwcrypto-0.8.0
+dev-python/jwcrypto
 app-misc/rind
