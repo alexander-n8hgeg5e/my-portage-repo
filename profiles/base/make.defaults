@@ -67,9 +67,10 @@ FEATURES="${FEATURES} parallel-install parallel-fetch python-trace cgroup"      
 USE="-* sixel asm smp openmp tcpd threads caps pie \
     python_targets_python3_8  python_targets_python3_9 \
     python_single_target_python3_9 \
-    lua_targets_lua5-2 lua_targets_lua5-3 lua_targets_lua5-4 \
-    lua_single_target_lua5-3 \
+    lua_targets_lua5-3 lua_targets_lua5-4 \
+    lua_targets_luajit \
     ruby_targets_ruby26 \
+    lua_single_target_luajit \
     "
 # these are not working with above USE="-* ..."
 # except by adding lines like RUBY_TARGETS="${RUBY_TARGETS}"
