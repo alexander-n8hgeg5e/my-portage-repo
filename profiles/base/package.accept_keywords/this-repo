@@ -12,7 +12,7 @@
 
 =app-misc/xkbmap-9999 ~amd64
 =app-vim/nerdtree-9999 **
-=app-misc/vimwiki-9999 ~amd64
+=app-vim/vimwiki-9999 ~amd64
 =app-misc/433control-9999 ~amd64
 www-client/qutebrowser ~amd64
 
@@ -36,7 +36,7 @@ app-misc/pyblueconnect
 app-misc/pyopen
 app-misc/rind
 app-misc/shortcuts
-app-misc/vimwiki
+app-vim/vimwiki
 app-misc/xserver_autostart
 app-text/info2html
 app-vim/mycalendar

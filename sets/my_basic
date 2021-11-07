@@ -25,7 +25,7 @@ app-admin/pass
 app-admin/sudo
 app-crypt/openpgp-keys-gentoo-release
 app-admin/eselect
-app-misc/vimwiki
+app-vim/vimwiki
 >=app-misc/tmux-2.9a
 app-editors/vim
 app-vim/bash-support
