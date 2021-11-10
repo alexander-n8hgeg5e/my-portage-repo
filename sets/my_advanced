@@ -19,7 +19,6 @@ net-analyzer/nmap
 app-portage/layman
 sys-process/nmon
 net-ftp/tnftp
-x11-misc/clipster::my
 x11-wm/spectrwm
 sys-devel/distcc
 dev-util/ccache
