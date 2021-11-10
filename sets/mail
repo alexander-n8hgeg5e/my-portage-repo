@@ -1,6 +1,6 @@
 net-mail/notmuchfs::my
 net-mail/notmuch
-mail-filter/runbogomailfilter::my
+#mail-filter/runbogomailfilter::my
 mail-client/mutt::gentoo
 mail-filter/bogofilter
 net-mail/mailcheck
