@@ -23,7 +23,6 @@ x11-misc/clipster::my
 x11-wm/spectrwm
 sys-devel/distcc
 dev-util/ccache
-app-misc/xserver_autostart
 media-fonts/liberation-fonts
 app-misc/433control
 app-admin/conky
