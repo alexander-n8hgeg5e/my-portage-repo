@@ -1,8 +1,8 @@
+=app-misc/rind-9999 **
 =app-misc/btrfsbenc-9999
 =app-misc/getcalendaroverview-9999
 =app-misc/openrc_keybord_rate-9999
 =app-misc/pyopen-9999
-=app-misc/rind-0.2
 
 =app-misc/gentoo-getebuild-9999 ~amd64
 =dev-python/msgpack-0.5.6 ~amd64
@@ -34,7 +34,6 @@ app-misc/offlineimap-openrc-service
 app-misc/openrc_keybord_rate
 app-misc/pyblueconnect
 app-misc/pyopen
-app-misc/rind
 app-misc/shortcuts
 app-vim/vimwiki
 app-misc/xserver_autostart
