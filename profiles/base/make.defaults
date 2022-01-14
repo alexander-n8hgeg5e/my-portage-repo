@@ -115,7 +115,6 @@ http://www.ibiblio.org/pub/Linux/distributions/gentoo"
 
 PORTAGE_LOGDIR="${EROOT}var/log/portage"
 PORTAGE_GPG_DIR="${EROOT}etc/portage/gpg"
-CCACHE_DIR="${EROOT}var/tmp/ccache"
 PKGDIR="${EROOT}var/cache/binpkgs"
 SYNC=""
 PORTAGE_ELOG_CLASSES="warn error log"
