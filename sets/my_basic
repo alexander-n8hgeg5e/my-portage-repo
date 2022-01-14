@@ -3,7 +3,7 @@ app-vim/nerdtree::my
 app-text/tree
 dev-util/diffstat
 media-fonts/anonymous-pro
-=app-editors/neovim-0.4.4-r101
+=app-editors/neovim-0.5.1
 dev-python/pynvim
 dev-util/strace
 =app-vim/mycalendar-9999::my
