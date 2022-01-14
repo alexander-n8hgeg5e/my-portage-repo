@@ -12,7 +12,7 @@ dev-util/strace
 =app-misc/openrc_keybord_rate-9999::my
 =app-misc/pyopen-9999::my
 =app-misc/shortcuts-9999::my
-=app-misc/rind-0.2::my
+app-misc/rind::my
 app-misc/gentooify::my
 app-misc/mydefaults::my
 app-crypt/gnupg
