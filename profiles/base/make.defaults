@@ -140,3 +140,18 @@ EMERGE_DEFAULT_OPTS="\
 #                     --rebuild-if-unbuilt y                  \
 #                     --rebuild-if-new-rev y                  \
 #                     --rebuild-if-new-ver y                  \
+
+#----------#
+#  ccache  #
+#----------#
+CCACHE_DIR="${EROOT}var/cache/ccache"
+CCACHE_NODIRECT=1
+CCACHE_DEPEND=1
+CCACHE_NOHARDLINK=true
+CCACHE_UMASK=002
+CCACHE_SIZE="40G"
+
+#----------#
+#  distcc  #
+#----------#
+#DISTCC_VERBOSE=1
