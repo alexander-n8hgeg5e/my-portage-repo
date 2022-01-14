@@ -1,7 +1,6 @@
 =x11-terms/st-9999::my
 app-vim/nerdtree::my
 app-text/tree
-dev-python/PyGithub
 dev-util/diffstat
 media-fonts/anonymous-pro
 =app-editors/neovim-0.4.4-r101
