@@ -54,7 +54,6 @@ sys-apps/memtester
 app-misc/binwalk
 dev-embedded/avrdude
 media-gfx/fbida
-net-dns/pdnsd
 net-vpn/openvpn
 app-portage/euses
 media-fonts/fira-sans
