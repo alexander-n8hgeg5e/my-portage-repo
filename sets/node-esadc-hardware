@@ -1,5 +1,5 @@
 sys-apps/openrc-init-scripts::my
-sys-fs/eudev
+sys-fs/udev
 sys-boot/syslinux
 sys-apps/pciutils
 sys-kernel/linux-firmware
