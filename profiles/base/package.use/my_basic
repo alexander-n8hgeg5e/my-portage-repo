@@ -1,0 +1,3 @@
+www-client/w3m ssl
+net-misc/dhcpcd ipv6
+net-firewall/iptables conntrack ipv6
