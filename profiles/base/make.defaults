@@ -37,25 +37,25 @@ EROOT="/"
 #ACCEPT_LICENSE="-* @FREE"
 
 # files and dir here allowed
-CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/env.d/shortcuts"
-CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/fish/conf.d"
-CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/bash/bashrc.d"
-CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/ssh/ssh_config"
-CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/vim"
-
-#CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/portage/package.use"
-CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/portage/package.accept_keywords"
-CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/portage/package.mask"
-CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/portage/package.unmask"
-CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/portage/env"
-CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/portage/package.env"
-CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/portage/package.license"
-CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/git_hooks"
-CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/init.d"
-CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/resolvconf.conf"
-
-#CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/locale.conf"
-CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/locale.gen"
+#CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/env.d/shortcuts"
+#CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/fish/conf.d"
+#CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/bash/bashrc.d"
+#CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/ssh/ssh_config"
+#CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/vim"
+#
+##CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/portage/package.use"
+#CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/portage/package.accept_keywords"
+#CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/portage/package.mask"
+#CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/portage/package.unmask"
+#CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/portage/env"
+#CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/portage/package.env"
+#CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/portage/package.license"
+#CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/git_hooks"
+#CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/init.d"
+#CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/resolvconf.conf"
+#
+##CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/locale.conf"
+#CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/locale.gen"
 
 FEATURES="${FEATURES} candy"                                                      # look
 FEATURES="${FEATURES} python-trace unknown-features-warn"                         # debugging
