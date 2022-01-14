@@ -59,8 +59,8 @@ EROOT="/"
 
 FEATURES="${FEATURES} candy"                                                      # look
 FEATURES="${FEATURES} python-trace unknown-features-warn"                         # debugging
-FEATURES="${FEATURES} preserve-libs protect-owned buildsyspkg"                    # function 
-FEATURES="${FEATURES} clean-logs"                                                 # function 
+FEATURES="${FEATURES} preserve-libs protect-owned buildsyspkg"                    # function
+FEATURES="${FEATURES} clean-logs"                                                 # function
 FEATURES="${FEATURES} sandbox usersandbox userpriv"                               # security
 FEATURES="${FEATURES} strict suidctl"                                             # security
 FEATURES="${FEATURES} parallel-install parallel-fetch python-trace cgroup"        # speed
