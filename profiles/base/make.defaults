@@ -117,8 +117,8 @@ PORTAGE_LOGDIR="${EROOT}var/log/portage"
 PORTAGE_GPG_DIR="${EROOT}etc/portage/gpg"
 PKGDIR="${EROOT}var/cache/binpkgs"
 SYNC=""
-PORTAGE_ELOG_CLASSES="warn error log"
-PORTAGE_ELOG_SYSTEM="echo save:error"
+PORTAGE_ELOG_CLASSES="warn error"
+PORTAGE_ELOG_SYSTEM="echo syslog"
 PORTAGE_WORKDIR_MODE="0750"
 
 EMERGE_DEFAULT_OPTS="\
