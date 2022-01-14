@@ -150,6 +150,7 @@ CCACHE_DEPEND=1
 CCACHE_NOHARDLINK=true
 CCACHE_UMASK=002
 CCACHE_SIZE="40G"
+DISTDIR="/var/db/distfiles"
 
 #----------#
 #  distcc  #
