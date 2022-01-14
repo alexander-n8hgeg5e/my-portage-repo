@@ -24,7 +24,7 @@ app-admin/sudo
 sec-keys/openpgp-keys-gentoo-release
 app-admin/eselect
 app-vim/vimwiki
->=app-misc/tmux-2.9a
+=app-misc/tmux-3.1c
 app-editors/vim
 app-vim/bash-support
 app-vim/colorschemes
