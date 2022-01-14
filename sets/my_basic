@@ -21,7 +21,7 @@ app-misc/color
 app-misc/gentoo-getebuild
 app-admin/pass
 app-admin/sudo
-app-crypt/openpgp-keys-gentoo-release
+sec-keys/openpgp-keys-gentoo-release
 app-admin/eselect
 app-vim/vimwiki
 >=app-misc/tmux-2.9a
