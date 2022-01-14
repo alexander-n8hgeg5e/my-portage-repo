@@ -1,5 +1,4 @@
 =x11-terms/st-9999::my
-app-portage/emerge-delta-webrsync
 app-vim/nerdtree::my
 app-text/tree
 dev-python/PyGithub
