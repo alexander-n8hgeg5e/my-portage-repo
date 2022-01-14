@@ -24,7 +24,6 @@ sys-devel/distcc
 dev-util/ccache
 media-fonts/liberation-fonts
 app-misc/433control
-app-admin/conky
 x11-misc/xtrlock
 app-misc/color
 dev-util/android-tools
@@ -39,7 +38,6 @@ dev-util/cscope
 dev-util/global
 x11-misc/hhpc
 x11-misc/xsnap
-app-admin/conky
 x11-apps/xclock
 x11-misc/redshift
 app-arch/p7zip
