@@ -189,7 +189,7 @@ src_install(){
 	if use kernel-inst-method-copy2boot ; then
 		export INSTALL_PATH="${ED}boot"
 		export INSTALL_MOD_PATH="${ED}"
-		emake modules_install || die
+		nonfatal emake modules_install || ewarn no modules or some error
 
 		kernelrelease="$(make -s kernelrelease)" || die
 		image_path="$(make -s image_name)" || die
