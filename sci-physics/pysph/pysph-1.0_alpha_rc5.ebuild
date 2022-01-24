@@ -1,8 +1,8 @@
 # Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
-PYTHON_COMPAT=( python3_6 )
+EAPI=7
+PYTHON_COMPAT=( python3_{6,7,8,9,10} )
 inherit eutils distutils-r1
 
 DESCRIPTION="PySPH is an open source framework for Smoothed Particle Hydrodynamics (SPH) simulations."

@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=7
 
-PYTHON_COMPAT=( python3_6)
+PYTHON_COMPAT=( python3_{6,7,8,9,10} )
 PYTHON_REQ_USE="sqlite"
 
 inherit eutils python-single-r1

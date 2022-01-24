@@ -6,7 +6,7 @@ EAPI=7
 DESCRIPTION="python-dotenv from pip"
 HOMEPAGE=""
 SRC_URI="https://files.pythonhosted.org/packages/48/a3/36d63f471cc676cd8b7125fcd85efc022bc04e111db32c33cd80e63ec19b/python-dotenv-0.9.1.tar.gz"
-PYTHON_COMPAT=( python3_6 )
+PYTHON_COMPAT=( python3_{6,7,8,9,10} )
 inherit distutils-r1
 
 LICENSE="BSD"

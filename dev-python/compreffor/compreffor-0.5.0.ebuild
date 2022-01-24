@@ -3,7 +3,7 @@
 EAPI=7
 
 
-PYTHON_COMPAT=( python3_{6,7} )
+PYTHON_COMPAT=( python3_{6,7,8,9,10} )
 inherit distutils-r1
 SHA256_SUM="b804999e0c256094e28a9cbb9306f6031b7cf6884bbb98fd44ad70eed6c4c2fd"
 DESCRIPTION=""
