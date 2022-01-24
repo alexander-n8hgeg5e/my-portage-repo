@@ -62,3 +62,4 @@ dev-vcs/git_hooks
 dev-util/ctags
 dev-python/columnize
 app-misc/rind
+app-admin/ccze
