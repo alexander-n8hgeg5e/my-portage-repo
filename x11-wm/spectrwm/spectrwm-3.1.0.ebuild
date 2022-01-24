@@ -1,0 +1,1 @@
+/var/src/spectrwm/portage/x11-wm/spectrwm/spectrwm-3.1.0.ebuild

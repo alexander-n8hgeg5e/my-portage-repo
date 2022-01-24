@@ -1,0 +1,1 @@
+/var/src/esp-open-sdk/portage/dev-embedded/esp-open-sdk/esp-open-sdk-9999.ebuild

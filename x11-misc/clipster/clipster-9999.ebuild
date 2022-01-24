@@ -1,0 +1,1 @@
+/var/src/clipster/portage/x11-misc/clipster/clipster-9999.ebuild

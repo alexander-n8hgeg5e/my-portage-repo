@@ -1,0 +1,1 @@
+/var/src/shortcuts/portage/app-misc/shortcuts/shortcuts-9999.ebuild

@@ -1,0 +1,1 @@
+/var/src/ampy/portage/dev-python/ampy/ampy-9999.ebuild

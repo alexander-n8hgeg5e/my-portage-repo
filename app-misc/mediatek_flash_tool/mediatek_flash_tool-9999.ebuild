@@ -1,0 +1,1 @@
+/var/src/mediatek_flash_tool/portage/app-misc/mediatek_flash_tool/mediatek_flash_tool-9999.ebuild

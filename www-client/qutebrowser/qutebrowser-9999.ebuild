@@ -1,0 +1,1 @@
+/var/src/qutebrowser/portage/www-client/qutebrowser/qutebrowser-9999.ebuild

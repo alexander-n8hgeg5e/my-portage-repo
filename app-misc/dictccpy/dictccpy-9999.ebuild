@@ -1,0 +1,1 @@
+/var/src/dictccpy/portage/app-misc/dictccpy/dictccpy-9999.ebuild

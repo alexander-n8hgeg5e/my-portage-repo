@@ -1,0 +1,1 @@
+/var/src/notmuchfs/portage/net-mail/notmuchfs/notmuchfs-0.3.ebuild

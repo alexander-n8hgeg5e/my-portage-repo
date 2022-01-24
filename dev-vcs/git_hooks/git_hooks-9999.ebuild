@@ -1,0 +1,1 @@
+/var/src/git_hooks/portage/dev-vcs/git_hooks/git_hooks-9999.ebuild

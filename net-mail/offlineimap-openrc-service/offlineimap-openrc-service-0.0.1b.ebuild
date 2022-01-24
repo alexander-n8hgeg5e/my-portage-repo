@@ -1,0 +1,1 @@
+/var/src/offlineimap-openrc-service/portage/net-mail/offlineimap-openrc-service/offlineimap-openrc-service-0.0.1b.ebuild

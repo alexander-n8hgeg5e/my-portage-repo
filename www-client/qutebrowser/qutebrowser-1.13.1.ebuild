@@ -1,0 +1,1 @@
+/var/src/qutebrowser/portage/www-client/qutebrowser/qutebrowser-1.13.1.ebuild

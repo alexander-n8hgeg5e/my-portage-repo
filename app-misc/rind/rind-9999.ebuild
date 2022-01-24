@@ -1,0 +1,1 @@
+/var/src/rind/portage/app-misc/rind/rind-9999.ebuild

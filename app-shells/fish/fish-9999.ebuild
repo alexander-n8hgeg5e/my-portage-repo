@@ -1,0 +1,1 @@
+/var/src/fish/portage/app-shells/fish/fish-9999.ebuild

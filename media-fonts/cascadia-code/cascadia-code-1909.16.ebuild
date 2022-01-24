@@ -1,0 +1,1 @@
+/var/src/cascadia-code/portage/media-fonts/cascadia-code/cascadia-code-1909.16.ebuild

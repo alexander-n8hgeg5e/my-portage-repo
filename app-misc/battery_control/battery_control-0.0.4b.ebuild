@@ -1,0 +1,1 @@
+/var/src/battery_control/portage/app-misc/battery_control/battery_control-0.0.4b.ebuild

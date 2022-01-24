@@ -1,0 +1,1 @@
+/var/src/pyfancontrol/portage/sys-power/pyfancontrol/pyfancontrol-9999.ebuild

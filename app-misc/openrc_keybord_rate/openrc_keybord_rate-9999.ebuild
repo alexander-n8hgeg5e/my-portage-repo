@@ -1,0 +1,1 @@
+/var/src/openrc-keyboard-rate/portage/app-misc/openrc_keybord_rate/openrc_keybord_rate-9999.ebuild
