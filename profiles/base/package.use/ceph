@@ -1,4 +1,4 @@
-sys-cluster/ceph fuse diskprediction cephfs mgr lua_single_target_lua5-3
+sys-cluster/ceph fuse diskprediction cephfs mgr lua_single_target_lua5-3 sqlite
 dev-libs/leveldb snappy
 dev-python/numpy lapack
 virtual/mpi fortran
