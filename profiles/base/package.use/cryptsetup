@@ -1,1 +1,8 @@
-sys-fs/cryptsetup luks1_default
+sys-fs/cryptsetup luks1_default openssl static
+>=dev-libs/json-c-0.15 static-libs
+>=dev-libs/libgpg-error-1.42 static-libs
+>=dev-libs/popt-1.18 static-libs
+>=sys-apps/util-linux-2.37.2-r1 static-libs
+>=dev-libs/openssl-1.1.1l-r1 static-libs
+>=sys-fs/lvm2-2.02.188-r2 static-libs
+>=dev-libs/libaio-0.3.112 static-libs
