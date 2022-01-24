@@ -1,1 +1,2 @@
 app-admin/sysklogd logger
+sys-apps/util-linux -logger
