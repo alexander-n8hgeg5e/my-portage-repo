@@ -6,7 +6,7 @@ EAPI=7
 
 PYTHON_COMPAT=( python3_{6,7,8,9,10} )
 
-inherit eutils python-single-r1
+inherit eutils python-r1
 
 DESCRIPTION="Future-aware personal finances management"
 HOMEPAGE="https://hardcoded.net/moneyguru"
@@ -19,8 +19,7 @@ SLOT="0"
 KEYWORDS="amd64"
 IUSE=""
 
-RDEPEND="${PYTHON_DEPS}
-	dev-python/PyQt4[${PYTHON_USEDEP}]"
+RDEPEND="dev-python/PyQt4[${PYTHON_USEDEP}]"
 DEPEND="${RDEPEND}
 	dev-python/sphinx[${PYTHON_USEDEP}]"
 
