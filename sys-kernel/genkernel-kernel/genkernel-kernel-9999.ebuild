@@ -15,18 +15,17 @@ RDEPEND="${DEPEND}"
 BDEPEND=""
 IUSE="set-perms backup"
 
-
 pkg_setup(){
 	_GENKERNEL_CONF="/etc/genkernel.conf"
-	kernel_source_tree=$(source "${_GENKERNEL_CONF}" &>/dev/null && echo ${DEFAULT_KERNEL_SOURCE})
-	einfo "useing kernel source-tree at: ${kernel_source_tree}"
-	[[ -n "${kernel_source_tree}" ]] && [[ -d "${kernel_source_tree}" ]] || die
+	KERNEL_SOURCE_TREE=$(source "${_GENKERNEL_CONF}" &>/dev/null && echo ${DEFAULT_KERNEL_SOURCE})
+	einfo "useing kernel source-tree at: ${KERNEL_SOURCE_TREE}"
+	[[ -n "${KERNEL_SOURCE_TREE}" ]] && [[ -d "${KERNEL_SOURCE_TREE}" ]] || die
 
 	if use set-perms ; then
 		einfo "setting permission of entrire kernel source tree to group=portage and g+rwX"
-		find "${kernel_source_tree}" \! -group portage -exec chown :portage "{}" \;
-		find "${kernel_source_tree}" \! -type f -perm \g=r -exec chmod g+r "{}" \;
-		find "${kernel_source_tree}" \! -type d -perm \g=rx -exec chmod g+rx "{}" \;
+		find "${KERNEL_SOURCE_TREE}" \! -group portage -exec chown :portage "{}" \;
+		find "${KERNEL_SOURCE_TREE}" \! -type f -perm \g=r -exec chmod g+r "{}" \;
+		find "${KERNEL_SOURCE_TREE}" \! -type d -perm \g=rx -exec chmod g+rx "{}" \;
 	fi
 
 	# test for the backupmethod
@@ -59,7 +58,7 @@ src_unpack(){
 	rsync --info=none,progress2 -ac --delete --partial \
 		--progress --exclude='/.git' \
 		--exclude='/.git/***' \
-		/usr/src/linux/ "${S}" \
+		"${KERNEL_SOURCE_TREE%/}"/ "${S}" \
 			|| die "ERROR: rsync failed"
 }
 
@@ -101,12 +100,33 @@ src_prepare(){
 	value="${WORKDIR}/cache"
 	do_mkdir_and_append_to_config $varname $value || die
 	ewarn "CACHE_DIR option ignored, useing new empty path."
+
+	varname="SANDBOX"
+	value="no"
+	do_mkdir_and_append_to_config $varname $value || die
+	ewarn "genkernel SANDBOX option ignored, portage sandbox is used if enabled."
+
+	varname="TMPDIR"
+	value="${WORKDIR}/TMPDIR"
+	do_mkdir_and_append_to_config $varname $value || die
+	ewarn "genkernel config option TMPDIR ignored"
 }
 
 src_compile(){
-	einfo "SANDBOX=${SANDBOX}"
-	genkernel \
-		--config="${WORKDIR}/genkernel.conf" \
-		all || die
+	einfo "Found SANDBOX_ON=${SANDBOX_ON} in env, Sandbox of genkernel had to be disabled."
+	einfo "The surrounding sandbox of the ebuild system is active if enabled and would be the reason."
+	INITIAL_KERNEL_CONFIG="/etc/kernelconfig"
+
+	kconfmsg="Remove kernel config from \"${INITIAL_KERNEL_CONFIG}\" in order "
+	kconfmsg="${kconfmsg} to proceed with default automatic kernel config selection behaviour of genkernel."
+	if [[ -e "${INITIAL_KERNEL_CONFIG}" ]];then
+		einfo "Using initial kernel config from \"${INITIAL_KERNEL_CONFIG}\"."
+		einfo "${kconfmsg}"
+		genkernel --config="${WORKDIR}/genkernel.conf" --kernel-config="${INITIAL_KERNEL_CONFIG}" all || die
+	else
+		einfo "Put your initial kernel config at \"${INITIAL_KERNEL_CONFIG}\"."
+		einfo "${kconfmsg}"
+		genkernel --config="${WORKDIR}/genkernel.conf" all || die
+	fi
 	die
 }
