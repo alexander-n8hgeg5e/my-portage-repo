@@ -1,0 +1,116 @@
+# HG changeset patch
+# User Kevin McCarthy <kevin@8t8.us>
+# Date 1514689816 28800
+#      Sat Dec 30 19:10:16 2017 -0800
+# Node ID 98df5730041c07b619da48e4a1ff1b9b87a7fced
+# Parent  2874b82116df6b5d92bd305354d8ea1ad4ad9c37
+Disable message security if the backend is not available.
+
+Gitlab issue #3 exposed an awkward corner case: if mutt is configured
+without PGP or S/MIME, and with GPGME, but $crypt_use_gpgme is unset.
+In this case, no backend will be available, but WithCrypto will be set
+with both APPLICATION_PGP and APPLICATION_SMIME bits.
+
+That will allow various config vars to enable encryption or signing,
+even though there will be no backend available to perform them.  The
+message security flag might then be set, but when the user hits send,
+will end up back at the compose menu due to the error.
+
+The pgp or smime menu might not even be available to clear the
+security setting!
+
+Add a check in send.c before the compose menu is invoked, and give a
+warning message for the menu ops inside the compose menu.
+
+I believe this should prevent the issue.  However this is a corner
+case combined with user misconfiguration, so I don't believe is worth
+a large effort to completely eradicate.
+
+diff -r 2874b82116df -r 98df5730041c compose.c
+--- a/compose.c	Thu Dec 28 13:07:21 2017 -0800
++++ b/compose.c	Sat Dec 30 19:10:16 2017 -0800
+@@ -1426,6 +1426,11 @@ int mutt_compose_menu (HEADER *msg,   /*
+       case OP_COMPOSE_PGP_MENU:
+         if (!(WithCrypto & APPLICATION_PGP))
+           break;
++        if (!crypt_has_module_backend (APPLICATION_PGP))
++        {
++          mutt_error _("No PGP backend configured");
++          break;
++        }
+ 	if ((WithCrypto & APPLICATION_SMIME)
+             && (msg->security & APPLICATION_SMIME))
+ 	{
+@@ -1458,6 +1463,11 @@ int mutt_compose_menu (HEADER *msg,   /*
+       case OP_COMPOSE_SMIME_MENU:
+         if (!(WithCrypto & APPLICATION_SMIME))
+           break;
++        if (!crypt_has_module_backend (APPLICATION_SMIME))
++        {
++          mutt_error _("No S/MIME backend configured");
++          break;
++        }
+ 
+ 	if ((WithCrypto & APPLICATION_PGP)
+             && (msg->security & APPLICATION_PGP))
+diff -r 2874b82116df -r 98df5730041c cryptglue.c
+--- a/cryptglue.c	Thu Dec 28 13:07:21 2017 -0800
++++ b/cryptglue.c	Sat Dec 30 19:10:16 2017 -0800
+@@ -112,6 +112,22 @@ void crypt_invoke_message (int type)
+     mutt_message _("Invoking S/MIME...");
+ }
+ 
++/* Returns 1 if a module backend is registered for the type */
++int crypt_has_module_backend (int type)
++{
++  if ((WithCrypto & APPLICATION_PGP) &&
++      (type & APPLICATION_PGP) &&
++      crypto_module_lookup (APPLICATION_PGP))
++    return 1;
++
++  if ((WithCrypto & APPLICATION_SMIME) &&
++      (type & APPLICATION_SMIME) &&
++      crypto_module_lookup (APPLICATION_SMIME))
++    return 1;
++
++  return 0;
++}
++
+ 
+ 
+ /* 
+diff -r 2874b82116df -r 98df5730041c mutt_crypt.h
+--- a/mutt_crypt.h	Thu Dec 28 13:07:21 2017 -0800
++++ b/mutt_crypt.h	Sat Dec 30 19:10:16 2017 -0800
+@@ -188,6 +188,9 @@ short crypt_is_numerical_keyid (const ch
+ /* Show a message that a backend will be invoked. */
+ void crypt_invoke_message (int type);
+ 
++/* Returns 1 if a module backend is registered for the type */
++int crypt_has_module_backend (int type);
++
+ 
+ /* Silently forget about a passphrase. */
+ void crypt_pgp_void_passphrase (void);
+diff -r 2874b82116df -r 98df5730041c send.c
+--- a/send.c	Thu Dec 28 13:07:21 2017 -0800
++++ b/send.c	Sat Dec 30 19:10:16 2017 -0800
+@@ -1569,6 +1569,18 @@ ci_send_message (int flags,		/* send mod
+       msg->security = 0;
+   }
+ 
++  /* Deal with the corner case where the crypto module backend is not available.
++   * This can happen if configured without pgp/smime and with gpgme, but
++   * $crypt_use_gpgme is unset.
++   */
++  if (msg->security &&
++      !crypt_has_module_backend (msg->security))
++  {
++    mutt_error _("No crypto backend configured.  Disabling message security setting.");
++    mutt_sleep (1);
++    msg->security = 0;
++  }
++
+   /* specify a default fcc.  if we are in batchmode, only save a copy of
+    * the message if the value of $copy is yes or ask-yes */
+ 

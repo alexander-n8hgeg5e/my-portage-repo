@@ -1,0 +1,182 @@
+# HG changeset patch
+# User Fabian Groffen <grobian@gentoo.org>
+# Date 1464576176 -3600
+#      Mon May 30 03:42:56 2016 +0100
+# Node ID 9f435837acfdb691b66cef01aaf484f66262b27c
+# Parent  83425b86fe900b4df0c21408413462c65ded6f32
+[PATCH] collapse_flagged
+collapse_flagged from http://debian.lpr.ch/Mutt/
+---
+ PATCHES     |  1 +
+ curs_main.c | 17 +++++++++++++----
+ init.h      |  6 ++++++
+ mutt.h      |  2 ++
+ protos.h    |  1 +
+ thread.c    | 16 +++++++++++++++-
+ 6 files changed, 38 insertions(+), 5 deletions(-)
+
+diff -r 83425b86fe90 -r 9f435837acfd PATCHES
+--- a/PATCHES	Mon May 30 03:42:37 2016 +0100
++++ b/PATCHES	Mon May 30 03:42:56 2016 +0100
+@@ -1,3 +1,4 @@
++patch-lpr.collapse_flagged Lukas P. Ruf <lukas.ruf@lpr.ch>
+ patch-dont-reveal-bcc-gentoo (modified version from Debian)
+ patch-multiple-fcc-neomutt
+ patch-timeout-neomutt
+diff -r 83425b86fe90 -r 9f435837acfd curs_main.c
+--- a/curs_main.c	Mon May 30 03:42:37 2016 +0100
++++ b/curs_main.c	Mon May 30 03:42:56 2016 +0100
+@@ -122,6 +122,11 @@ static const char *No_visible = N_("No v
+ #define CURHDR Context->hdrs[Context->v2r[menu->current]]
+ #define OLDHDR Context->hdrs[Context->v2r[menu->oldcurrent]]
+ #define UNREAD(h) mutt_thread_contains_unread (Context, h)
++#define FLAGGED(h) mutt_thread_contains_flagged (Context, h)
++
++#define CHECK_IF_TO_COLLAPSE(header) \
++  ((option (OPTCOLLAPSEUNREAD)  || !UNREAD (header)) && \
++   (option (OPTCOLLAPSEFLAGGED) || FLAGGED(header) == 0))
+ 
+ /* de facto standard escapes for tsl/fsl */
+ static char *tsl = "\033]0;";
+@@ -2509,14 +2514,14 @@ int mutt_index_menu (void)
+ 	  if (option (OPTUNCOLLAPSEJUMP))
+ 	    menu->current = mutt_thread_next_unread (Context, CURHDR);
+ 	}
+-	else if (option (OPTCOLLAPSEUNREAD) || !UNREAD (CURHDR))
++        else if CHECK_IF_TO_COLLAPSE(CURHDR)
+ 	{
+ 	  menu->current = mutt_collapse_thread (Context, CURHDR);
+ 	  mutt_set_virtual (Context);
+ 	}
+ 	else
+ 	{
+-	  mutt_error _("Thread contains unread messages.");
++          mutt_error _("Thread contains unread or flagged messages.");
+ 	  break;
+ 	}
+ 
+@@ -2541,8 +2546,10 @@ int mutt_index_menu (void)
+ 
+ 	  if (CURHDR->collapsed)
+ 	    final = mutt_uncollapse_thread (Context, CURHDR);
+-	  else if (option (OPTCOLLAPSEUNREAD) || !UNREAD (CURHDR))
++          else if CHECK_IF_TO_COLLAPSE(CURHDR)
++          {
+ 	    final = mutt_collapse_thread (Context, CURHDR);
++          }
+ 	  else
+ 	    final = CURHDR->virtual;
+ 
+@@ -2560,9 +2567,11 @@ int mutt_index_menu (void)
+ 	    {
+ 	      if (h->collapsed)
+ 		mutt_uncollapse_thread (Context, h);
+-	      else if (option (OPTCOLLAPSEUNREAD) || !UNREAD (h))
++              else if CHECK_IF_TO_COLLAPSE(h)
++              {
+ 		mutt_collapse_thread (Context, h);
+ 	    }
++            }
+ 	    top = top->next;
+ 	  }
+ 
+diff -r 83425b86fe90 -r 9f435837acfd init.h
+--- a/init.h	Mon May 30 03:42:37 2016 +0100
++++ b/init.h	Mon May 30 03:42:56 2016 +0100
+@@ -436,6 +436,12 @@ struct option_t MuttVars[] = {
+   ** When \fIunset\fP, Mutt will not collapse a thread if it contains any
+   ** unread messages.
+   */
++  { "collapse_flagged",	DT_BOOL, R_NONE, OPTCOLLAPSEFLAGGED, 1 },
++  /*
++  ** .pp
++  ** When \fIunset\fP, Mutt will not collapse a thread if it contains any
++  ** flagged messages.
++  */
+   { "compose_format",	DT_STR,	 R_MENU, UL &ComposeFormat, UL "-- Mutt: Compose  [Approx. msg size: %l   Atts: %a]%>-" },
+   /*
+   ** .pp
+diff -r 83425b86fe90 -r 9f435837acfd mutt.h
+--- a/mutt.h	Mon May 30 03:42:37 2016 +0100
++++ b/mutt.h	Mon May 30 03:42:56 2016 +0100
+@@ -189,6 +189,7 @@ typedef enum
+ #define MUTT_THREAD_GET_HIDDEN  (1<<2)
+ #define MUTT_THREAD_UNREAD      (1<<3)
+ #define MUTT_THREAD_NEXT_UNREAD (1<<4)
++#define MUTT_THREAD_FLAGGED     (1<<5)
+ 
+ enum
+ {
+@@ -375,6 +376,7 @@ enum
+   OPTCHECKMBOXSIZE,
+   OPTCHECKNEW,
+   OPTCOLLAPSEUNREAD,
++  OPTCOLLAPSEFLAGGED,
+   OPTCONFIRMAPPEND,
+   OPTCONFIRMCREATE,
+   OPTDELETEUNTAG,
+diff -r 83425b86fe90 -r 9f435837acfd protos.h
+--- a/protos.h	Mon May 30 03:42:37 2016 +0100
++++ b/protos.h	Mon May 30 03:42:56 2016 +0100
+@@ -62,6 +62,7 @@ int _mutt_aside_thread (HEADER *, short,
+ #define mutt_uncollapse_thread(x,y) _mutt_traverse_thread (x,y,MUTT_THREAD_UNCOLLAPSE)
+ #define mutt_get_hidden(x,y)_mutt_traverse_thread (x,y,MUTT_THREAD_GET_HIDDEN) 
+ #define mutt_thread_contains_unread(x,y) _mutt_traverse_thread (x,y,MUTT_THREAD_UNREAD)
++#define mutt_thread_contains_flagged(x,y) _mutt_traverse_thread (x,y,MUTT_THREAD_FLAGGED)
+ #define mutt_thread_next_unread(x,y) _mutt_traverse_thread(x,y,MUTT_THREAD_NEXT_UNREAD)
+ int _mutt_traverse_thread (CONTEXT *ctx, HEADER *hdr, int flag);
+ 
+diff -r 83425b86fe90 -r 9f435837acfd thread.c
+--- a/thread.c	Mon May 30 03:42:37 2016 +0100
++++ b/thread.c	Mon May 30 03:42:56 2016 +0100
+@@ -1139,7 +1139,7 @@ int _mutt_traverse_thread (CONTEXT *ctx,
+   THREAD *thread, *top;
+   HEADER *roothdr = NULL;
+   int final, reverse = (Sort & SORT_REVERSE), minmsgno;
+-  int num_hidden = 0, new = 0, old = 0;
++  int num_hidden = 0, new = 0, old = 0, flagged = 0;
+   int min_unread_msgno = INT_MAX, min_unread = cur->virtual;
+ #define CHECK_LIMIT (!ctx->pattern || cur->limited)
+ 
+@@ -1172,6 +1172,11 @@ int _mutt_traverse_thread (CONTEXT *ctx,
+     }
+   }
+ 
++  if (cur->flagged && CHECK_LIMIT)
++  {
++    flagged = 1;
++  }
++
+   if (cur->virtual == -1 && CHECK_LIMIT)
+     num_hidden++;
+ 
+@@ -1198,6 +1203,8 @@ int _mutt_traverse_thread (CONTEXT *ctx,
+       return (num_hidden);
+     else if (flag & MUTT_THREAD_NEXT_UNREAD)
+       return (min_unread);
++    else if (flag & MUTT_THREAD_FLAGGED)
++      return (flagged);
+   }
+   
+   FOREVER
+@@ -1249,6 +1256,11 @@ int _mutt_traverse_thread (CONTEXT *ctx,
+ 	}
+       }
+ 
++      if (cur->flagged && CHECK_LIMIT)
++      {
++        flagged = 1;
++      }
++
+       if (cur->virtual == -1 && CHECK_LIMIT)
+ 	num_hidden++;
+     }
+@@ -1284,6 +1296,8 @@ int _mutt_traverse_thread (CONTEXT *ctx,
+     return (num_hidden+1);
+   else if (flag & MUTT_THREAD_NEXT_UNREAD)
+     return (min_unread);
++  else if (flag & MUTT_THREAD_FLAGGED)
++    return (flagged);
+ 
+   return (0);
+ #undef CHECK_LIMIT

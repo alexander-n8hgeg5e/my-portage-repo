@@ -1,1 +1,0 @@
-/var/src/sakura-mod/portage/x11-term/sakura-mod/sakura-mod-9999.ebuild

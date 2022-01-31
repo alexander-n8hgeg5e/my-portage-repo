@@ -1,0 +1,74 @@
+From 86dc99ed4289473c98035db21265ce234c1b19f5 Mon Sep 17 00:00:00 2001
+From: alexander-n8hgeg5e <alexander.w.email@gmail.com>
+Date: Mon, 6 Jul 2020 08:33:10 +0200
+Subject: [PATCH 8/8] optional dark background capability
+
+---
+ CMakeLists.txt                | 1 +
+ src/Gui/CMakeLists.txt        | 4 ++++
+ src/Gui/PythonConsole.cpp     | 4 ++++
+ src/Gui/SyntaxHighlighter.cpp | 4 ++++
+ 4 files changed, 13 insertions(+)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 092ce8d08..03a4b28af 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -280,6 +280,7 @@ OPTION(BUILD_TUX "Build the FreeCAD Tux module" ON)
+ OPTION(BUILD_WEB "Build the FreeCAD web module" ON)
+ OPTION(BUILD_SURFACE "Build the FreeCAD surface module" ON)
+ OPTION(BUILD_VR "Build the FreeCAD Oculus Rift support (need Oculus SDK 4.x or higher)" OFF)
++OPTION(BG_DARK "Build highlighting for dark background" OFF)
+ 
+ if(MSVC)
+     OPTION(BUILD_FEM_NETGEN "Build the FreeCAD FEM module with the NETGEN mesher" ON)
+diff --git a/src/Gui/CMakeLists.txt b/src/Gui/CMakeLists.txt
+index be1651c8a..e672ee0bc 100644
+--- a/src/Gui/CMakeLists.txt
++++ b/src/Gui/CMakeLists.txt
+@@ -26,6 +26,10 @@ if (BUILD_ADDONMGR)
+     add_definitions(-DBUILD_ADDONMGR )
+ endif(BUILD_ADDONMGR)
+ 
++if(BG_DARK)
++ 	add_definitions(-DBG_DARK)
++endif(BG_DARK)
++
+ include_directories(
+     ${CMAKE_BINARY_DIR}
+     ${CMAKE_CURRENT_SOURCE_DIR}
+diff --git a/src/Gui/PythonConsole.cpp b/src/Gui/PythonConsole.cpp
+index 56b71255d..b46450fa1 100644
+--- a/src/Gui/PythonConsole.cpp
++++ b/src/Gui/PythonConsole.cpp
+@@ -106,7 +106,11 @@ struct PythonConsoleP
+         interpreter = 0;
+         callTipsList = 0;
+         interactive = false;
++#ifdef BG_DARK
++        colormap[QLatin1String("Text")] = QColor(255, 255, 255);
++#else
+         colormap[QLatin1String("Text")] = Qt::black;
++#endif
+         colormap[QLatin1String("Bookmark")] = Qt::cyan;
+         colormap[QLatin1String("Breakpoint")] = Qt::red;
+         colormap[QLatin1String("Keyword")] = Qt::blue;
+diff --git a/src/Gui/SyntaxHighlighter.cpp b/src/Gui/SyntaxHighlighter.cpp
+index 9d12741be..11830e693 100644
+--- a/src/Gui/SyntaxHighlighter.cpp
++++ b/src/Gui/SyntaxHighlighter.cpp
+@@ -34,7 +34,11 @@ class SyntaxHighlighterP
+ public:
+     SyntaxHighlighterP()
+     {
++#ifdef BG_DARK
++		cNormalText.setRgb(255, 255, 255); cComment.setRgb(0, 170, 0);
++#else
+         cNormalText.setRgb(0, 0, 0); cComment.setRgb(0, 170, 0);
++#endif
+         cBlockcomment.setRgb(160, 160, 164); cLiteral.setRgb(255, 0, 0);
+         cNumber.setRgb(0, 0, 255); cOperator.setRgb(160, 160, 164);
+         cKeyword.setRgb(0, 0, 255); cClassName.setRgb(255, 170, 0);
+-- 
+2.26.2
+

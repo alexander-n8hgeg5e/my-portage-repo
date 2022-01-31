@@ -1,0 +1,25 @@
+From a4fc458baeb60c040aa38b0ea5188ff7f4709a86 Mon Sep 17 00:00:00 2001
+From: alexander-n8hgeg5e <alexander.w.email@gmail.com>
+Date: Thu, 13 May 2021 20:08:23 +0200
+Subject: [PATCH] allow unknown distro
+
+---
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/configure.ac b/configure.ac
+index 81f8d1bf..ef202ce1 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -196,7 +196,7 @@ for i in $DISTRO $DISTROS; do
+ 			DISTROEXT=debian
+ 			break
+ 		;;
+-		fedora|rhel|centos|opensuse*)
++		fedora|rhel|centos|opensuse*|*)
+ 			FOUND_DISTRO=1
+ 			CONFIGDIR="$sysconfdir/sysconfig"
+ 			PCSLIBDIR="$LIBDIR"
+-- 
+2.26.3
+

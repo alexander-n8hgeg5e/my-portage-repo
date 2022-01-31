@@ -1,1 +1,1 @@
-/var/src/gitsuperpushpull/portage/dev-vcs/gitsuperpushpull/gitsuperpushpull-9999.ebuild
+/var/src/portage/app-misc/gitsuperpushpull/gitsuperpushpull-9999.ebuild

@@ -1,0 +1,308 @@
+# HG changeset patch
+# User David Sterba <dsterba@suse.cz>
+# Date 1454172837 0
+#      Sat Jan 30 16:53:57 2016 +0000
+# Node ID 722c1d0b8da734814bd129c78defab5d82401faf
+# Parent  a0627b55461d7c895ed0fc034619788dc3e1bd1e
+[PATCH] feature: status-color
+Custom rules for theming the status bar
+---
+ color.c       |  41 ++++++++++++++++----
+ curs_main.c   | 123 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ mutt_curses.h |   2 +
+ pager.c       |   4 +-
+ protos.h      |   1 +
+ 5 files changed, 160 insertions(+), 11 deletions(-)
+
+diff -r a0627b55461d -r 722c1d0b8da7 PATCHES
+--- a/PATCHES	Fri Nov 15 14:21:02 2013 +0100
++++ b/PATCHES	Sat Jan 30 16:53:57 2016 +0000
+@@ -1,3 +1,4 @@
++patch-status-color-neomutt
+ patch-skip-quoted-neomutt
+ patch-progress-neomutt
+ patch-sidebar-on-right-neomutt
+diff -r a0627b55461d -r 722c1d0b8da7 color.c
+--- a/color.c	Fri Nov 15 14:21:02 2013 +0100
++++ b/color.c	Sat Jan 30 16:53:57 2016 +0000
+@@ -35,6 +35,7 @@ int ColorQuoteUsed;
+ int ColorDefs[MT_COLOR_MAX];
+ COLOR_LINE *ColorHdrList = NULL;
+ COLOR_LINE *ColorBodyList = NULL;
++COLOR_LINE *ColorStatusList = NULL;
+ COLOR_LINE *ColorIndexList = NULL;
+ 
+ /* local to this file */
+@@ -518,7 +519,7 @@ static int _mutt_parse_uncolor (BUFFER *
+ static int 
+ add_pattern (COLOR_LINE **top, const char *s, int sensitive,
+ 	     int fg, int bg, int attr, BUFFER *err,
+-	     int is_index)
++	     int is_index, int match)
+ {
+ 
+   /* is_index used to store compiled pattern
+@@ -589,6 +590,7 @@ add_pattern (COLOR_LINE **top, const cha
+     }
+     tmp->next = *top;
+     tmp->pattern = safe_strdup (s);
++    tmp->match = match;
+ #ifdef HAVE_COLOR
+     if(fg != -1 && bg != -1)
+     {
+@@ -747,7 +749,7 @@ static int
+ 		   parser_callback_t callback, short dry_run)
+ {
+   int object = 0, attr = 0, fg = 0, bg = 0, q_level = 0;
+-  int r = 0;
++  int r = 0, match = 0;
+ 
+   if(parse_object(buf, s, &object, &q_level, err) == -1)
+     return -1;
+@@ -755,8 +757,6 @@ static int
+   if(callback(buf, s, &fg, &bg, &attr, err) == -1)
+     return -1;
+ 
+-  /* extract a regular expression if needed */
+-  
+   if (object == MT_COLOR_HEADER || object == MT_COLOR_BODY || object == MT_COLOR_INDEX)
+   {
+     if (!MoreArgs (s))
+@@ -768,7 +768,7 @@ static int
+     mutt_extract_token (buf, s, 0);
+   }
+    
+-  if (MoreArgs (s))
++  if (MoreArgs (s) && (object != MT_COLOR_STATUS))
+   {
+     strfcpy (err->data, _("too many arguments"), err->dsize);
+     return (-1);
+@@ -793,12 +793,36 @@ static int
+ #endif
+   
+   if (object == MT_COLOR_HEADER)
+-    r = add_pattern (&ColorHdrList, buf->data, 0, fg, bg, attr, err,0);
++    r = add_pattern (&ColorHdrList, buf->data, 0, fg, bg, attr, err,0, match);
+   else if (object == MT_COLOR_BODY)
+-    r = add_pattern (&ColorBodyList, buf->data, 1, fg, bg, attr, err, 0);
++    r = add_pattern (&ColorBodyList, buf->data, 1, fg, bg, attr, err, 0, match);
++  else if ((object == MT_COLOR_STATUS) && MoreArgs (s)) {
++    /* 'color status fg bg' can have upto 2 arguments:
++     * 0 arguments: sets the default status color (handled below by else part)
++     * 1 argument : colorize pattern on match
++     * 2 arguments: colorize nth submatch of pattern
++     */
++    mutt_extract_token (buf, s, 0);
++
++    if (MoreArgs (s)) {
++      BUFFER temporary;
++      memset (&temporary, 0, sizeof (BUFFER));
++      mutt_extract_token (&temporary, s, 0);
++      match = atoi (temporary.data);
++      FREE(&temporary.data);
++    }
++
++    if (MoreArgs (s)) {
++      strfcpy (err->data, _("too many arguments"), err->dsize);
++      return -1;
++    }
++
++    r = add_pattern (&ColorStatusList, buf->data, 1,
++		    fg, bg, attr, err, 0, match);
++  }
+   else if (object == MT_COLOR_INDEX)
+   {
+-    r = add_pattern (&ColorIndexList, buf->data, 1, fg, bg, attr, err, 1);
++    r = add_pattern (&ColorIndexList, buf->data, 1, fg, bg, attr, err, 1,match);
+     mutt_set_menu_redraw_full (MENU_MAIN);
+   }
+   else if (object == MT_COLOR_QUOTED)
+diff -r a0627b55461d -r 722c1d0b8da7 curs_main.c
+--- a/curs_main.c	Fri Nov 15 14:21:02 2013 +0100
++++ b/curs_main.c	Sat Jan 30 16:53:57 2016 +0000
+@@ -482,6 +482,127 @@ static void resort_index (MUTTMENU *menu
+   menu->redraw |= REDRAW_INDEX | REDRAW_STATUS;
+ }
+ 
++/**
++ * mutt_draw_statusline - Draw a highlighted status bar
++ * @cols:  Maximum number of screen columns
++ * @buf:   Message to be displayed
++ *
++ * Users configure the highlighting of the status bar, e.g.
++ *     color status red default "[0-9][0-9]:[0-9][0-9]"
++ *
++ * Where regexes overlap, the one nearest the start will be used.
++ * If two regexes start at the same place, the longer match will be used.
++ */
++void
++mutt_draw_statusline (int cols, const char *buf, int buflen)
++{
++	int i      = 0;
++	int offset = 0;
++	int found  = 0;
++	int chunks = 0;
++	int len    = 0;
++
++	struct syntax_t {
++		int color;
++		int first;
++		int last;
++	} *syntax = NULL;
++
++	if (!buf)
++		return;
++
++	do {
++		COLOR_LINE *cl;
++		found = 0;
++
++		if (!buf[offset])
++			break;
++
++		/* loop through each "color status regex" */
++		for (cl = ColorStatusList; cl; cl = cl->next) {
++			regmatch_t pmatch[cl->match + 1];
++
++			if (regexec (&cl->rx, buf + offset, cl->match + 1, pmatch, 0) != 0)
++				continue;	/* regex doesn't match the status bar */
++
++			int first = pmatch[cl->match].rm_so + offset;
++			int last  = pmatch[cl->match].rm_eo + offset;
++
++			if (first == last)
++				continue;	/* ignore an empty regex */
++
++			if (!found) {
++				chunks++;
++				safe_realloc (&syntax, chunks * sizeof (struct syntax_t));
++			}
++
++			i = chunks - 1;
++			if (!found || (first < syntax[i].first) || ((first == syntax[i].first) && (last > syntax[i].last))) {
++				syntax[i].color = cl->pair;
++				syntax[i].first = first;
++				syntax[i].last  = last;
++			}
++			found = 1;
++		}
++
++		if (syntax) {
++			offset = syntax[i].last;
++		}
++	} while (found);
++
++	/* Only 'len' bytes will fit into 'cols' screen columns */
++	len = mutt_wstr_trunc (buf, buflen, cols, NULL);
++
++	offset = 0;
++
++	if ((chunks > 0) && (syntax[0].first > 0)) {
++		/* Text before the first highlight */
++		addnstr (buf, MIN(len, syntax[0].first));
++		attrset (ColorDefs[MT_COLOR_STATUS]);
++		if (len <= syntax[0].first)
++			goto dsl_finish;	/* no more room */
++
++		offset = syntax[0].first;
++	}
++
++	for (i = 0; i < chunks; i++) {
++		/* Highlighted text */
++		attrset (syntax[i].color);
++		addnstr (buf + offset, MIN(len, syntax[i].last) - offset);
++		if (len <= syntax[i].last)
++			goto dsl_finish;	/* no more room */
++
++		int next;
++		if ((i + 1) == chunks) {
++			next = len;
++		} else {
++			next = MIN (len, syntax[i+1].first);
++		}
++
++		attrset (ColorDefs[MT_COLOR_STATUS]);
++		offset = syntax[i].last;
++		addnstr (buf + offset, next - offset);
++
++		offset = next;
++		if (offset >= len)
++			goto dsl_finish;	/* no more room */
++	}
++
++	attrset (ColorDefs[MT_COLOR_STATUS]);
++	if (offset < len) {
++		/* Text after the last highlight */
++		addnstr (buf + offset, len - offset);
++	}
++
++	int width = mutt_strwidth (buf);
++	if (width < cols) {
++		/* Pad the rest of the line with whitespace */
++		mutt_paddstr (cols - width, "");
++	}
++dsl_finish:
++	FREE(&syntax);
++}
++
+ static const struct mapping_t IndexHelp[] = {
+   { N_("Quit"),  OP_QUIT },
+   { N_("Del"),   OP_DELETE },
+@@ -532,7 +653,7 @@ static void index_menu_redraw (MUTTMENU 
+     menu_status_line (buf, sizeof (buf), menu, NONULL (Status));
+     mutt_window_move (MuttStatusWindow, 0, 0);
+     SETCOLOR (MT_COLOR_STATUS);
+-    mutt_paddstr (MuttStatusWindow->cols, buf);
++    mutt_draw_statusline (MuttStatusWindow->cols, buf, sizeof (buf));
+     NORMAL_COLOR;
+     menu->redraw &= ~REDRAW_STATUS;
+     if (option(OPTTSENABLED) && TSSupported)
+diff -r a0627b55461d -r 722c1d0b8da7 mutt_curses.h
+--- a/mutt_curses.h	Fri Nov 15 14:21:02 2013 +0100
++++ b/mutt_curses.h	Sat Jan 30 16:53:57 2016 +0000
+@@ -134,6 +134,7 @@ enum
+ typedef struct color_line
+ {
+   regex_t rx;
++  int match; /* which substringmap 0 for old behaviour */
+   char *pattern;
+   pattern_t *color_pattern; /* compiled pattern to speed up index color
+                                calculation */
+@@ -209,6 +210,7 @@ extern int ColorQuoteUsed;
+ extern int ColorDefs[];
+ extern COLOR_LINE *ColorHdrList;
+ extern COLOR_LINE *ColorBodyList;
++extern COLOR_LINE *ColorStatusList;
+ extern COLOR_LINE *ColorIndexList;
+ 
+ void ci_init_color (void);
+diff -r a0627b55461d -r 722c1d0b8da7 pager.c
+--- a/pager.c	Fri Nov 15 14:21:02 2013 +0100
++++ b/pager.c	Sat Jan 30 16:53:57 2016 +0000
+@@ -1864,13 +1864,13 @@ static void pager_menu_redraw (MUTTMENU 
+       size_t l2 = sizeof (buffer);
+       hfi.hdr = (IsHeader (rd->extra)) ? rd->extra->hdr : rd->extra->bdy->hdr;
+       mutt_make_string_info (buffer, l1 < l2 ? l1 : l2, rd->pager_status_window->cols, NONULL (PagerFmt), &hfi, MUTT_FORMAT_MAKEPRINT);
+-      mutt_paddstr (rd->pager_status_window->cols, buffer);
++      mutt_draw_statusline (rd->pager_status_window->cols, buffer, l2);
+     }
+     else
+     {
+       char bn[STRING];
+       snprintf (bn, sizeof (bn), "%s (%s)", rd->banner, pager_progress_str);
+-      mutt_paddstr (rd->pager_status_window->cols, bn);
++      mutt_draw_statusline (rd->pager_status_window->cols, bn, sizeof(bn));
+     }
+     NORMAL_COLOR;
+     if (option(OPTTSENABLED) && TSSupported)
+diff -r a0627b55461d -r 722c1d0b8da7 protos.h
+--- a/protos.h	Fri Nov 15 14:21:02 2013 +0100
++++ b/protos.h	Sat Jan 30 16:53:57 2016 +0000
+@@ -182,6 +182,7 @@ void mutt_decode_base64 (STATE *s, long 
+ void mutt_default_save (char *, size_t, HEADER *);
+ void mutt_display_address (ENVELOPE *);
+ void mutt_display_sanitize (char *);
++void mutt_draw_statusline (int cols, const char *buf, int buflen);
+ int mutt_edit_content_type (HEADER *, BODY *, FILE *);
+ void mutt_edit_file (const char *, const char *);
+ void mutt_edit_headers (const char *, const char *, HEADER *, char *, size_t);

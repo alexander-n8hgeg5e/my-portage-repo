@@ -1,1 +1,31 @@
-/var/src/xkbmap/portage/x11-misc/nlthr/patch.diff
+diff --git a/local/portage/eclass/dupeguru-qt4.eclass b/local/portage/eclass/dupeguru-qt4.eclass
+index 16bbbf3..252eeea 100644
+--- a/local/portage/eclass/dupeguru-qt4.eclass
++++ b/local/portage/eclass/dupeguru-qt4.eclass
+@@ -1,7 +1,7 @@
+ # Copyright 2014 Virgil Dupras
+ # Distributed under the terms of the GNU General Public License v2
+ 
+-PYTHON_COMPAT=( python3_3 )
++PYTHON_COMPAT=( python3_4 )
+ 
+ inherit eutils python-r1
+ 
+diff --git a/share/X11/xkb/rules/base.lst b/share/X11/xkb/rules/base.lst
+index b7756ac..7daba3e 100644
+--- a/share/X11/xkb/rules/base.lst
++++ b/share/X11/xkb/rules/base.lst
+@@ -1,4 +1,5 @@
+ ! model
++  cherry_rs6000usb_mod my_cherry_keyboard used for nlthr
+   pc101           Generic 101-key PC
+   pc102           Generic 102-key (Intl) PC
+   pc104           Generic 104-key PC
+@@ -188,6 +189,7 @@
+   teck229         Truly Ergonomic Computer Keyboard Model 229 (Standard sized Alt keys, additional Super and Menu key)
+ 
+ ! layout
++  nlthr           German/English
+   us              English (US)
+   af              Afghani
+   ara             Arabic

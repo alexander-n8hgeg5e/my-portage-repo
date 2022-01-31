@@ -15,6 +15,8 @@ RDEPEND="${DEPEND}"
 BDEPEND=""
 IUSE="set-perms backup"
 
+BDEPEND="dev-libs/libgcrypt[static]"
+
 pkg_setup(){
 	_GENKERNEL_CONF="/etc/genkernel.conf"
 	KERNEL_SOURCE_TREE=$(source "${_GENKERNEL_CONF}" &>/dev/null && echo ${DEFAULT_KERNEL_SOURCE})
@@ -67,16 +69,22 @@ src_prepare(){
 
 	cp /etc/genkernel.conf "${WORKDIR}"/ || die
 
+	do_append_to_config(){
+		varname="${1}"
+		value="${2}"
+		sed -i -E '$a\
+			'"${varname}=${value}"'
+		' "${WORKDIR}/genkernel.conf"
+	einfo $(tail -n1 "${WORKDIR}/genkernel.conf")
+	}
+
 	do_mkdir_and_append_to_config(){
 		varname="${1}"
 		value="${2}"
 		if ! [[ -e "${value}" ]] ;then
 			mkdir -p "${value}" || eend 1
 		fi
-		sed -i -E '$a\
-			'"${varname}=${value}"'
-		' "${WORKDIR}/genkernel.conf"
-	einfo $(tail -n1 "${WORKDIR}/genkernel.conf")
+		do_append_to_config "${varname}" "${value}"
 	}
 
 	varname="DEFAULT_KERNEL_SOURCE"
@@ -89,7 +97,7 @@ src_prepare(){
 
 	varname="LOGFILE"
 	value="${T}/genkernel.log"
-	do_mkdir_and_append_to_config $varname $value || die
+	do_append_to_config $varname $value || die
 
 	varname="SAVE_CONFIG"
 	value="no"
@@ -110,6 +118,7 @@ src_prepare(){
 	value="${WORKDIR}/TMPDIR"
 	do_mkdir_and_append_to_config $varname $value || die
 	ewarn "genkernel config option TMPDIR ignored"
+	eapply_user
 }
 
 src_compile(){
@@ -122,11 +131,13 @@ src_compile(){
 	if [[ -e "${INITIAL_KERNEL_CONFIG}" ]];then
 		einfo "Using initial kernel config from \"${INITIAL_KERNEL_CONFIG}\"."
 		einfo "${kconfmsg}"
-		genkernel --config="${WORKDIR}/genkernel.conf" --kernel-config="${INITIAL_KERNEL_CONFIG}" all || die
+		genkernel --config="${WORKDIR}/genkernel.conf" --kernel-config="${INITIAL_KERNEL_CONFIG}" --no-clean bzImage   || die
+		genkernel --config="${WORKDIR}/genkernel.conf" --kernel-config="${INITIAL_KERNEL_CONFIG}" --no-clean initramfs || die
 	else
 		einfo "Put your initial kernel config at \"${INITIAL_KERNEL_CONFIG}\"."
 		einfo "${kconfmsg}"
-		genkernel --config="${WORKDIR}/genkernel.conf" all || die
+		genkernel --config="${WORKDIR}/genkernel.conf" --no-clean bzImage   || die
+		genkernel --config="${WORKDIR}/genkernel.conf" --no-clean initramfs || die
 	fi
 	die
 }

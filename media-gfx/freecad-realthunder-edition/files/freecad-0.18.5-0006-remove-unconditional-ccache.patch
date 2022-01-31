@@ -1,0 +1,31 @@
+From a777e74dc91efd6152c6324e0bb576227e518714 Mon Sep 17 00:00:00 2001
+From: alexander-n8hgeg5e <alexander.w.email@gmail.com>
+Date: Mon, 6 Jul 2020 08:33:09 +0200
+Subject: [PATCH 6/8] remove unconditional ccache
+
+---
+ CMakeLists.txt | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 311fd3f7b..6e663b074 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -28,10 +28,10 @@ if(COMMAND cmake_policy)
+     endif(POLICY CMP0072)
+ endif(COMMAND cmake_policy)
+ 
+-find_program(CCACHE_PROGRAM ccache)  #This check should occur before project()
+-if(CCACHE_PROGRAM)
+-    set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CCACHE_PROGRAM}")
+-endif()
++#find_program(CCACHE_PROGRAM ccache)  #This check should occur before project()
++#if(CCACHE_PROGRAM)
++#    set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CCACHE_PROGRAM}")
++#endif()
+ 
+ # include local  modules
+ include(AddFileDependencies)
+-- 
+2.26.2
+

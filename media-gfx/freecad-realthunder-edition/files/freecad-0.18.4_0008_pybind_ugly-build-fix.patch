@@ -1,0 +1,19 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index e2b10e7..8fef887 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -580,10 +580,10 @@ endif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin" AND NOT BUILD_WITH_CONDA)
+ 
+ # -------------------------------- PyBind11 -----------------------------
+ # necessary for flat-mesh feature
+-OPTION(FREECAD_USE_PYBIND11 "Use pybind11" OFF)
+-if (FREECAD_USE_PYBIND11)
+-    find_package(pybind11 REQUIRED)
+-endif()
++#OPTION(FREECAD_USE_PYBIND11 "Use pybind11" OFF)
++#if (FREECAD_USE_PYBIND11)
++#    find_package(pybind11 REQUIRED)
++#endif()
+ # -------------------------------- Boost --------------------------------
+ 
+     SET(_boost_TEST_VERSIONS ${Boost_ADDITIONAL_VERSIONS})

@@ -1,0 +1,63 @@
+diff --git a/offlineimap/ui/Machine.py b/offlineimap/ui/Machine.py
+index cee2849..dcbb518 100644
+--- a/offlineimap/ui/Machine.py
++++ b/offlineimap/ui/Machine.py
+@@ -34,7 +34,7 @@ class MachineLogFormatter(logging.Formatter):
+         return line + urlencode([('', record.mesg)])[1:]
+ 
+ class MachineUI(UIBase):
+-    def __init__(self, config, loglevel = logging.INFO):
++    def __init__(self, config, loglevel = logging.INFO+1):
+         super(MachineUI, self).__init__(config, loglevel)
+         self._log_con_handler.createLock()
+         """lock needed to block on password input"""
+diff --git a/offlineimap/ui/Noninteractive.py b/offlineimap/ui/Noninteractive.py
+index de1e8df..35d84cd 100644
+--- a/offlineimap/ui/Noninteractive.py
++++ b/offlineimap/ui/Noninteractive.py
+@@ -20,7 +20,7 @@ from offlineimap.ui.UIBase import UIBase
+ 
+ class Basic(UIBase):
+     """'Quiet' simply sets log level to INFO"""
+-    def __init__(self, config, loglevel = logging.INFO):
++    def __init__(self, config, loglevel = logging.INFO+1):
+         return super(Basic, self).__init__(config, loglevel)
+ 
+ class Quiet(UIBase):
+diff --git a/offlineimap/ui/TTY.py b/offlineimap/ui/TTY.py
+index efde74f..6031c1b 100644
+--- a/offlineimap/ui/TTY.py
++++ b/offlineimap/ui/TTY.py
+@@ -41,7 +41,7 @@ class TTYFormatter(logging.Formatter):
+             return log_str # main thread doesn't get things prepended
+         if t_name != self._last_log_thread:
+             self._last_log_thread = t_name
+-            log_str = "%s:\n %s" % (t_name, log_str)
++            log_str = "%s : %s:\n %s" % (time.asctime() ,t_name, log_str)
+         else:
+             log_str = " %s" % log_str
+         return log_str
+diff --git a/offlineimap/ui/UIBase.py b/offlineimap/ui/UIBase.py
+index 4dfd092..bfa70c4 100644
+--- a/offlineimap/ui/UIBase.py
++++ b/offlineimap/ui/UIBase.py
+@@ -46,7 +46,7 @@ def getglobalui():
+     return globalui
+ 
+ class UIBase(object):
+-    def __init__(self, config, loglevel = logging.INFO):
++    def __init__(self, config, loglevel = logging.INFO+1):
+         self.config = config
+         # Is this a 'dryrun'?
+         self.dryrun = config.getdefaultboolean('general', 'dry-run', False)
+@@ -300,8 +300,8 @@ class UIBase(object):
+         """Output that we finished syncing an account (in which time)"""
+         sec = time.time() - self.acct_startimes[account]
+         del self.acct_startimes[account]
+-        self.logger.info("*** Finished account '%s' in %d:%02d" %
+-               (account, sec // 60, sec % 60))
++        self.logger.log( logging.INFO+1 , "************************************************ Finished account '%s' in %d:%02d  at %s" %
++               ( account, sec // 60, sec % 60 , time.asctime()) )
+ 
+     def syncfolders(self, src_repo, dst_repo):
+         """Log 'Copying folder structure...'"""

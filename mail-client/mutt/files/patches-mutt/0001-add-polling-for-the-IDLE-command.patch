@@ -1,0 +1,38 @@
+# HG changeset patch
+# User Kevin McCarthy <kevin@8t8.us>
+# Date 1508051598 -28800
+#      Sun Oct 15 15:13:18 2017 +0800
+# Node ID 8854eb2c9fb4213835ad9c289181b4f0c8d64f67
+# Parent  303c7db4b1a937522ec86e20f583f5d72d2f502a
+Add polling for the IDLE command. (closes #3957)
+
+Add $imap_poll_timeout poll for IDLE, since this is also a command
+that will freeze after waking if $imap_idle is set.
+(transplanted from 3c67a3cd32238fa909a16fe600452324efd7387d)
+
+diff -r 303c7db4b1a9 -r 8854eb2c9fb4 imap/command.c
+--- a/imap/command.c	Sat Mar 03 13:40:27 2018 -0800
++++ b/imap/command.c	Sun Oct 15 15:13:18 2017 +0800
+@@ -334,7 +334,21 @@ int imap_cmd_idle (IMAP_DATA* idata)
+ {
+   int rc;
+ 
+-  imap_cmd_start (idata, "IDLE");
++  if (cmd_start (idata, "IDLE", IMAP_CMD_POLL) < 0)
++  {
++    cmd_handle_fatal (idata);
++    return -1;
++  }
++
++  if ((ImapPollTimeout > 0) &&
++      (mutt_socket_poll (idata->conn, ImapPollTimeout)) == 0)
++  {
++    mutt_error (_("Connection to %s timed out"), idata->conn->account.host);
++    mutt_sleep (2);
++    cmd_handle_fatal (idata);
++    return -1;
++  }
++
+   do
+     rc = imap_cmd_step (idata);
+   while (rc == IMAP_CMD_CONTINUE);

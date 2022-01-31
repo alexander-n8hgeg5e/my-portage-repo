@@ -1,0 +1,47 @@
+From 930e7736c7488a398da48fd80b3fb1124a8fcac0 Mon Sep 17 00:00:00 2001
+From: alexander-n8hgeg5e <alexander.w.email@gmail.com>
+Date: Thu, 13 May 2021 19:37:57 +0200
+Subject: [PATCH] remove systemd dependency
+
+---
+ configure.ac | 24 ++++++++++++------------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index 81f8d1bf..17e75983 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -87,18 +87,18 @@ AC_DEFUN([PCS_PKG_CHECK_VAR], [
+ 		    [AC_MSG_RESULT([yes (detected: ${!varname})])])
+ ])
+ 
+-# check for systemd
+-PKG_CHECK_MODULES([systemd], [systemd])
+-PCS_PKG_CHECK_VAR([SYSTEMD_UNIT_DIR_TMP], [systemd], [systemdsystemunitdir], [/usr/lib/systemd/system])
+-if test "${prefix}" != "/usr"; then
+-	SYSTEMD_UNIT_DIR="${prefix}/$SYSTEMD_UNIT_DIR_TMP"
+-else
+-	SYSTEMD_UNIT_DIR="$SYSTEMD_UNIT_DIR_TMP"
+-fi
+-AC_SUBST([SYSTEMD_UNIT_DIR])
+-PCS_PKG_CHECK_VAR([SYSTEMD_UNIT_PATH], [systemd], [systemdsystemunitpath],
+-		  [/etc/systemd/system:/etc/systemd/system:/run/systemd/system:/usr/local/lib/systemd/system:/usr/lib/systemd/system:/usr/lib/systemd/system:/lib/systemd/system])
+-AC_SUBST([SYSTEMD_UNIT_PATH])
++## check for systemd
++#PKG_CHECK_MODULES([systemd], [systemd])
++#PCS_PKG_CHECK_VAR([SYSTEMD_UNIT_DIR_TMP], [systemd], [systemdsystemunitdir], [/usr/lib/systemd/system])
++#if test "${prefix}" != "/usr"; then
++#	SYSTEMD_UNIT_DIR="${prefix}/$SYSTEMD_UNIT_DIR_TMP"
++#else
++#	SYSTEMD_UNIT_DIR="$SYSTEMD_UNIT_DIR_TMP"
++#fi
++#AC_SUBST([SYSTEMD_UNIT_DIR])
++#PCS_PKG_CHECK_VAR([SYSTEMD_UNIT_PATH], [systemd], [systemdsystemunitpath],
++#		  [/etc/systemd/system:/etc/systemd/system:/run/systemd/system:/usr/local/lib/systemd/system:/usr/lib/systemd/system:/usr/lib/systemd/system:/lib/systemd/system])
++#AC_SUBST([SYSTEMD_UNIT_PATH])
+ 
+ # check for ruby
+ AC_PATH_PROG([RUBY], [ruby])
+-- 
+2.26.3
+

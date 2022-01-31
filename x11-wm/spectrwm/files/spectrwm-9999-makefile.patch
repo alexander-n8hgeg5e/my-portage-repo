@@ -1,0 +1,49 @@
+diff --git a/linux/Makefile b/linux/Makefile
+index 64bef92..2c2bbe8 100644
+--- a/linux/Makefile
++++ b/linux/Makefile
+@@ -1,7 +1,9 @@
+ PREFIX       ?= /usr/local
+ BINDIR       ?= $(PREFIX)/bin
+ LIBDIR       ?= $(PREFIX)/lib
++SYSCONFDIR   ?= $(PREFIX)/etc
+ DATAROOTDIR  ?= $(PREFIX)/share
++DOCDIR       ?= $(DATAROOTDIR)/doc/spectrwm
+ MANDIR       ?= $(DATAROOTDIR)/man
+ XSESSIONSDIR ?= $(DATAROOTDIR)/xsessions
+ 
+@@ -49,23 +51,32 @@ clean:
+ install: all
+ 	install -m 755 -d $(DESTDIR)$(BINDIR)
+ 	install -m 755 -d $(DESTDIR)$(LIBDIR)
++	install -m 755 -d $(DESTDIR)$(SYSCONFDIR)
+ 	install -m 755 -d $(DESTDIR)$(MANDIR)/man1
++	install -m 755 -d $(DESTDIR)$(SYSCONFDIR)
++	install -m 755 -d $(DESTDIR)$(DOCDIR)
+ 	install -m 755 -d $(DESTDIR)$(XSESSIONSDIR)
+ 	install -m 755 spectrwm                    $(DESTDIR)$(BINDIR)
+ 	ln -sf spectrwm                            $(DESTDIR)$(BINDIR)/scrotwm
+-	install -m 644 libswmhack.so.$(LIBVERSION) $(DESTDIR)$(LIBDIR)
++	install -m 755 libswmhack.so.$(LIBVERSION) $(DESTDIR)$(LIBDIR)
+ 	ln -sf libswmhack.so.$(LIBVERSION)         $(DESTDIR)$(LIBDIR)/libswmhack.so.$(LIBMAJORVERSION)
+ 	ln -sf libswmhack.so.$(LIBVERSION)         $(DESTDIR)$(LIBDIR)/libswmhack.so
+-	install -m 644 ../spectrwm.1               $(DESTDIR)$(MANDIR)/man1/spectrwm.1
++	install -m 644 ../spectrwm.conf            $(DESTDIR)$(SYSCONFDIR)
++	install -m 644 ../spectrwm.1               $(DESTDIR)$(MANDIR)/man1
++	install -m 644 ../CHANGELOG.md             $(DESTDIR)$(DOCDIR)
++	install -m 644 ../LICENSE.md               $(DESTDIR)$(DOCDIR)
+ 	install -m 644 spectrwm.desktop            $(DESTDIR)$(XSESSIONSDIR)
+ 
+ uninstall:
+ 	rm -f $(DESTDIR)$(BINDIR)/spectrwm
+ 	rm -f $(DESTDIR)$(BINDIR)/scrotwm
+ 	rm -f $(DESTDIR)$(LIBDIR)/libswmhack.so.$(LIBVERSION)
++	rm -f $(DESTDIR)$(SYSCONFDIR)/spectrwm.conf
+ 	rm -f $(DESTDIR)$(LIBDIR)/libswmhack.so.$(LIBMAJORVERSION)
+ 	rm -f $(DESTDIR)$(LIBDIR)/libswmhack.so
+ 	rm -f $(DESTDIR)$(MANDIR)/man1/spectrwm.1
++	rm -f $(DESTDIR)$(DOCDIR)/CHANGELOG.md
++	rm -f $(DESTDIR)$(DOCDIR)/LICENSE.md
+ 	rm -f $(DESTDIR)$(XSESSIONSDIR)/spectrwm.desktop
+ 
+ .PHONY: all clean install uninstall

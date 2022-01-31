@@ -1,0 +1,23 @@
+# HG changeset patch
+# User Fabian Groffen <grobian@gentoo.org>
+# Date 1522498552 -7200
+#      Sat Mar 31 14:15:52 2018 +0200
+# Node ID 891c47134b3d8c89089a21bbf703d6e7562a7538
+# Parent  40e860d14e72b50a34958be31ce45c9001f8e1f3
+imported patch gentoo/0012-reconnect-faster.patch
+
+diff -r 40e860d14e72 -r 891c47134b3d imap/command.c
+--- a/imap/command.c	Mon May 30 03:56:57 2016 +0100
++++ b/imap/command.c	Sat Mar 31 14:15:52 2018 +0200
+@@ -346,8 +346,11 @@ int imap_cmd_idle (IMAP_DATA* idata)
+   if ((ImapPollTimeout > 0) &&
+       (mutt_socket_poll (idata->conn, ImapPollTimeout)) == 0)
+   {
++    /* skip sleep, cmd_handle_fatal sleeps too,
++     * skipping this makes recovery faster
+     mutt_error (_("Connection to %s timed out"), idata->conn->account.host);
+     mutt_sleep (2);
++     */
+     cmd_handle_fatal (idata);
+     return -1;
+   }

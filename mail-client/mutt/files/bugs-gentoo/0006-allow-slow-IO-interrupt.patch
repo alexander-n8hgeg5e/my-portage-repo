@@ -1,0 +1,238 @@
+# HG changeset patch
+# User Antonio Radici <antonio@dyne.org>
+# Date 1473504530 -3600
+#      Sat Sep 10 11:48:50 2016 +0100
+# Node ID ded90ccbc6de298913f34d659020f1ef3b2e59cb
+# Parent  e3eeb6a829ee24365c4533a4c599073542e689e0
+---
+
+Allow the user to interrupt slow IO operations
+
+Adapted by grobian@gentoo.org to allow interrupting mutt_socket_poll in
+the updated version which uses a timeout.
+
+diff -r e3eeb6a829ee -r ded90ccbc6de PATCHES
+--- a/PATCHES	Sun Sep 16 09:31:54 2012 +0200
++++ b/PATCHES	Sat Sep 10 11:48:50 2016 +0100
+@@ -1,3 +1,4 @@
++patch-allow-slow-IO-interrupt-neomutt
+ patch-browser-sort-additions-neomutt
+ patch-bind-enter-return-separately-gentoo
+ patch-unlocked-IO-neomutt
+diff -r e3eeb6a829ee -r ded90ccbc6de imap/command.c
+--- a/imap/command.c	Sun Sep 16 09:31:54 2012 +0200
++++ b/imap/command.c	Sat Sep 10 11:48:50 2016 +0100
+@@ -264,9 +264,12 @@ int imap_exec (IMAP_DATA* idata, const c
+     return -1;
+   }
+ 
++  // Allow interruptions, particularly useful if there are network problems.
++  mutt_allow_interrupt (1);
+   do
+     rc = imap_cmd_step (idata);
+   while (rc == IMAP_CMD_CONTINUE);
++  mutt_allow_interrupt (0);
+ 
+   if (rc == IMAP_CMD_NO && (flags & IMAP_CMD_FAIL_OK))
+     return -2;
+diff -r e3eeb6a829ee -r ded90ccbc6de mutt_socket.c
+--- a/mutt_socket.c	Sun Sep 16 09:31:54 2012 +0200
++++ b/mutt_socket.c	Sat Sep 10 11:48:50 2016 +0100
+@@ -408,12 +408,19 @@ int raw_socket_read (CONNECTION* conn, c
+ {
+   int rc;
+ 
++  mutt_allow_interrupt (1);
+   if ((rc = read (conn->fd, buf, len)) == -1)
+   {
+     mutt_error (_("Error talking to %s (%s)"), conn->account.host,
+ 		strerror (errno));
+     mutt_sleep (2);
+-  }
++  } else if (errno == EINTR) {
++    rc = -1;
++    mutt_error (_("Error talking to %s (%s)"), conn->account.host,
++               strerror (errno));
++    mutt_sleep (2);
++   }
++  mutt_allow_interrupt (0);
+ 
+   return rc;
+ }
+@@ -422,12 +429,19 @@ int raw_socket_write (CONNECTION* conn, 
+ {
+   int rc;
+ 
++  mutt_allow_interrupt (1);
+   if ((rc = write (conn->fd, buf, count)) == -1)
+   {
+     mutt_error (_("Error talking to %s (%s)"), conn->account.host,
+ 		strerror (errno));
+     mutt_sleep (2);
++  } else if (errno == EINTR) {
++    rc = -1;
++    mutt_error (_("Error talking to %s (%s)"), conn->account.host,
++               strerror (errno));
++    mutt_sleep (2);
+   }
++  mutt_allow_interrupt (0);
+ 
+   return rc;
+ }
+@@ -457,11 +471,13 @@ int raw_socket_poll (CONNECTION* conn, t
+     gettimeofday (&post_t, NULL);
+ 
+     if (rv > 0 ||
+-        (rv < 0 && errno != EINTR))
++        (rv < 0 && (errno != EINTR || SigInt)))
++    {
++      /* when the user interrupted, do not insist on looping until the
++       * timeout expires */
++      SigInt = 0;
+       return rv;
+-
+-    if (SigInt)
+-      mutt_query_exit ();
++    }
+ 
+     wait_millis += (pre_t.tv_sec * 1000UL) + (pre_t.tv_usec / 1000);
+     post_t_millis = (post_t.tv_sec * 1000UL) + (post_t.tv_usec / 1000);
+diff -r e3eeb6a829ee -r ded90ccbc6de mutt_ssl.c
+--- a/mutt_ssl.c	Sun Sep 16 09:31:54 2012 +0200
++++ b/mutt_ssl.c	Sat Sep 10 11:48:50 2016 +0100
+@@ -403,8 +403,12 @@ static int ssl_socket_read (CONNECTION* 
+   int rc;
+ 
+   rc = SSL_read (data->ssl, buf, len);
+-  if (rc <= 0)
++  if (rc <= 0 || errno == EINTR)
+   {
++    if (errno == EINTR)
++    {
++      rc = -1;
++    }
+     data->isopen = 0;
+     ssl_err (data, rc);
+   }
+@@ -418,8 +422,13 @@ static int ssl_socket_write (CONNECTION*
+   int rc;
+ 
+   rc = SSL_write (data->ssl, buf, len);
+-  if (rc <= 0)
++  if (rc <= 0 || errno == EINTR) {
++    if (errno == EINTR)
++    {
++      rc = -1;
++    }
+     ssl_err (data, rc);
++  }
+ 
+   return rc;
+ }
+diff -r e3eeb6a829ee -r ded90ccbc6de mutt_ssl_gnutls.c
+--- a/mutt_ssl_gnutls.c	Sun Sep 16 09:31:54 2012 +0200
++++ b/mutt_ssl_gnutls.c	Sat Sep 10 11:48:50 2016 +0100
+@@ -141,14 +141,16 @@ static int tls_socket_read (CONNECTION* 
+ 
+   do {
+     ret = gnutls_record_recv (data->state, buf, len);
+-    if (ret < 0 && gnutls_error_is_fatal(ret) == 1)
++    if ((ret < 0 &&
++         gnutls_error_is_fatal(ret) == 1) ||
++        ret == GNUTLS_E_INTERRUPTED
++       )
+     {
+       mutt_error ("tls_socket_read (%s)", gnutls_strerror (ret));
+-      mutt_sleep (4);
++      mutt_sleep (2);
+       return -1;
+     }
+-  }
+-  while (ret == GNUTLS_E_AGAIN || ret == GNUTLS_E_INTERRUPTED);
++  } while (ret == GNUTLS_E_AGAIN);
+ 
+   return ret;
+ }
+@@ -171,7 +173,7 @@ static int tls_socket_write (CONNECTION*
+     ret = gnutls_record_send (data->state, buf + sent, len - sent);
+     if (ret < 0)
+     {
+-      if (gnutls_error_is_fatal(ret) == 1)
++      if (gnutls_error_is_fatal(ret) == 1 || ret == GNUTLS_E_INTERRUPTED)
+       {
+ 	mutt_error ("tls_socket_write (%s)", gnutls_strerror (ret));
+ 	mutt_sleep (4);
+@@ -441,7 +443,7 @@ static int tls_negotiate (CONNECTION * c
+ 
+   err = gnutls_handshake(data->state);
+ 
+-  while (err == GNUTLS_E_AGAIN || err == GNUTLS_E_INTERRUPTED)
++  while (err == GNUTLS_E_AGAIN)
+   {
+     err = gnutls_handshake(data->state);
+   }
+diff -r e3eeb6a829ee -r ded90ccbc6de mx.c
+--- a/mx.c	Sun Sep 16 09:31:54 2012 +0200
++++ b/mx.c	Sat Sep 10 11:48:50 2016 +0100
+@@ -1294,7 +1294,7 @@ MESSAGE *mx_open_new_message (CONTEXT *d
+ /* check for new mail */
+ int mx_check_mailbox (CONTEXT *ctx, int *index_hint)
+ {
+-  if (!ctx || !ctx->mx_ops)
++  if (!ctx || !ctx->mx_ops || ctx->magic == 0)
+   {
+     dprint (1, (debugfile, "mx_check_mailbox: null or invalid context.\n"));
+     return -1;
+diff -r e3eeb6a829ee -r ded90ccbc6de sendlib.c
+--- a/sendlib.c	Sun Sep 16 09:31:54 2012 +0200
++++ b/sendlib.c	Sat Sep 10 11:48:50 2016 +0100
+@@ -272,6 +272,10 @@ static void encode_base64 (FGETCONV * fc
+ 
+   while ((ch = fgetconv (fc)) != EOF)
+   {
++    if (SigInt == 1) {
++      SigInt = 0;
++      return;
++    }
+     if (istext && ch == '\n' && ch1 != '\r')
+       b64_putc('\r', fout);
+     b64_putc(ch, fout);
+@@ -285,8 +289,13 @@ static void encode_8bit (FGETCONV *fc, F
+ {
+   int ch;
+ 
+-  while ((ch = fgetconv (fc)) != EOF)
++  while ((ch = fgetconv (fc)) != EOF) {
++    if (SigInt == 1) {
++      SigInt = 0;
++      return;
++    }
+     fputc (ch, fout);
++  }
+ }
+ 
+ 
+@@ -463,6 +472,7 @@ int mutt_write_mime_body (BODY *a, FILE 
+   else
+     fc = fgetconv_open (fpin, 0, 0, 0);
+ 
++  mutt_allow_interrupt (1);
+   if (a->encoding == ENCQUOTEDPRINTABLE)
+     encode_quoted (fc, f, write_as_text_part (a));
+   else if (a->encoding == ENCBASE64)
+@@ -471,10 +481,15 @@ int mutt_write_mime_body (BODY *a, FILE 
+     encode_8bit (fc, f, write_as_text_part (a));
+   else
+     mutt_copy_stream (fpin, f);
++  mutt_allow_interrupt (0);
+ 
+   fgetconv_close (&fc);
+   safe_fclose (&fpin);
+ 
++  if (SigInt == 1) {
++    SigInt = 0;
++    return -1;
++  }
+   return (ferror (f) ? -1 : 0);
+ }
+ 

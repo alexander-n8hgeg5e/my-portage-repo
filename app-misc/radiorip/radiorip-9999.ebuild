@@ -1,1 +1,26 @@
-/var/src/radiorip/portage/app-misc/radiorip/radiorip-9999.ebuild
+# Copyright 1999-2018 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+EAPI=6
+
+LICENSE=""
+
+EGIT_REPO_URI="${CODEDIR}/${PN} https://github.com/alexander-n8hgeg5e/${PN}.git"
+inherit git-r3
+
+DESCRIPTION=""
+HOMEPAGE=""
+SRC_URI=""
+
+LICENSE=""
+SLOT="0"
+KEYWORDS="~amd64 ~x86"
+IUSE=""
+
+DEPEND="media-sound/streamripper
+        app-shells/bash
+		"
+RDEPEND="${DEPEND}"
+
+src_install(){
+dobin radiorip
+	}

@@ -1,0 +1,31 @@
+From 56017d74be1bdbf55bbc4fc98d43158488ee69b5 Mon Sep 17 00:00:00 2001
+From: alexander-n8hgeg5e <alexander.w.email@gmail.com>
+Date: Mon, 6 Jul 2020 08:33:09 +0200
+Subject: [PATCH 7/8] pybind ugly build fix
+
+---
+ CMakeLists.txt | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 6e663b074..092ce8d08 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -580,10 +580,10 @@ endif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin" AND NOT BUILD_WITH_CONDA)
+ 
+ # -------------------------------- PyBind11 -----------------------------
+ # necessary for flat-mesh feature
+-OPTION(FREECAD_USE_PYBIND11 "Use pybind11" OFF)
+-if (FREECAD_USE_PYBIND11)
+-    find_package(pybind11 REQUIRED)
+-endif()
++#OPTION(FREECAD_USE_PYBIND11 "Use pybind11" OFF)
++#if (FREECAD_USE_PYBIND11)
++#    find_package(pybind11 REQUIRED)
++#endif()
+ # -------------------------------- Boost --------------------------------
+ 
+     SET(_boost_TEST_VERSIONS ${Boost_ADDITIONAL_VERSIONS})
+-- 
+2.26.2
+

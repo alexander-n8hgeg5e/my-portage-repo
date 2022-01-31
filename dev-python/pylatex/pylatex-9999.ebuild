@@ -8,7 +8,7 @@ inherit distutils-r1 git-r3
 
 DESCRIPTION="python latex tools"
 HOMEPAGE="https://github.com/JelteF/PyLaTeX"
-EGIT_REPO_URI="${CODEDIR}/${PN} ${MYGITHUB_URIBASE}${PN}.git"
+EGIT_REPO_URI="${CODEDIR}/${PN} https://github.com/alexander-n8hgeg5e/${PN}.git"
 EGIT_COMMIT='483953180db945bb888af0e3cd99da2b1a417ad1'
 
 LICENSE="MIT"

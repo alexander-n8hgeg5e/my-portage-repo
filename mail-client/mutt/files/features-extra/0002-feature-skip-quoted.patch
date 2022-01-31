@@ -1,0 +1,103 @@
+# HG changeset patch
+# User David Sterba <dsterba@suse.cz>
+# Date 1384521662 -3600
+#      Fri Nov 15 14:21:02 2013 +0100
+# Node ID a0627b55461d7c895ed0fc034619788dc3e1bd1e
+# Parent  393d3797ab71499da1b4ec5b59156c9f71c7b9fe
+[PATCH] feature: skip-quoted
+Tunable for number of lines of quoted text that are displayed before the
+unquoted text after 'skip to quoted' command (S).
+
+Signed-off-by: David Sterba <dsterba@suse.cz>
+---
+ globals.h | 1 +
+ init.h    | 6 ++++++
+ pager.c   | 8 ++++----
+ 3 files changed, 11 insertions(+), 4 deletions(-)
+
+diff -r 393d3797ab71 -r a0627b55461d PATCHES
+--- a/PATCHES	Sat Jan 30 16:13:53 2016 +0000
++++ b/PATCHES	Fri Nov 15 14:21:02 2013 +0100
+@@ -1,3 +1,4 @@
++patch-skip-quoted-neomutt
+ patch-progress-neomutt
+ patch-sidebar-on-right-neomutt
+ patch-cond-date-neomutt
+diff -r 393d3797ab71 -r a0627b55461d browser.c
+--- a/browser.c	Sat Jan 30 16:13:53 2016 +0000
++++ b/browser.c	Fri Nov 15 14:21:02 2013 +0100
+@@ -542,14 +542,14 @@ static int examine_mailboxes (MUTTMENU *
+ #ifdef USE_IMAP
+     if (mx_is_imap (tmp->path))
+     {
+-      add_folder (menu, state, buffer, NULL, NULL, tmp);
++      add_folder (menu, state, buffer, NULL, NULL, tmp, NULL);
+       continue;
+     }
+ #endif
+ #ifdef USE_POP
+     if (mx_is_pop (tmp->path))
+     {
+-      add_folder (menu, state, buffer, NULL, NULL, tmp);
++      add_folder (menu, state, buffer, NULL, NULL, tmp, NULL);
+       continue;
+     }
+ #endif
+diff -r 393d3797ab71 -r a0627b55461d globals.h
+--- a/globals.h	Sat Jan 30 16:13:53 2016 +0000
++++ b/globals.h	Fri Nov 15 14:21:02 2013 +0100
+@@ -216,6 +216,7 @@ WHERE short ReflowWrap;
+ WHERE short SaveHist;
+ WHERE short SendmailWait;
+ WHERE short SleepTime INITVAL (1);
++WHERE short SkipQuotedOffset;
+ WHERE short TimeInc;
+ WHERE short Timeout;
+ WHERE short Wrap;
+diff -r 393d3797ab71 -r a0627b55461d init.h
+--- a/init.h	Sat Jan 30 16:13:53 2016 +0000
++++ b/init.h	Fri Nov 15 14:21:02 2013 +0100
+@@ -3000,6 +3000,12 @@ struct option_t MuttVars[] = {
+   ** replacing ``%s'' with the supplied string.
+   ** For the default value, ``joe'' would be expanded to: ``~f joe | ~s joe''.
+   */
++  { "skip_quoted_offset", DT_NUM, R_NONE, UL &SkipQuotedOffset, 0 },
++  /*
++  ** .pp
++  ** Lines of quoted text that are displayed before the unquoted text after
++  ** "skip to quoted" command (S)
++  */
+   { "sleep_time",	DT_NUM, R_NONE, UL &SleepTime, 1 },
+   /*
+   ** .pp
+diff -r 393d3797ab71 -r a0627b55461d pager.c
+--- a/pager.c	Sat Jan 30 16:13:53 2016 +0000
++++ b/pager.c	Fri Nov 15 14:21:02 2013 +0100
+@@ -2398,11 +2398,11 @@ search_next:
+ 	  int dretval = 0;
+ 	  int new_topline = rd.topline;
+ 
+-	  while ((new_topline < rd.lastLine ||
++	  while (((new_topline + SkipQuotedOffset) < rd.lastLine ||
+ 		  (0 == (dretval = display_line (rd.fp, &rd.last_pos, &rd.lineInfo,
+ 			 new_topline, &rd.lastLine, &rd.maxLine, MUTT_TYPES | (flags & MUTT_PAGER_NOWRAP),
+                          &rd.QuoteList, &rd.q_level, &rd.force_redraw, &rd.SearchRE, rd.pager_window))))
+-		 && rd.lineInfo[new_topline].type != MT_COLOR_QUOTED)
++		 && rd.lineInfo[new_topline + SkipQuotedOffset].type != MT_COLOR_QUOTED)
+ 	    new_topline++;
+ 
+ 	  if (dretval < 0)
+@@ -2411,11 +2411,11 @@ search_next:
+ 	    break;
+ 	  }
+ 
+-	  while ((new_topline < rd.lastLine ||
++	  while (((new_topline + SkipQuotedOffset) < rd.lastLine ||
+ 		  (0 == (dretval = display_line (rd.fp, &rd.last_pos, &rd.lineInfo,
+ 			 new_topline, &rd.lastLine, &rd.maxLine, MUTT_TYPES | (flags & MUTT_PAGER_NOWRAP),
+                          &rd.QuoteList, &rd.q_level, &rd.force_redraw, &rd.SearchRE, rd.pager_window))))
+-		 && rd.lineInfo[new_topline].type == MT_COLOR_QUOTED)
++		 && rd.lineInfo[new_topline + SkipQuotedOffset].type == MT_COLOR_QUOTED)
+ 	    new_topline++;
+ 
+ 	  if (dretval < 0)

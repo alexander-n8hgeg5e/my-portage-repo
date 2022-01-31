@@ -1,0 +1,123 @@
+# HG changeset patch
+# User Fabian Groffen <grobian@gentoo.org>
+# Date 1522498549 -7200
+#      Sat Mar 31 14:15:49 2018 +0200
+# Node ID 58536ebf2669daab8332c262e5ae73ad9edf568d
+# Parent  e4c27be1ee05be74cec0465143cceb85413848d4
+[PATCH] quote
+http://www.mutt.org.ua/download/mutt-1.5.21/patch-1.5.21.vvv.quote.gz
+
+Modified for Gentoo for
+https://bugs.gentoo.org/show_bug.cgi?id=532890
+http://dev.mutt.org/trac/ticket/3718
+
+The patch changes behaviour, for OPTQUOTEQUOTED.  It no longer repeats
+the last quote character, but the first.  This because it is it easier
+to do so without having to copy buf, which is the source of the problem
+reported in the bug(s) above.
+
+A discussion about this has been made on the ML
+http://thread.gmane.org/gmane.mail.mutt.devel/22759/focus=22783
+which concluded that this version has some issues/makes no sense.
+In http://thread.gmane.org/gmane.mail.mutt.devel/22759/focus=22783 a
+consensus appeared to have been reached, but no action after that has
+been taken.
+---
+ PATCHES   |  1 +
+ handler.c | 28 ++++++++++++++++++++++++++--
+ init.h    | 13 +++++++++++++
+ mutt.h    |  2 ++
+ 4 files changed, 42 insertions(+), 2 deletions(-)
+
+diff -r e4c27be1ee05 -r 58536ebf2669 PATCHES
+--- a/PATCHES	Mon May 30 03:45:25 2016 +0100
++++ b/PATCHES	Sat Mar 31 14:15:49 2018 +0200
+@@ -1,6 +1,7 @@
++patch-vvv.quote-gentoo
+ patch-xterm-no-tigetstr-on-tty-gentoo
+ patch-xterm-only-window-title-gentoo
+-patch-lpr.collapse_flagged Lukas P. Ruf <lukas.ruf@lpr.ch>
++patch-lpr.collapse_flagged-gentoo Lukas P. Ruf <lukas.ruf@lpr.ch>
+ patch-dont-reveal-bcc-gentoo (modified version from Debian)
+ patch-multiple-fcc-neomutt
+ patch-timeout-neomutt
+diff -r e4c27be1ee05 -r 58536ebf2669 handler.c
+--- a/handler.c	Mon May 30 03:45:25 2016 +0100
++++ b/handler.c	Sat Mar 31 14:15:49 2018 +0200
+@@ -1582,7 +1582,31 @@ static int text_plain_handler (BODY *b, 
+ 	buf[--l] = 0;
+     }
+     if (s->prefix)
+-      state_puts (s->prefix, s);
++    {
++      int i;
++      int offset = 0;
++      regmatch_t pmatch[1];
++
++      if (regexec ((regex_t *) QuoteRegexp.rx, &buf[offset], 1, pmatch, 0) == 0)
++	offset += pmatch->rm_eo;
++
++      if (option (OPTQUOTEQUOTED) && offset)
++      {
++	for (i = 0; i < offset; i++)
++	{
++	  state_putc (buf[i], s);
++	  if (buf[i] == ' ')
++	    break;
++	}
++      }
++      else
++      {
++	for (i = 0; buf[i] != '\0' && iswspace (buf[i]); i++)
++	  ;
++	if (option (OPTQUOTEEMPTY) || buf[i])
++	  state_puts (s->prefix, s);
++      }
++    }
+     state_puts (buf, s);
+     state_putc ('\n', s);
+   }
+@@ -1738,7 +1762,7 @@ int mutt_body_handler (BODY *b, STATE *s
+        */
+       if ((WithCrypto & APPLICATION_PGP) && mutt_is_application_pgp (b))
+ 	handler = crypt_pgp_application_pgp_handler;
+-      else if (option(OPTREFLOWTEXT) && ascii_strcasecmp ("flowed", mutt_get_parameter ("format", b->parameter)) == 0)
++      else if (option(OPTREFLOWTEXT) && ascii_strcasecmp ("flowed", mutt_get_parameter ("format", b->parameter)) == 0 && !s->prefix)
+ 	handler = rfc3676_handler;
+       else
+ 	handler = text_plain_handler;
+diff -r e4c27be1ee05 -r 58536ebf2669 init.h
+--- a/init.h	Mon May 30 03:45:25 2016 +0100
++++ b/init.h	Sat Mar 31 14:15:49 2018 +0200
+@@ -2738,6 +2738,19 @@ struct option_t MuttVars[] = {
+   ** have no effect, and if it is set to \fIask-yes\fP or \fIask-no\fP, you are
+   ** prompted for confirmation when you try to quit.
+   */
++  { "quote_empty",	DT_BOOL, R_NONE, OPTQUOTEEMPTY, 1 },
++  /*
++  ** .pp
++  ** Controls whether or not empty lines will be quoted using
++  ** ``$indent_string''.
++  */
++  { "quote_quoted",	DT_BOOL, R_NONE, OPTQUOTEQUOTED, 0 },
++  /*
++  ** .pp
++  ** Controls how quoted lines will be quoted. If set, one quote
++  ** character will be prepended to the existing prefix.  Otherwise,
++  ** quoted lines will be prepended by ``$indent_string''.
++  */
+   { "quote_regexp",	DT_RX,	 R_PAGER, UL &QuoteRegexp, UL "^([ \t]*[|>:}#])+" },
+   /*
+   ** .pp
+diff -r e4c27be1ee05 -r 58536ebf2669 mutt.h
+--- a/mutt.h	Mon May 30 03:45:25 2016 +0100
++++ b/mutt.h	Sat Mar 31 14:15:49 2018 +0200
+@@ -471,6 +471,8 @@ enum
+   OPTPRINTDECODE,
+   OPTPRINTSPLIT,
+   OPTPROMPTAFTER,
++  OPTQUOTEEMPTY,
++  OPTQUOTEQUOTED,
+   OPTREADONLY,
+   OPTREFLOWSPACEQUOTES,
+   OPTREFLOWTEXT,

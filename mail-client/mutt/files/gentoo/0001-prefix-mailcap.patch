@@ -1,0 +1,39 @@
+# HG changeset patch
+# User Fabian Groffen <grobian@gentoo.org>
+# Date 1464576126 -3600
+#      Mon May 30 03:42:06 2016 +0100
+# Node ID ad7b60529625aefec240f7deb9a1fe9f58cea0b2
+# Parent  46f4060b29903ec37668c396615d9e32c3db376a
+[PATCH] prefix-mailcap
+Adjust mailcap search path for Prefix (offset installs).  Due to the
+search path addition, should not cause any problems for non-offset
+installs.
+---
+ Makefile.am | 2 +-
+ init.c      | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff -r 46f4060b2990 -r ad7b60529625 Makefile.am
+--- a/Makefile.am	Fri May 06 00:36:57 2016 +0100
++++ b/Makefile.am	Mon May 30 03:42:06 2016 +0100
+@@ -50,7 +50,7 @@ mutt_DEPENDENCIES = $(MUTT_LIB_OBJECTS) 
+ 
+ DEFS=-DPKGDATADIR=\"$(pkgdatadir)\" -DSYSCONFDIR=\"$(sysconfdir)\" \
+ 	-DBINDIR=\"$(bindir)\" -DMUTTLOCALEDIR=\"$(datadir)/locale\" \
+-	-DHAVE_CONFIG_H=1
++	-DHAVE_CONFIG_H=1 -DPREFIX=\"$(prefix)/..\"
+ 
+ AM_CPPFLAGS=-I. -I$(top_srcdir) $(IMAP_INCLUDES) $(GPGME_CFLAGS) -Iintl
+ 
+diff -r 46f4060b2990 -r ad7b60529625 init.c
+--- a/init.c	Fri May 06 00:36:57 2016 +0100
++++ b/init.c	Mon May 30 03:42:06 2016 +0100
+@@ -3769,7 +3769,7 @@ void mutt_init (int skip_sys_rc, LIST *c
+   else
+   {
+     /* Default search path from RFC1524 */
+-    MailcapPath = safe_strdup ("~/.mailcap:" PKGDATADIR "/mailcap:" SYSCONFDIR "/mailcap:/etc/mailcap:/usr/etc/mailcap:/usr/local/etc/mailcap");
++    MailcapPath = safe_strdup ("~/.mailcap:" PKGDATADIR "/mailcap:" SYSCONFDIR "/mailcap:" PREFIX "/etc/mailcap:/etc/mailcap:/usr/etc/mailcap:/usr/local/etc/mailcap");
+   }
+ 
+   Tempdir = safe_strdup ((p = getenv ("TMPDIR")) ? p : "/tmp");

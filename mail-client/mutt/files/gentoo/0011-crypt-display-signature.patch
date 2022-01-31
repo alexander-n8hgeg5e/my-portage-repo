@@ -1,0 +1,273 @@
+# HG changeset patch
+# User Fabian Groffen <grobian@gentoo.org>
+# Date 1464577017 -3600
+#      Mon May 30 03:56:57 2016 +0100
+# Node ID 40e860d14e72b50a34958be31ce45c9001f8e1f3
+# Parent  fe311ed57a8df51a44e6d5bd7ea65b3389f9282d
+pgp/smime: allow gpgme,{pgp,smime}_decode_command output to be hidden
+
+The crypt_display_signature boolean option controls whether the sometimes
+very verbose output of gpgme,{pgp,smime}_decode_command should be displayed.
+Since it can clutter up the display a lot, leaving little to no space at
+all to display the actual email contents, people might want to hide the
+output and just rely on the status bar message reporting valid or
+invalid.
+
+diff -r fe311ed57a8d -r 40e860d14e72 PATCHES
+--- a/PATCHES	Mon May 30 03:56:38 2016 +0100
++++ b/PATCHES	Mon May 30 03:56:57 2016 +0100
+@@ -1,3 +1,4 @@
++patch-fg.crypt_display_signature-gentoo
+ patch-vk.pgp_verbose_mime-gentoo
+ patch-fg.change_folder_next-gentoo
+ patch-vvv.quote-gentoo
+diff -r fe311ed57a8d -r 40e860d14e72 crypt-gpgme.c
+--- a/crypt-gpgme.c	Mon May 30 03:56:38 2016 +0100
++++ b/crypt-gpgme.c	Mon May 30 03:56:57 2016 +0100
+@@ -1415,6 +1415,9 @@ static int show_one_sig_status (gpgme_ct
+   gpgme_error_t err = GPG_ERR_NO_ERROR;
+   char buf[LONG_STRING];
+ 
++  if (!option (OPTCRYPTDISPLSIG))
++    s = NULL;
++
+   result = gpgme_op_verify_result (ctx);
+   if (result)
+     {
+@@ -1548,7 +1551,8 @@ static int verify_one (BODY *sigbdy, STA
+   /* Note: We don't need a current time output because GPGME avoids
+      such an attack by separating the meta information from the
+      data. */
+-  state_attach_puts (_("[-- Begin signature information --]\n"), s);
++  if (option (OPTCRYPTDISPLSIG))
++    state_attach_puts (_("[-- Begin signature information --]\n"), s);
+ 
+   err = gpgme_op_verify (ctx, signature, message, NULL);
+   gpgme_data_release (message);
+@@ -1616,8 +1620,10 @@ static int verify_one (BODY *sigbdy, STA
+ 	    snprintf (buf, sizeof (buf),
+ 		      _("*** Begin Notation (signature by: %s) ***\n"),
+ 		      signature->fpr);
+-	    state_puts (buf, s);
+-	    for (notation = signature->notations; notation;
++	    if (option (OPTCRYPTDISPLSIG))
++	      state_puts (buf, s);
++	    for (notation = signature->notations;
++		 option (OPTCRYPTDISPLSIG) && notation;
+                  notation = notation->next)
+ 	    {
+ 	      if (is_pka_notation (notation))
+@@ -1636,7 +1642,8 @@ static int verify_one (BODY *sigbdy, STA
+ 		  state_puts ("\n", s);
+ 	      }
+ 	    }
+-	    state_puts (_("*** End Notation ***\n"), s);
++	    if (option (OPTCRYPTDISPLSIG))
++	      state_puts (_("*** End Notation ***\n"), s);
+ 	  }
+ 	}
+       }
+@@ -1644,7 +1651,8 @@ static int verify_one (BODY *sigbdy, STA
+ 
+   gpgme_release (ctx);
+   
+-  state_attach_puts (_("[-- End signature information --]\n\n"), s);
++  if (option (OPTCRYPTDISPLSIG))
++    state_attach_puts (_("[-- End signature information --]\n\n"), s);
+   dprint (1, (debugfile, "verify_one: returning %d.\n", badsig));
+   
+   return badsig? 1: anywarn? 2 : 0;
+@@ -1770,7 +1778,7 @@ static BODY *decrypt_part (BODY *a, STAT
+       if(r_is_signed)
+         *r_is_signed = -1; /* A signature exists. */
+ 
+-      if ((s->flags & MUTT_DISPLAY))
++      if ((s->flags & MUTT_DISPLAY) && option (OPTCRYPTDISPLSIG))
+         state_attach_puts (_("[-- Begin signature "
+                              "information --]\n"), s);
+       for(idx = 0; (res = show_one_sig_status (ctx, idx, s)) != -1; idx++)
+@@ -1783,7 +1791,7 @@ static BODY *decrypt_part (BODY *a, STAT
+       if (!anybad && idx && r_is_signed && *r_is_signed)
+         *r_is_signed = anywarn? 2:1; /* Good signature. */
+       
+-      if ((s->flags & MUTT_DISPLAY))
++      if ((s->flags & MUTT_DISPLAY) && option (OPTCRYPTDISPLSIG))
+         state_attach_puts (_("[-- End signature "
+                              "information --]\n\n"), s);
+     }
+@@ -2467,6 +2475,8 @@ int pgp_gpgme_application_handler (BODY 
+ 
+                   have_any_sigs = 0;
+                   maybe_goodsig = 0;
++				  if (!option (OPTCRYPTDISPLSIG))
++					  sig_stat = 0;
+                   if ((s->flags & MUTT_DISPLAY) && sig_stat)
+                     {
+                       int res, idx;
+@@ -2511,7 +2521,7 @@ int pgp_gpgme_application_handler (BODY 
+            * seems to be a reasonable guess.
+            */
+           
+-          if(s->flags & MUTT_DISPLAY)
++          if(s->flags & MUTT_DISPLAY && option (OPTCRYPTDISPLSIG))
+             {
+               if (needpass)
+             state_attach_puts (_("[-- BEGIN PGP MESSAGE --]\n\n"), s);
+@@ -2542,7 +2552,7 @@ int pgp_gpgme_application_handler (BODY 
+               fgetconv_close (&fc);
+             }
+           
+-          if (s->flags & MUTT_DISPLAY)
++          if (s->flags & MUTT_DISPLAY && option (OPTCRYPTDISPLSIG))
+             {
+               state_putc ('\n', s);
+               if (needpass)
+diff -r fe311ed57a8d -r 40e860d14e72 init.h
+--- a/init.h	Mon May 30 03:56:38 2016 +0100
++++ b/init.h	Mon May 30 03:56:57 2016 +0100
+@@ -580,6 +580,13 @@ struct option_t MuttVars[] = {
+   ** be manually re-enabled in the pgp or smime menus.
+   ** (Crypto only)
+    */
++  { "crypt_display_signature",  DT_BOOL, R_NONE, OPTCRYPTDISPLSIG, 1},
++  /*
++  ** .pp
++  ** If \fIset\fP, mutt will display the pgp_decode_command,
++  ** smime_decode_command and gpgme decode outputs.
++  ** Defaults to true.
++  */ 
+   { "pgp_replyencrypt",		DT_SYN,  R_NONE, UL "crypt_replyencrypt", 1  },
+   { "crypt_replyencrypt",	DT_BOOL, R_NONE, OPTCRYPTREPLYENCRYPT, 1 },
+   /*
+diff -r fe311ed57a8d -r 40e860d14e72 mutt.h
+--- a/mutt.h	Mon May 30 03:56:38 2016 +0100
++++ b/mutt.h	Mon May 30 03:56:57 2016 +0100
+@@ -539,6 +539,7 @@ enum
+   OPTCRYPTAUTOPGP,
+   OPTCRYPTAUTOSMIME,
+   OPTCRYPTCONFIRMHOOK,
++  OPTCRYPTDISPLSIG,
+   OPTCRYPTOPPORTUNISTICENCRYPT,
+   OPTCRYPTREPLYENCRYPT,
+   OPTCRYPTREPLYSIGN,
+diff -r fe311ed57a8d -r 40e860d14e72 pgp.c
+--- a/pgp.c	Mon May 30 03:56:38 2016 +0100
++++ b/pgp.c	Mon May 30 03:56:57 2016 +0100
+@@ -212,15 +212,18 @@ static int pgp_copy_checksig (FILE *fpin
+       
+       if (strncmp (line, "[GNUPG:] ", 9) == 0)
+ 	continue;
+-      fputs (line, fpout);
+-      fputc ('\n', fpout);
++      if (option (OPTCRYPTDISPLSIG)) {
++	fputs (line, fpout);
++	fputc ('\n', fpout);
++      }
+     }
+     FREE (&line);
+   }
+   else
+   {
+     dprint (2, (debugfile, "pgp_copy_checksig: No pattern.\n"));
+-    mutt_copy_stream (fpin, fpout);
++    if (option (OPTCRYPTDISPLSIG))
++      mutt_copy_stream (fpin, fpout);
+     rv = 1;
+   }
+ 
+@@ -465,7 +468,8 @@ int pgp_application_pgp_handler (BODY *m
+ 
+ 	  if (s->flags & MUTT_DISPLAY)
+ 	  {
+-	    crypt_current_time (s, "PGP");
++	    if (option (OPTCRYPTDISPLSIG))
++	      crypt_current_time (s, "PGP");
+ 	    rc = pgp_copy_checksig (pgperr, s->fpout);
+ 	  }
+ 	  
+@@ -483,7 +487,8 @@ int pgp_application_pgp_handler (BODY *m
+ 	     */
+ 	    if (rc == -1 || rv) maybe_goodsig = 0;
+ 	    
+-	    state_attach_puts (_("[-- End of PGP output --]\n\n"), s);
++	    if (option (OPTCRYPTDISPLSIG))
++	      state_attach_puts (_("[-- End of PGP output --]\n\n"), s);
+ 	  }
+ 	  if (pgp_use_gpg_agent())
+ 	    mutt_need_hard_redraw ();
+@@ -727,7 +732,8 @@ int pgp_verify_one (BODY *sigbdy, STATE 
+     return -1;
+   }
+   
+-  crypt_current_time (s, "PGP");
++  if (option (OPTCRYPTDISPLSIG))
++    crypt_current_time (s, "PGP");
+   
+   if((thepid = pgp_invoke_verify (NULL, &pgpout, NULL, 
+ 				   -1, -1, fileno(pgperr),
+@@ -752,7 +758,8 @@ int pgp_verify_one (BODY *sigbdy, STATE 
+ 
+   safe_fclose (&pgperr);
+ 
+-  state_attach_puts (_("[-- End of PGP output --]\n\n"), s);
++  if (option (OPTCRYPTDISPLSIG))
++    state_attach_puts (_("[-- End of PGP output --]\n\n"), s);
+ 
+   mutt_unlink (sigfile);
+   mutt_unlink (pgperrfile);
+@@ -964,7 +971,8 @@ BODY *pgp_decrypt_part (BODY *a, STATE *
+       p->goodsig = 1;
+     else
+       p->goodsig = 0;
+-    state_attach_puts (_("[-- End of PGP output --]\n\n"), s);
++    if (option (OPTCRYPTDISPLSIG))
++      state_attach_puts (_("[-- End of PGP output --]\n\n"), s);
+   }
+   safe_fclose (&pgperr);
+ 
+@@ -1095,7 +1103,7 @@ int pgp_encrypted_handler (BODY *a, STAT
+     return -1;
+   }
+ 
+-  if (s->flags & MUTT_DISPLAY) crypt_current_time (s, "PGP");
++  if (s->flags & MUTT_DISPLAY && option (OPTCRYPTDISPLSIG)) crypt_current_time (s, "PGP");
+ 
+   if ((tattach = pgp_decrypt_part (a, s, fpout, a)) != NULL)
+   {
+diff -r fe311ed57a8d -r 40e860d14e72 smime.c
+--- a/smime.c	Mon May 30 03:56:38 2016 +0100
++++ b/smime.c	Mon May 30 03:56:57 2016 +0100
+@@ -1758,7 +1758,8 @@ int smime_verify_one (BODY *sigbdy, STAT
+     return -1;
+   }
+   
+-  crypt_current_time (s, "OpenSSL");
++  if (option (OPTCRYPTDISPLSIG))
++    crypt_current_time (s, "OpenSSL");
+   
+   if ((thepid = smime_invoke_verify (NULL, &smimeout, NULL, 
+ 				   -1, -1, fileno (smimeerr),
+@@ -1788,10 +1789,12 @@ int smime_verify_one (BODY *sigbdy, STAT
+   
+   fflush (smimeerr);
+   rewind (smimeerr);
+-  mutt_copy_stream (smimeerr, s->fpout);
++  if (option (OPTCRYPTDISPLSIG))
++    mutt_copy_stream (smimeerr, s->fpout);
+   safe_fclose (&smimeerr);
+     
+-  state_attach_puts (_("[-- End of OpenSSL output --]\n\n"), s);
++  if (option (OPTCRYPTDISPLSIG))
++    state_attach_puts (_("[-- End of OpenSSL output --]\n\n"), s);
+   
+   mutt_unlink (signedfile);
+   mutt_unlink (smimeerrfile);
+@@ -1908,7 +1911,7 @@ static BODY *smime_handle_entity (BODY *
+     fflush (smimeerr);
+     rewind (smimeerr);
+     
+-    if ((c = fgetc (smimeerr)) != EOF)
++    if ((c = fgetc (smimeerr)) != EOF && option (OPTCRYPTDISPLSIG))
+     {
+       ungetc (c, smimeerr);
+       

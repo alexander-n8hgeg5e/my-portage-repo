@@ -8,7 +8,7 @@ inherit distutils-r1 git-r3
 
 DESCRIPTION=""
 HOMEPAGE=""
-EGIT_REPO_URI="${CODEDIR}/${PN} ${MYGITHUB_URIBASE}${PN}.git"
+EGIT_REPO_URI="${CODEDIR}/${PN} https://github.com/alexander-n8hgeg5e/${PN}.git"
 
 LICENSE=""
 SLOT="0"

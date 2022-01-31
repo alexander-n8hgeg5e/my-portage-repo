@@ -1,1 +1,14 @@
-/var/src/paceit-toolbox/portage/app-misc/paceit-toolbox/metadata.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <maintainer type="person">
+    <email></email>
+    <name></name>
+  </maintainer>
+  <use>
+    <flag name="rind">Enable dependency for the rind prog, running progs independent of starting terminal</flag>
+    <flag name="neovim">Enable dependency for neovim, without many shortcuts do not work</flag>
+    <flag name="github">Enable dependency for python github api prog, so some shortcuts using this will work</flag>
+    <flag name="pyopen">Enable dependency for pyopen</flag>
+  </use>
+</pkgmetadata>

@@ -1,0 +1,72 @@
+# HG changeset patch
+# User David Wilson <dw@botanicus.net>
+# Date 1382466897 25200
+#      Tue Oct 22 11:34:57 2013 -0700
+# Node ID a468a47b9ffef895e83be8229121d597122397c1
+# Parent  98df5730041c07b619da48e4a1ff1b9b87a7fced
+[PATCH] Use unlocked libc IO everywhere.
+From 2fefb47a4e3b45217f19dc168c36173fa558bd3b Mon Sep 17 00:00:00 2001
+Since mutt does not use threads, there is no reason it should use the
+locked variants of the FILE* IO functions. This checks if the unlocked
+functions are available, and if so enables them globally via mutt.h.
+
+Cuts load time for a 56k message, 1.8GB /var/mail mailbox from 14
+seconds to ~6 seconds, since we avoid acquiring and releasing a mutex
+for every character of input read.
+
+Before: 0m14.376s
+
+    74.98%          mutt  libc-2.18.so        [.] _IO_getc
+    11.87%          mutt  mutt                [.] mbox_parse_mailbox
+     0.94%          mutt  [kernel.kallsyms]   [k] copy_user_generic_string
+     0.83%          mutt  libc-2.18.so        [.] __strchr_sse2
+     0.53%          mutt  libc-2.18.so        [.] __memcpy_sse2
+     0.44%          mutt  libc-2.18.so        [.] _int_malloc
+
+After: 6 seconds
+
+    68.92%     mutt  mutt                  [.] mbox_parse_mailbox
+     2.25%     mutt  [kernel.kallsyms]     [k] copy_user_generic_string
+     1.73%     mutt  libc-2.18.so          [.] __strchr_sse2
+     1.24%     mutt  libc-2.18.so          [.] __memcpy_sse2
+     1.17%     mutt  libc-2.18.so          [.] _int_malloc
+     0.87%     mutt  libc-2.18.so          [.] __strspn_sse42
+---
+ configure.ac | 1 +
+ mutt.h       | 8 ++++++++
+ 2 files changed, 9 insertions(+)
+
+diff -r 98df5730041c -r a468a47b9ffe PATCHES
+--- a/PATCHES	Sat Dec 30 19:10:16 2017 -0800
++++ b/PATCHES	Tue Oct 22 11:34:57 2013 -0700
+@@ -0,0 +1,1 @@
++patch-unlocked-IO-neomutt
+diff -r 98df5730041c -r a468a47b9ffe configure.ac
+--- a/configure.ac	Sat Dec 30 19:10:16 2017 -0800
++++ b/configure.ac	Tue Oct 22 11:34:57 2013 -0700
+@@ -333,6 +333,7 @@ AC_CHECK_HEADERS(sys/time.h sys/resource
+ AC_CHECK_HEADERS(unix.h)
+ 
+ AC_CHECK_FUNCS(setrlimit getsid)
++AC_CHECK_FUNCS(fgets_unlocked fgetc_unlocked)
+ 
+ AC_MSG_CHECKING(for sig_atomic_t in signal.h)
+ AC_EGREP_HEADER(sig_atomic_t,signal.h,
+diff -r 98df5730041c -r a468a47b9ffe mutt.h
+--- a/mutt.h	Sat Dec 30 19:10:16 2017 -0800
++++ b/mutt.h	Tue Oct 22 11:34:57 2013 -0700
+@@ -71,6 +71,14 @@
+ # define MB_LEN_MAX 16
+ #endif
+ 
++#ifdef HAVE_FGETS_UNLOCKED
++# define fgets fgets_unlocked
++#endif
++
++#ifdef HAVE_FGETC_UNLOCKED
++# define fgetc fgetc_unlocked
++#endif
++
+ /* nifty trick I stole from ELM 2.5alpha. */
+ #ifdef MAIN_C
+ #define WHERE 
