@@ -69,7 +69,6 @@ dobin gpc
 dobin guc
 dobin img_comp_all_here
 dobin keyblayout_set
-dobin l
 dobin m
 python_foreach_impl python_doscript mail_attach_mutt_nvim
 dobin mailstart
