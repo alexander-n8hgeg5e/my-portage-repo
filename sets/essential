@@ -1,6 +1,6 @@
 app-misc/mydefaults
 sys-kernel/gentoo-sources
-=sys-kernel/linux-gentoo-999935
 sys-apps/openrc-init-scripts
 app-admin/sudo
 app-admin/sysklogd
+sys-apps/busybox
