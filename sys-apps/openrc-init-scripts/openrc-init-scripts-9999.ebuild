@@ -69,6 +69,7 @@ src_install(){
 	doinitd etc/init.d/link-name-provide
 	doinitd etc/init.d/node-bootpart
 	doinitd etc/init.d/integrity-swap
+	doinitd etc/init.d/integrity-swap_v2
 
 	lib_rc_sh_dir="lib/rc/sh"
 	dodir   "${lib_rc_sh_dir}"
