@@ -4,7 +4,7 @@ EAPI=6
 
 LICENSE=""
 
-PYTHON_COMPAT=( python3_{5,6,7,8,9} )
+PYTHON_COMPAT=( python3_{5,6,7,8,9,10} )
 EGIT_REPO_URI="${CODEDIR}/${PN} https://github.com/alexander-n8hgeg5e/${PN}.git"
 inherit git-r3 python-r1
 
@@ -17,7 +17,7 @@ IUSE=""
 
 DEPEND=""
 RDEPEND="${DEPEND} \
-	dev-python/pyserial[$(python_gen_usedep 'python3*')]\
+	dev-python/pyserial[${PYTHON_USEDEP}]\
 	"
 
 src_install(){
