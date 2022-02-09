@@ -10,7 +10,7 @@ EGIT_REPO_URI="${CODEDIR}/${PN} https://github.com/alexander-n8hgeg5e/${PN}.git"
 
 LICENSE=""
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~*"
 IUSE="rind neovim github pyopen X"
 
 RDEPEND="dev-python/pexpect[${PYTHON_USEDEP}]
