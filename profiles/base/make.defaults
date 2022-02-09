@@ -66,7 +66,7 @@ FEATURES="${FEATURES} strict suidctl"                                           
 FEATURES="${FEATURES} parallel-install parallel-fetch python-trace cgroup"        # speed
 
 FEATURES="${FEATURES} distcc"
-FEATURES="${FEATURES} ccache"
+#FEATURES="${FEATURES} ccache"
 
 USE="-* sixel asm smp openmp tcpd threads caps pie \
     python_targets_python3_8  python_targets_python3_9 \
