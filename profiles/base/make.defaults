@@ -61,6 +61,7 @@ FEATURES="${FEATURES} candy"                                                    
 FEATURES="${FEATURES} python-trace unknown-features-warn"                         # debugging
 FEATURES="${FEATURES} preserve-libs protect-owned buildsyspkg"                    # function
 FEATURES="${FEATURES} clean-logs"                                                 # function
+FEATURES="${FEATURES} buildpkg"                                                   # function
 FEATURES="${FEATURES} sandbox usersandbox userpriv"                               # security
 FEATURES="${FEATURES} strict suidctl"                                             # security
 FEATURES="${FEATURES} parallel-install parallel-fetch python-trace cgroup"        # speed
@@ -69,7 +70,7 @@ FEATURES="${FEATURES} distcc"
 #FEATURES="${FEATURES} ccache"
 
 USE="-* sixel asm smp openmp tcpd threads caps pie \
-    python_targets_python3_8  python_targets_python3_9 \
+    python_targets_python3_8  python_targets_python3_9 python_targets_python3_10 \
     python_single_target_python3_9 \
     lua_targets_lua5-3 lua_targets_lua5-4 \
     lua_targets_luajit \
@@ -115,7 +116,6 @@ http://www.ibiblio.org/pub/Linux/distributions/gentoo"
 
 PORTAGE_LOGDIR="${EROOT}var/log/portage"
 PORTAGE_GPG_DIR="${EROOT}etc/portage/gpg"
-PKGDIR="${EROOT}var/cache/binpkgs"
 SYNC=""
 PORTAGE_ELOG_CLASSES="warn error"
 PORTAGE_ELOG_SYSTEM="echo syslog"
