@@ -9,22 +9,22 @@ DESCRIPTION="Linux kernel installation ebuild.
 
 #	Experimental ebuild that may eat the cat and so on.
 #	Version 999935 installs the version
-#	the symlink \"${EPREFIX}/usr/linux\" points at.
+#	the symlink \"${EROOT}/usr/linux\" points at.
 #	Version 9999 pulls in sys-kernel/gentoo-sources-9999 as dependency.
 #	Otherwise the version pulls in the corresponding gentoo-sources
 #	as dependency.
 #	Except of the first case,(\"999935\")
 #	a use flag \"set-kernel-source-link\"
 #	is evaluated and if the flag is set
-#	the symlink \"${EPREFIX}/usr/src/linux is
+#	the symlink \"${EROOT}/usr/src/linux is
 #	adjusted to point at the installed kernel-sources.
 #	The kernel config is obtained via git from a git-repository in
 #	\"/usr/src/kernel_config.git\"
 #	The currently checked out branch is used.
 #	Uncommited changes are not used.
 #	Then \"make olddefconfig\" is run to set new values to the default.
-#	If not already existing, a symlink at \"/usr/src/linux/.git\"
-#	is created that points at \"/usr/src/kernel_config.git\"
+#	If not already existing, a symlink at \"${EROOT}/usr/src/linux/.git\"
+#	is created that points at \"${EROOT}/usr/src/kernel_config.git\"
 #	The group and permissions oft the kernel_config.git dir
 #	and the kernel source tree
 #	is changed to portage and group read-access if
@@ -45,7 +45,7 @@ else
 fi
 
 HOMEPAGE=""
-EGIT_REPO_URI="/usr/src/kernel_config.git"
+EGIT_REPO_URI="${EROOT}/usr/src/kernel_config.git"
 
 
 LICENSE=""
@@ -67,7 +67,7 @@ pkg_setup(){
 	if [[ ${PV} = 999935 ]]; then
 		# use the existing symlink to get the kernel source tree
 		# or whatever the user is keeping at that path
-		kernel_source_tree="${EPREFIX}/usr/src/linux"
+		kernel_source_tree="${EROOT}/usr/src/linux"
 		[[ -e "${kernel_source_tree}" ]] \
 			|| die \
 			"No kernel source at: \"${kernel_source_tree}\"
@@ -84,9 +84,9 @@ pkg_setup(){
 		# to get the source tree do some pkg data base check
 		symlink_target="$(cat "${EPREFIX}"/var/db/pkg/sys-kernel/gentoo-sources-"${PV}"/CONTENTS \
 			| grep -E '^dir[ ]+[/]usr[/]src[/]linux[-][^/]+$' \
-			| sed -E 's@^dir[ ]+/usr/src/(linux[-][^/]+$)@\1@')" \
+			| sed -E 's@^dir[ ]+${EROOT}/usr/src/(linux[-][^/]+$)@\1@')" \
 				|| die "could not infer kernel source tree from pkg database"
-		kernel_source_tree="${EPREFIX}/usr/src/${symlink_target}"
+		kernel_source_tree="${EROOT}/usr/src/${symlink_target}"
 		[[ -e "${kernel_source_tree}" ]] || die \
 			"Kernel source tree should be at: \"${kernel_source_tree}\", but there is nothing.
 			Something went wrong.
@@ -111,7 +111,7 @@ pkg_setup(){
 	# check for read-access
 	# find exits 1 if something unreadable is found
 	# no matter the "!" prefix
-	find /usr/src/linux/ ! -readable || die
+	find "${EROOT}/usr/src/linux/" ! -readable || die
 
 	# choose the kernel installation method
 	# this need to fit the system
@@ -172,7 +172,7 @@ src_unpack(){
 		--progress --exclude='/.git' \
 		--exclude='/.git/***' \
 		--exclude='/.config' \
-		/usr/src/linux/ "${S}" \
+		"${EROOT}/usr/src/linux/" "${S}" \
 			|| die "ERROR: rsync failed"
 }
 
@@ -224,7 +224,7 @@ src_install(){
 	if [[ ${PV} != 999935 ]] && use set-kernel-source-link;then
 		symlink_target="$(cat "${EPREFIX}"/var/db/pkg/sys-kernel/gentoo-sources-"${PV}"/CONTENTS \
 			| grep -E '^dir[ ]+[/]usr[/]src[/]linux[-][^/]+$' \
-			| sed -E 's@^dir[ ]+/usr/src/(linux[-][^/]+$)@\1@')" \
+			| sed -E 's@^dir[ ]+${EROOT}/usr/src/(linux[-][^/]+$)@\1@')" \
 				|| die "could not infer symlink target tree from pkg database"
 
 		symlink_path="${EPREFIX}/usr/src/linux"
