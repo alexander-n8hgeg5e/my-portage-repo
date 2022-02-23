@@ -2,7 +2,7 @@
 =app-misc/rind-9999 **
 =app-misc/btrfsbenc-9999
 =app-misc/getcalendaroverview-9999
-=app-misc/openrc_keybord_rate-9999
+=app-misc/openrc-keybord-rate-9999
 =app-misc/pyopen-9999
 
 =app-misc/gentoo-getebuild-9999 ~amd64
@@ -32,7 +32,7 @@ app-misc/gentoo-getebuild
 app-misc/gentooify
 app-misc/getcalendaroverview
 app-misc/offlineimap-openrc-service
-app-misc/openrc_keybord_rate
+app-misc/openrc-keyboard-rate **
 app-misc/pyblueconnect
 app-misc/pyopen
 app-misc/shortcuts

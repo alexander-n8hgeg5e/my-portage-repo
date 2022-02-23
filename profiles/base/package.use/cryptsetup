@@ -1,4 +1,4 @@
-sys-fs/cryptsetup luks1_default openssl static
+sys-fs/cryptsetup luks1_default openssl static -kernel -udev
 >=dev-libs/json-c-0.15 static-libs
 >=dev-libs/libgpg-error-1.42 static-libs
 >=dev-libs/popt-1.18 static-libs

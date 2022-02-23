@@ -9,7 +9,7 @@ dev-util/strace
 =app-vim/mycalendar-9999::my
 =app-misc/btrfsbenc-9999::my
 =app-misc/getcalendaroverview-9999::my
-=app-misc/openrc_keybord_rate-9999::my
+=app-misc/openrc-keyboard-rate-9999::my
 =app-misc/pyopen-9999::my
 =app-misc/shortcuts-9999::my
 app-misc/rind::my
