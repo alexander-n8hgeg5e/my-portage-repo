@@ -1,1 +1,1 @@
-sys-devel/binutils gold
+sys-devel/binutils gold pgo plugins multitarget
