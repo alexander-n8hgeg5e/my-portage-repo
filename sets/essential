@@ -4,3 +4,4 @@ sys-apps/openrc-init-scripts
 app-admin/sudo
 app-admin/sysklogd
 sys-apps/busybox
+app-misc/shortcuts
