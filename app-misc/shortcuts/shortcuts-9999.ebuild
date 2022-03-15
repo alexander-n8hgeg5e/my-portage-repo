@@ -506,4 +506,5 @@ dobin uercd!
 dobin uercd!!
 dobin unabsorb_git_dirs_only_cleanup
 dobin emerge-node
+dobin x2myclip
 }
