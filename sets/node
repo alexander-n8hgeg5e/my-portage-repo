@@ -1,10 +1,8 @@
 sys-boot/syslinux
 net-fs/nfs-utils
-acct-group/openntpd
-acct-user/openntpd
-net-misc/openntpd
 net-misc/openssh
 sys-apps/ethtool
+net-misc/chrony
 sys-devel/distcc
 net-firewall/iptables
 app-admin/sysklogd
