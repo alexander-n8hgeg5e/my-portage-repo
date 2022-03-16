@@ -509,4 +509,5 @@ dobin emerge-node
 dobin x2myclip
 dobin x20
 dobin x21
+dobin txt2pdf
 }
