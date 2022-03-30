@@ -510,4 +510,20 @@ dobin x2myclip
 dobin x20
 dobin x21
 dobin txt2pdf
+dobin power_ac_off
+dobin power_ac_on
+dobin power_audio_off
+dobin power_audio_on
+dobin power_esadc_off
+dobin power_esadc_on
+dobin power_fan_off
+dobin power_fan_on
+dobin power_klima_off
+dobin power_klima_on
+dobin power_led-stripe_off
+dobin power_led-stripe_on
+dobin power_light0_off
+dobin power_light0_on
+dobin power_light1_off
+dobin power_light1_on
 }
