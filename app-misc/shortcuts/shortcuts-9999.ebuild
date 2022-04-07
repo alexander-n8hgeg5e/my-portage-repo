@@ -527,4 +527,6 @@ dobin power_light0_on
 dobin power_light1_off
 dobin power_light1_on
 dobin luksFormat
+dobin qr
+dobin qrd
 }
