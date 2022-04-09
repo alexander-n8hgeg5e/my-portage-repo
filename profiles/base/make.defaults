@@ -69,7 +69,7 @@ FEATURES="${FEATURES} parallel-install parallel-fetch python-trace cgroup"      
 FEATURES="${FEATURES} distcc"
 #FEATURES="${FEATURES} ccache"
 
-USE="-* sixel asm smp openmp tcpd threads caps pie \
+USE="-* sixel asm smp openmp tcpd threads caps pie jit \
     -pam \
     python_targets_python3_8  python_targets_python3_9 python_targets_python3_10 \
     python_single_target_python3_9 \
