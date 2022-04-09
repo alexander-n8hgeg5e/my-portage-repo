@@ -1,5 +1,5 @@
-sys-cluster/ceph fuse diskprediction cephfs mgr lua_single_target_lua5-3 sqlite
-dev-libs/leveldb snappy
+sys-cluster/ceph fuse diskprediction cephfs mgr lua_single_target_lua5-3 sqlite tcmalloc
+dev-libs/leveldb snappy tcmalloc
 dev-python/numpy lapack
 virtual/mpi fortran
 dev-libs/xmlsec openssl
