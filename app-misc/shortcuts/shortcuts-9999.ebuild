@@ -529,4 +529,8 @@ dobin power_light1_on
 dobin luksFormat
 dobin qr
 dobin qrd
+dobin sx
+dobin watch_node_top
+dobin shs
+dobin get_nodes_relative_loadavg
 }
