@@ -533,4 +533,7 @@ dobin sx
 dobin watch_node_top
 dobin shs
 dobin get_nodes_relative_loadavg
+dobin ceph_daemons
+dobin show_cluster_top_all-r
+dobin diff_cpu_flags
 }
