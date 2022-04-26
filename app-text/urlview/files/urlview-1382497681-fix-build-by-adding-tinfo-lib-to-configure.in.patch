@@ -1,0 +1,27 @@
+From 55dcabf3889159fee0dbbb7dda17fad19159bd73 Mon Sep 17 00:00:00 2001
+From: alexander-n8hgeg5e <alexander.w.email@gmail.com>
+Date: Tue, 26 Apr 2022 13:48:53 +0200
+Subject: [PATCH] fix build by adding tinfo lib to configure.in/ac
+
+---
+ configure.in | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/configure.in b/configure.in
+index 80c1e7e..b640f37 100644
+--- a/configure.in
++++ b/configure.in
+@@ -25,8 +25,8 @@ AC_ARG_WITH(slang, [  --with-slang[=DIR]      use S-Lang instead of curses],
+ 	fi],
+ 
+ 	[AC_CHECK_LIB(ncursesw, initscr,
+-	 [LIBS="$LIBS -lncursesw"],
+-	 [AC_CHECK_LIB(ncurses, initscr, [LIBS="$LIBS -lncurses"], [LIBS="$LIBS -lcurses"])])
++	 [LIBS="$LIBS -lncursesw -ltinfo"],
++	 [AC_CHECK_LIB(ncurses, initscr, [LIBS="$LIBS -lncurses -ltinfo"], [LIBS="$LIBS -lcurses -ltinfo"])])
+ 	AC_CHECK_FUNCS(curs_set)
+ 	AC_CHECK_HEADERS(ncurses.h)
+ 	AC_CHECK_HEADER(ncursesw/curses.h, [CPPFLAGS="$CPPFLAGS -I/usr/include/ncursesw"],
+-- 
+2.35.1
+

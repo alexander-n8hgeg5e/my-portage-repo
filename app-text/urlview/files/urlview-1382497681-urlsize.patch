@@ -1,0 +1,25 @@
+From 28bdd0425ceb142d4f2a7c93444d97bacb80ca09 Mon Sep 17 00:00:00 2001
+From: alexander-n8hgeg5e <alexander.w.email@gmail.com>
+Date: Tue, 26 Apr 2022 22:07:48 +0200
+Subject: [PATCH] increase urlsize
+
+---
+ urlview.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/urlview.c b/urlview.c
+index b92665b..d672b04 100644
+--- a/urlview.c
++++ b/urlview.c
+@@ -55,7 +55,7 @@
+ 
+ #define OFFSET 2
+ #define PAGELEN (LINES - 1 - OFFSET)
+-#define URLSIZE 128
++#define URLSIZE 512
+ 
+ enum
+ {
+-- 
+2.35.1
+

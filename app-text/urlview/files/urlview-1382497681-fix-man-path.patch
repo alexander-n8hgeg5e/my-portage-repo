@@ -1,0 +1,24 @@
+From 1ffe0f961549359b2be57910a7b8900e2388fb65 Mon Sep 17 00:00:00 2001
+From: alexander-n8hgeg5e <alexander.w.email@gmail.com>
+Date: Tue, 26 Apr 2022 19:07:07 +0200
+Subject: [PATCH] fix man path
+
+---
+ Makefile.am | 4 ----
+ 1 file changed, 4 deletions(-)
+
+diff --git a/Makefile.am b/Makefile.am
+index cb0979c..2898ec2 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -10,7 +10,3 @@ EXTRA_DIST = text urlview.man urlview.sgml sample.urlview \
+ 
+ CLEANFILES = *~ *.orig *.rej
+ 
+-install-data-local:
+-	$(INSTALL_DATA) urlview.man $(mandir)/man1/urlview.1
+-
+-# how to create a target for uninstall-data-local???
+-- 
+2.35.1
+

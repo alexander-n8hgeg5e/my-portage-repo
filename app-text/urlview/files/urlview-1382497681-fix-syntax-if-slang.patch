@@ -1,0 +1,24 @@
+From 77f8ad6ad87641be73e377c4f8c6cc2743c10f3f Mon Sep 17 00:00:00 2001
+From: alexander-n8hgeg5e <alexander.w.email@gmail.com>
+Date: Tue, 26 Apr 2022 20:21:49 +0200
+Subject: [PATCH] fix syntax
+
+---
+ urlview.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/urlview.c b/urlview.c
+index 4a36235..b92665b 100644
+--- a/urlview.c
++++ b/urlview.c
+@@ -428,6 +428,7 @@ into a line of its own in your \n\
+ 	    exit(1);
+     }
+   initscr ();
++ }
+ #else
+   /* if we piped a file we can't use initscr() because it assumes `stdin' */
+   fp = reopen_tty ? fopen ("/dev/tty", "r") : stdin;
+-- 
+2.35.1
+
