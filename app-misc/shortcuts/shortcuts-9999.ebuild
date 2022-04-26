@@ -536,4 +536,5 @@ dobin get_nodes_relative_loadavg
 dobin ceph_daemons
 dobin show_cluster_top_all-r
 dobin diff_cpu_flags
+dobin urlscan_0
 }
