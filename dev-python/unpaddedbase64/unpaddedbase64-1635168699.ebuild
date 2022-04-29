@@ -8,6 +8,8 @@ PYTHON_COMPAT=( python3_{8,9,10} )
 inherit distutils-r1 git-r3
 
 EGIT_REPO_URI="${CODEDIR}/${PN} ${MYGITHUB_URIBASE}${PN}.git"
+EGIT_COMMIT_DATE=$PV
+EGIT_BRANCH=main
 
 DESCRIPTION=""
 HOMEPAGE=""
