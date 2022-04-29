@@ -6,14 +6,14 @@ EAPI=8
 PYTHON_COMPAT=( python3_{8,9,10} )
 inherit distutils-r1 git-r3
 
-DESCRIPTION="matrix cli client with basic features"
-HOMEPAGE="https://github.com/saadsolimanxyz/matrixcli"
+DESCRIPTION="matrix python sdk"
+HOMEPAGE="https://github.com/matrix-org/matrix-python-sdk"
 EGIT_REPO_URI="${CODEDIR}/${PN} ${MYGITHUB_URIBASE}${PN}.git"
 
-LICENSE="GPL-3"
+LICENSE="apache-2"
 SLOT="0"
 KEYWORDS=""
 
 DEPEND=""
-RDEPEND="${DEPEND} dev-python/matrix-python-sdk[${PYTHON_USEDEP}]"
+RDEPEND="${DEPEND}"
 BDEPEND=""
