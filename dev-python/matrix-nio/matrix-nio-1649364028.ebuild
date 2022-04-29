@@ -7,6 +7,8 @@ PYTHON_COMPAT=( python3_{8,9,10} )
 DISTUTILS_USE_SETUPTOOLS=pyproject.toml
 inherit git-r3 distutils-r1
 EGIT_REPO_URI="${CODEDIR}/${PN} ${MYGITHUB_URIBASE}${PN}.git"
+EGIT_BRANCH=master
+EGIT_COMMIT_DATE=$PV
 
 DESCRIPTION=""
 HOMEPAGE=""

@@ -12,6 +12,8 @@ inherit git-r3 distutils-r1
 DESCRIPTION=""
 HOMEPAGE=""
 EGIT_REPO_URI="${CODEDIR}/${PN} ${MYGITHUB_URIBASE}${PN}.git"
+EGIT_COMMIT_DATE=$PV
+EGIT_BRANCH=master
 
 LICENSE=""
 SLOT="0"
