@@ -3,19 +3,17 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{8,9,10} )
-inherit git-r3 distutils-r1
+PYTHON_COMPAT=( python3_8 )
+inherit distutils-r1
 
 DESCRIPTION=""
 HOMEPAGE=""
-EGIT_REPO_URI="${CODEDIR}/${PN} ${MYGITHUB_URIBASE}${PN}.git"
-EGIT_COMMIT_DATE="${PV}"
-EGIT_BRANCH="master"
+SRC_URI=""
 
 LICENSE=""
 SLOT="0"
 KEYWORDS="~amd64"
 
-DEPEND="dev-libs/olm"
+DEPEND=""
 RDEPEND="${DEPEND}"
 BDEPEND=""

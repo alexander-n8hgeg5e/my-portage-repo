@@ -3,19 +3,18 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{8,9,10} )
-inherit git-r3 distutils-r1
+inherit git-r3 cmake
 
-DESCRIPTION=""
-HOMEPAGE=""
+DESCRIPTION="some ratchet crypto stuff"
+HOMEPAGE="https://gitlab.matrix.org/matrix-org/olm"
 EGIT_REPO_URI="${CODEDIR}/${PN} ${MYGITHUB_URIBASE}${PN}.git"
 EGIT_COMMIT_DATE="${PV}"
 EGIT_BRANCH="master"
 
 LICENSE=""
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS=""
 
-DEPEND="dev-libs/olm"
+DEPEND=""
 RDEPEND="${DEPEND}"
 BDEPEND=""

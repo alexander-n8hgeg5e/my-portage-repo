@@ -38,5 +38,6 @@ RDEPEND="${DEPEND}
 	dev-python/aiofiles[${PYTHON_USEDEP}]
 	dev-python/m2r2[${PYTHON_USEDEP}]
 	dev-python/sphinx_rtd_theme[${PYTHON_USEDEP}]
+	dev-python/python-olm[${PYTHON_USEDEP}]
 "
 BDEPEND=""
