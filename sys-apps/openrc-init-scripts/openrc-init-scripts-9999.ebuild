@@ -20,6 +20,7 @@ RDEPEND="${DEPEND} sys-apps/openrc
 	acct-user/in_tftpd_esadc
 	acct-group/in_tftpd_esadc
 	acct-group/cg_bg
+	acct-group/cg_realtime
 "
 
 src_install(){
@@ -53,6 +54,7 @@ src_install(){
 	dosbin usr/sbin/set_netifnames
 	doinitd etc/init.d/netifnames
 	doinitd etc/init.d/cg_bg
+	doinitd etc/init.d/cg_realtime
 	dosbin usr/sbin/gen_io_lat_strings
 	doinitd etc/init.d/run_subdirs
 	doinitd etc/init.d/tmp
