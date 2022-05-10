@@ -91,12 +91,12 @@ doins   "${etc_portage_pau_dir}/"*
 # -> moved to my profile
 
 
-# mask
-etc_portage_mask_dir="etc/portage/package.mask"
-dodir               "${etc_portage_mask_dir}"
-insinto             "${etc_portage_mask_dir}"
-doins               "${etc_portage_mask_dir}/"*
-
+## mask
+#etc_portage_mask_dir="etc/portage/package.mask"
+#dodir               "${etc_portage_mask_dir}"
+#insinto             "${etc_portage_mask_dir}"
+#doins               "${etc_portage_mask_dir}/"*
+#
 # unmask
 etc_portage_unmask_dir="etc/portage/package.unmask"
 dodir               "${etc_portage_unmask_dir}"
