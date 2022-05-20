@@ -539,4 +539,5 @@ dobin diff_cpu_flags
 dobin urlscan_0
 dobin useradd_push
 dobin show_cg_io_latency_targets
+dobin backup_boot
 }
