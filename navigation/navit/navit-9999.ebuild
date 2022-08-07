@@ -2,8 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=6
-inherit git-r3 cmake-utils
+EAPI=7
+inherit git-r3 cmake
 
 DESCRIPTION="An open-source car navigation system with a routing engine"
 HOMEPAGE="http://www.navit-project.org"

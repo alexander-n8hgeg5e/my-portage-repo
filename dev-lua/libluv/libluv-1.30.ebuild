@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
-inherit cmake-utils
+inherit cmake
 DESCRIPTION="'libuv bindings for luajit and lua 5.1/5.2."
 HOMEPAGE=""
 SRC_URI="/tmp/libluv-1.30.tar"

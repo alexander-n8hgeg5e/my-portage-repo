@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit cmake-utils mercurial
+inherit cmake mercurial
 
 DESCRIPTION="The glue between Coin3D and Qt"
 HOMEPAGE="https://bitbucket.org/Coin3D/soqt"

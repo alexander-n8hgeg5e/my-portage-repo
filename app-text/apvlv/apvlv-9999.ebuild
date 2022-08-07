@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit xdg cmake-utils desktop git-r3
+inherit xdg cmake desktop git-r3
 
 DESCRIPTION="Alf's PDF Viewer Like Vim"
 HOMEPAGE="https://naihe2010.github.com/apvlv/"

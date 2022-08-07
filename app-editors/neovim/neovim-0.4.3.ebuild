@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit cmake-utils eutils xdg
+inherit cmake eutils xdg
 
 DESCRIPTION="Vim-fork focused on extensibility and agility."
 HOMEPAGE="https://neovim.io"

@@ -10,7 +10,7 @@ EAPI=7
 PYTHON_COMPAT=( python2_7 python3_{6,7,8} )
 CMAKE_IN_SOURCE_BUILD=1
 
-inherit cmake-utils python-r1 virtualx
+inherit cmake python-r1 virtualx
 
 MY_P=pyside-setup-opensource-src-${PV}
 

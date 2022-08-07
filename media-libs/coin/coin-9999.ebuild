@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit cmake-utils mercurial
+inherit cmake mercurial
 
 MY_P=${P/c/C}
 
