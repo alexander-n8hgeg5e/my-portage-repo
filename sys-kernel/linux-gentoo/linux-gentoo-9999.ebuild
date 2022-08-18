@@ -157,7 +157,12 @@ pkg_setup(){
 		if [[ ${bootfstype} = btrfs ]];then
 			backupmethod=btrfs
 		else
-			backupmethod=tar
+			if
+				[[ -e /etc/kernel-update-backup-cmd ]];then
+				backupmethod=cmd
+			else
+				backupmethod=tar
+			fi
 		fi
 		einfo "backupmethod: ${backupmethod}"
 	else
@@ -248,6 +253,8 @@ pkg_preinst(){
 		if [[ $backupmethod = btrfs ]];then
 			btrfs sub snap -r "/boot/." "/boot/snapshots/$(date +%y_%m_%d_%H_%M_%S)" \
 				|| die
+		elif [[ $backupmethod = cmd ]];then
+			/etc/kernel-update-backup-cmd || die
 		elif [[ $backupmethod = tar ]] ; then
 			inc_tarfilepath="/boot/kernel_backup.tar.inc"
 			tarfilepath="/boot/kernel_backup.tar"
