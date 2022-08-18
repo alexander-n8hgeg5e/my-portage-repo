@@ -1,6 +1,0 @@
-sys-apps/smartmontools
-sys-apps/hdparm
-sys-fs/cryptsetup
-sys-fs/lvm2
-sys-fs/mdadm
-@hardware-storage-fs-btrfs

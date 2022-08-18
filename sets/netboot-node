@@ -1,0 +1,4 @@
+sys-boot/syslinux
+net-fs/nfs-utils
+@hardware-boot
+@node

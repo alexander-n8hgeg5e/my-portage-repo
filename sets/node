@@ -1,5 +1,3 @@
-sys-boot/syslinux
-net-fs/nfs-utils
 net-misc/openssh
 sys-apps/ethtool
 net-misc/chrony

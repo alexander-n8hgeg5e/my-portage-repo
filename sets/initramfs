@@ -1,3 +1,4 @@
 app-arch/cpio
-net-misc/dropbear
+net-misc/dropbear[static,shadow]
 dev-vcs/git
+sys-apps/busybox[static]

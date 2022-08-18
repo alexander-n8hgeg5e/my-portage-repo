@@ -1,0 +1,4 @@
+sys-fs/cryptsetup
+sys-fs/lvm2
+@filesystem-btrfs
+@disk-node

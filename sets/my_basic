@@ -7,7 +7,6 @@ media-fonts/anonymous-pro
 dev-python/pynvim
 dev-util/strace
 =app-vim/mycalendar-9999::my
-=app-misc/btrfsbenc-9999::my
 =app-misc/getcalendaroverview-9999::my
 =app-misc/openrc-keyboard-rate-9999::my
 =app-misc/pyopen-9999::my
