@@ -43,6 +43,7 @@ doins "etc/locale.gen"
 doins "etc/resolvconf.conf"
 doins "etc/gitconfig"
 doins "etc/git-mailmap"
+doins "etc/tmux.conf"
 
 # repos.conf
 if ! use prefix ; then
