@@ -6,7 +6,7 @@ inherit git-r3
 DESCRIPTION="pyfancontrol controls my graphics cards fan"
 HOMEPAGE=""
 EGIT_REPO_URI="${CODEDIR}/${PN} https://github.com/alexander-n8hgeg5e/${PN}.git"
-LICENSE="gpl3"
+LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
