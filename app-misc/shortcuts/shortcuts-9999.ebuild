@@ -332,6 +332,7 @@ dobin .gdcs
 dobin .gds
 dobin gds
 dobin gdcs
+dosym gdsc /usr/bin/gdcs
 python_foreach_impl python_doscript gidb
 dobin mirrorlink
 dobin homelink
