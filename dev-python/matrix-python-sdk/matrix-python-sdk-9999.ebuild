@@ -10,7 +10,7 @@ DESCRIPTION="matrix python sdk"
 HOMEPAGE="https://github.com/matrix-org/matrix-python-sdk"
 EGIT_REPO_URI="${CODEDIR}/${PN} ${MYGITHUB_URIBASE}${PN}.git"
 
-LICENSE="apache-2"
+LICENSE="Apache-2"
 SLOT="0"
 KEYWORDS=""
 
