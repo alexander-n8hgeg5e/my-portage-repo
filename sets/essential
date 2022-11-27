@@ -1,5 +1,4 @@
 app-misc/mydefaults
-sys-kernel/gentoo-sources
 sys-apps/openrc-init-scripts
 app-admin/sudo
 app-admin/sysklogd
@@ -7,3 +6,6 @@ acct-group/logdaemon
 acct-user/logdaemon
 sys-apps/busybox
 app-misc/shortcuts
+app-misc/tmux
+app-editors/vim
+app-misc/rind
