@@ -1,0 +1,3 @@
+gui-apps/waypipe dmabuf ffmpeg lz4 man vaapi zstd
+media-libs/libva drm wayland
+media-video/ffmpeg vaapi x264

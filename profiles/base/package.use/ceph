@@ -7,3 +7,5 @@ dev-libs/xmlsec openssl
 dev-libs/nettle gmp
 sys-devel/gcc fortran
 net-misc/curl http2
+dev-libs/libxml2 ftp
+sys-fs/lvm2 lvm
