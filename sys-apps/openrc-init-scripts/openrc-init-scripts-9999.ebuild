@@ -80,4 +80,9 @@ src_install(){
 	doins "${lib_rc_sh_dir}/rc-linkname-parsers.sh"
 
 	doinitd etc/init.d/prepare_sysklogd
+	doinitd etc/init.d/wait-ceph-pool
+	doinitd etc/init.d/wait-nodes
+	doinitd etc/init.d/wait-node
+	doinitd etc/init.d/netmount
+	doinitd etc/init.d/wait-ceph-mds
 }
