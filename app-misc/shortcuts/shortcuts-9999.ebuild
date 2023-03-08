@@ -545,4 +545,5 @@ dosbin unlock
 dobin vglrl
 dobin vglrr
 dobin cge
+dobin start_Xvnc
 }
