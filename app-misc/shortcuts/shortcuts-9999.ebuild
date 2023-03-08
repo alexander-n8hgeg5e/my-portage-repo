@@ -544,4 +544,5 @@ dobin backup_boot
 dosbin unlock
 dobin vglrl
 dobin vglrr
+dobin cge
 }
