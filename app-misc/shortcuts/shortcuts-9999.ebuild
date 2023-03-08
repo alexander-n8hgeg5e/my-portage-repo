@@ -542,4 +542,6 @@ dobin useradd_push
 dobin show_cg_io_latency_targets
 dobin backup_boot
 dosbin unlock
+dobin vglrl
+dobin vglrr
 }
