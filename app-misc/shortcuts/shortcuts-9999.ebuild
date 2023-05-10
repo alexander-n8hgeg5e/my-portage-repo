@@ -547,12 +547,14 @@ dobin vglrl
 dobin vglrr
 dobin cge
 dobin start_Xvnc
-dobin relay_control_0
-dobin power_all_nodes_on
-dobin power_disknodes_on
-dobin power_disknodes_off
-dobin power_all_nodes_off
-dobin power_dc_on
-dobin power_dc_off
-dobin power_tc_off
+dosbin relay_control_0
+dosbin power_all_nodes_on
+dosbin power_disknodes_on
+dosbin power_disknodes_off
+dosbin power_all_nodes_off
+dosbin power_dc_on
+dosbin power_dc_off
+dosbin power_tc_off
+dosbin cluster_standby
+dosbin cluster_shutdown
 }
