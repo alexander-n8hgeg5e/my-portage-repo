@@ -1,0 +1,10 @@
+gui-libs/wlroots xwayland
+
+# required by gui-wm/cage-9999::my[xwayland]     
+>=gui-libs/wlroots-0.16.2 X                      
+
+# required by x11-base/xwayland-23.1.1::gentoo   
+>=media-libs/libepoxy-1.5.10-r1 egl              
+
+# required by x11-base/xwayland-23.1.1::gentoo   
+>=media-libs/mesa-22.3.7-r1 X                    

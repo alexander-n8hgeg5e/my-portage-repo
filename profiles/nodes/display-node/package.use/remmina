@@ -1,0 +1,2 @@
+net-misc/remmina vnc -rdp -python
+net-libs/libvncserver ssl zlib jpeg
