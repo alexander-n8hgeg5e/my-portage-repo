@@ -16,7 +16,6 @@ app-shells/gentoo-bashcomp
 dev-util/strace
 app-text/pinfo
 net-analyzer/nmap
-app-portage/layman
 sys-process/nmon
 net-ftp/tnftp
 x11-wm/spectrwm
