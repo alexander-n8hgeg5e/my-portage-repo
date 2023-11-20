@@ -64,7 +64,7 @@ FEATURES="${FEATURES} clean-logs"                                               
 FEATURES="${FEATURES} buildpkg buildpkg-live binpkg-multi-instance"               # function
 FEATURES="${FEATURES} sandbox usersandbox userpriv"                               # security
 FEATURES="${FEATURES} strict suidctl"                                             # security
-FEATURES="${FEATURES} parallel-install parallel-fetch python-trace cgroup"        # speed
+FEATURES="${FEATURES} parallel-install parallel-fetch python-trace"               # speed
 
 FEATURES="${FEATURES} distcc"
 #FEATURES="${FEATURES} ccache"

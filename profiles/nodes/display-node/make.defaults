@@ -1,1 +1,1 @@
-USE="udev vulkan dri dri3 wayland"
+USE="vulkan dri dri3 wayland"

@@ -17,3 +17,5 @@ amd64       default/linux/amd64/17.1/no-multilib/ui-node/lowmem    			          
 amd64       default/linux/amd64/17.1/no-multilib/app-node       			                                              dev
 amd64       default/linux/amd64/17.1/no-multilib/diskboot-system-on-disk-bootserver-ceph-syslogger-ui-lowmem-app-node     dev
 amd64       default/linux/amd64/17.1/no-multilib/netboot-system-on-disk-ceph-lowmem-display-node                          dev
+amd64       default/linux/amd64/17.1/no-multilib/netboot-system-on-disk-ceph-node                                         dev
+amd64       default/linux/amd64/17.1/no-multilib/netboot-system-on-rbd-ceph-app-node                                      dev

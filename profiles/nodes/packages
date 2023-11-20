@@ -7,5 +7,10 @@ net-firewall/iptables
 app-admin/sysklogd
 app-crypt/gnupg
 sys-apps/dm-integrity-utils
+app-shells/fish
+sys-apps/openrc-init-scripts
+acct-group/src_access
+app-misc/mydefaults
+app-misc/shortcuts
 # @initramfs
 # @essential
