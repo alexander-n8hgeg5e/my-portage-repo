@@ -6,6 +6,7 @@ inherit git-r3
 DESCRIPTION="live search filesystem, useing notmuch"
 HOMEPAGE=""
 EGIT_REPO_URI="${CODEDIR}""/notmuchfs https://github.com/alexander-n8hgeg5e/notmuchfs.git"
+EGIT_COMMIT="5cd4b98a9e3f8fc7643e00c152a648b5c0de0cce"
 
 LICENSE=""
 SLOT="0"
