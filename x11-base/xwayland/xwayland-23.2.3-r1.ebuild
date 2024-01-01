@@ -16,7 +16,7 @@ fi
 DESCRIPTION="Standalone X server running under Wayland"
 HOMEPAGE="https://wayland.freedesktop.org/xserver.html"
 
-IUSE="libei selinux video_cards_nvidia unwind xcsecurity"
+IUSE="libei selinux video_cards_nvidia unwind xcsecurity systemd"
 
 LICENSE="MIT"
 SLOT="0"
@@ -43,6 +43,7 @@ COMMON_DEPEND="
 	libei? ( dev-libs/libei )
 	unwind? ( sys-libs/libunwind )
 	video_cards_nvidia? ( gui-libs/egl-wayland )
+	systemd? ( sys-apps/systemd )
 "
 DEPEND="
 	${COMMON_DEPEND}
@@ -63,6 +64,7 @@ BDEPEND="
 
 PATCHES=(
 	"${FILESDIR}"/xwayland-drop-redundantly-installed-files.patch
+	"${FILESDIR}"/meson-add-option-for-systemd.patch
 )
 
 src_configure() {
@@ -71,6 +73,7 @@ src_configure() {
 		$(meson_use unwind libunwind)
 		$(meson_use xcsecurity)
 		$(meson_use video_cards_nvidia xwayland_eglstream)
+		$(meson_use systemd)
 		-Ddpms=true
 		-Ddri3=true
 		-Ddrm=true
