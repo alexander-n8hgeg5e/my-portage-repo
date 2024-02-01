@@ -1,8 +1,8 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-EAPI=6
+EAPI=7
 #DISTUTILS_SINGLE_IMPL=1
-PYTHON_COMPAT=( python3_5 python3_6 python3_7 python3_8)
+PYTHON_COMPAT=( python3_5 python3_6 python3_7 python3_{8,9,10,11} )
 inherit distutils-r1
 SLOT="0"
 KEYWORDS=~amd64

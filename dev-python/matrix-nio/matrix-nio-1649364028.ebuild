@@ -4,7 +4,8 @@
 EAPI=8
 
 PYTHON_COMPAT=( python3_{8,9,10} )
-DISTUTILS_USE_SETUPTOOLS=pyproject.toml
+#DISTUTILS_USE_SETUPTOOLS=pyproject.toml
+DISTUTILS_USE_PEP517=setuptools
 inherit git-r3 distutils-r1
 EGIT_REPO_URI="${CODEDIR}/${PN} ${MYGITHUB_URIBASE}${PN}.git"
 EGIT_BRANCH=master
