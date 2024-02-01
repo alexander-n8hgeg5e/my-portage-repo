@@ -13,11 +13,10 @@ KEYWORDS=""
 
 DEPEND=""
 RDEPEND="${DEPEND} www-client/firefox"
-BDEPEND="net-libs/nodejs[nmp]"
+BDEPEND="net-libs/nodejs[npm]"
 
 src_compile(){
-	npm install
-	npm run debug || exit 1
+	npm run build || exit 1
 }
 
 src_install(){
