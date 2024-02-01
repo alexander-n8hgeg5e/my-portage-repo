@@ -85,4 +85,6 @@ src_install(){
 	doinitd etc/init.d/wait-node
 	doinitd etc/init.d/netmount
 	doinitd etc/init.d/wait-ceph-mds
+	doinitd etc/init.d/qtile
+	doinitd etc/init.d/wayvnc
 }
