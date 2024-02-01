@@ -546,4 +546,12 @@ dobin vglrl
 dobin vglrr
 dobin cge
 dobin start_Xvnc
+dobin relay_control_0
+dobin power_all_nodes_on
+dobin power_disknodes_on
+dobin power_disknodes_off
+dobin power_all_nodes_off
+dobin power_dc_on
+dobin power_dc_off
+dobin power_tc_off
 }
