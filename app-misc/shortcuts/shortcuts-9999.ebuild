@@ -11,7 +11,7 @@ EGIT_REPO_URI="${CODEDIR}/${PN} https://github.com/alexander-n8hgeg5e/${PN}.git"
 LICENSE=""
 SLOT="0"
 KEYWORDS="~*"
-IUSE="rind neovim github pyopen X"
+IUSE="rind neovim github pyopen X +serial"
 
 RDEPEND="dev-python/pexpect[${PYTHON_USEDEP}]
 			dev-python/pylib[${PYTHON_USEDEP}]
@@ -27,6 +27,7 @@ RDEPEND="dev-python/pexpect[${PYTHON_USEDEP}]
 					dev-python/psutil[${PYTHON_USEDEP}]
 				)
 			dev-python/deprecation[${PYTHON_USEDEP}]
+			serial? ( dev-python/pyserial[${PYTHON_USEDEP}] )
 		"
 
 BDEPEND="dev-util/scons[${PYTHON_USEDEP}]"
