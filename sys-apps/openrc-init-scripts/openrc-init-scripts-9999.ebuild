@@ -56,6 +56,7 @@ src_install(){
 	doinitd etc/init.d/cg_bg
 	doinitd etc/init.d/cg_realtime
 	dosbin usr/sbin/gen_io_lat_strings
+	dosbin usr/sbin/gen_cgroup_io_controller_setup_strings
 	doinitd etc/init.d/run_subdirs
 	doinitd etc/init.d/tmp
 	doinitd etc/init.d/tmp-backing-remote
