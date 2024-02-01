@@ -61,7 +61,7 @@ FEATURES="${FEATURES} candy"                                                    
 FEATURES="${FEATURES} python-trace unknown-features-warn"                         # debugging
 FEATURES="${FEATURES} preserve-libs protect-owned buildsyspkg"                    # function
 FEATURES="${FEATURES} clean-logs"                                                 # function
-FEATURES="${FEATURES} buildpkg"                                                   # function
+FEATURES="${FEATURES} buildpkg buildpkg-live binpkg-multi-instance"               # function
 FEATURES="${FEATURES} sandbox usersandbox userpriv"                               # security
 FEATURES="${FEATURES} strict suidctl"                                             # security
 FEATURES="${FEATURES} parallel-install parallel-fetch python-trace cgroup"        # speed
@@ -75,7 +75,6 @@ USE="-* sixel asm smp openmp tcpd threads caps pie sanitize vtv nptl pch graphit
      python_single_target_python3_10
      lua_targets_lua5-3 lua_targets_lua5-4
      lua_targets_luajit
-     ruby_targets_ruby30
      lua_single_target_luajit
      ruby_targets_ruby31
     "
@@ -88,7 +87,7 @@ USE_EXPAND="${USE_EXPAND} TFTPD_FCAP_USERS"
 USE_EXPAND_IMPLICIT="${USE_EXPAND_IMPLICIT} TFTPD_FCAP_USERS"
 USE_EXPAND_VALUES_TFTPD_FCAP_USERS="dusteater skyscraper ftpscan"
 
-COMPILER_FLAGS_LOWMEM="-O0 -pipe"
+COMPILER_FLAGS_LOWMEM="-O0"
 DEFAULT_COMPILER_FLAGS="-O2 -fomit-frame-pointer -fdiagnostics-color -pipe"
 CFLAGS="${DEFAULT_COMPILER_FLAGS}"
 CXXFLAGS="${DEFAULT_COMPILER_FLAGS}"
