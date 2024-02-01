@@ -331,10 +331,11 @@ dobin screen_on_control
 dobin colorfade
 python_foreach_impl python_doscript mm
 dobin .gdcs
+dosym .gdcs /usr/bin/.gdsc
 dobin .gds
 dobin gds
 dobin gdcs
-dosym gdsc /usr/bin/gdcs
+dosym gdcs /usr/bin/gdsc
 python_foreach_impl python_doscript gidb
 dobin mirrorlink
 dobin homelink
