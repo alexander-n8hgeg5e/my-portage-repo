@@ -13,7 +13,6 @@ sys-process/nmon
 sys-process/schedtool
 app-shells/bash-completion
 app-shells/gentoo-bashcomp
-dev-util/strace
 app-text/pinfo
 net-analyzer/nmap
 sys-process/nmon
