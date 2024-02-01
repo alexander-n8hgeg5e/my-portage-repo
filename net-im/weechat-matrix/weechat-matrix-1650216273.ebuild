@@ -5,9 +5,11 @@ EAPI=8
 
 PYTHON_COMPAT=( python3_{8,9,10} )
 
-DISTUTILS_USE_SETUPTOOLS=pyproject.toml
+#DISTUTILS_USE_SETUPTOOLS=pyproject.toml
 
 inherit git-r3 distutils-r1
+
+DISTUTILS_USE_PEP517=1
 
 DESCRIPTION=""
 HOMEPAGE=""

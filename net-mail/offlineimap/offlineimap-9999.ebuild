@@ -4,7 +4,7 @@
 EAPI=7
 
 DISTUTILS_USE_SETUPTOOLS=no
-PYTHON_COMPAT=( python3_8 )
+PYTHON_COMPAT=( python3_{8,9,10} )
 PYTHON_REQ_USE="sqlite,ssl?"
 
 inherit distutils-r1 git-r3
@@ -22,11 +22,12 @@ IUSE="doc ssl"
 RDEPEND="
 	$(python_gen_cond_dep '
 		dev-python/six[${PYTHON_USEDEP}]
+ 		dev-python/distro[${PYTHON_USEDEP}]
 	')"
 DEPEND="
 	dev-python/distro
 	dev-python/imaplib2
-	dev-python/rfc6555
+	dev-python/rfc6555[${PYTHON_USEDEP}]
 	doc? ( app-text/asciidoc )
 	"
 
