@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit desktop eutils multilib toolchain-funcs git-r3
+inherit desktop multilib toolchain-funcs git-r3
 
 DESCRIPTION="Small dynamic tiling window manager for X11"
 HOMEPAGE="https://github.com/conformal/spectrwm"

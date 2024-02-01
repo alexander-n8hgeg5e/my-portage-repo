@@ -3,7 +3,7 @@
 
 EAPI="7"
 
-inherit systemd eutils toolchain-funcs fcaps
+inherit systemd toolchain-funcs fcaps
 
 DESCRIPTION="port of the OpenBSD TFTP server, feature add: run unpriv fcap user"
 HOMEPAGE="https://www.kernel.org/pub/software/network/tftp/"

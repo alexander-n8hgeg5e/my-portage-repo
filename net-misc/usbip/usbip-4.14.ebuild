@@ -4,7 +4,7 @@
 EAPI=7
 ETYPE="sources"
 K_NOUSENAME=1
-inherit autotools eutils kernel-2
+inherit autotools kernel-2
 
 DESCRIPTION="Userspace utilities for a general USB device sharing system over IP networks"
 HOMEPAGE="https://www.kernel.org/"

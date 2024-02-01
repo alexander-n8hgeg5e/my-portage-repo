@@ -3,7 +3,7 @@
 
 EAPI=7
 PYTHON_COMPAT=( python3_{6,7,8,9,10} )
-inherit git-r3 eutils python-r1
+inherit git-r3 python-r1
 DESCRIPTION="rind"
 HOMEPAGE="https://github.com/alexander-n8hgeg5e/rind"
 EGIT_REPO_URI="${CODEDIR}/${PN} https://github.com/alexander-n8hgeg5e/${PN}.git"

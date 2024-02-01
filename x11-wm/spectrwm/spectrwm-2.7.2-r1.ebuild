@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit eutils multilib toolchain-funcs
+inherit multilib toolchain-funcs
 
 DESCRIPTION="Small dynamic tiling window manager for X11"
 HOMEPAGE="https://opensource.conformal.com/wiki/spectrwm"

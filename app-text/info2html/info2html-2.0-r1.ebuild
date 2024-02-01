@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit eutils webapp
+inherit webapp
 
 DESCRIPTION="Converts GNU .info files to HTML"
 HOMEPAGE="http://info2html.sourceforge.net/"
