@@ -44,6 +44,7 @@ doins "etc/resolvconf.conf"
 doins "etc/gitconfig"
 doins "etc/git-mailmap"
 doins "etc/tmux.conf"
+doins "etc/etc-update.conf"
 
 # repos.conf
 if ! use prefix ; then
