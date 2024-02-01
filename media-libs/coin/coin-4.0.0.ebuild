@@ -14,7 +14,7 @@ SRC_URI="https://github.com/coin3d/coin/releases/download/${MY_P}/${P}-src.tar.g
 LICENSE="|| ( GPL-2 PEL )"
 KEYWORDS="amd64 ~arm ~arm64 ~hppa ppc ppc64 x86 ~amd64-linux ~x86-linux"
 SLOT="0"
-IUSE="debug doc +exceptions javascript man openal qthelp test threads"
+IUSE="debug doc +exceptions javascript man openal qthelp test threads egl"
 RESTRICT="!test? ( test )"
 
 REQUIRED_USE="
@@ -42,7 +42,7 @@ DEPEND="${RDEPEND}
 	dev-libs/boost:0
 	x11-base/xorg-proto
 	doc? (
-		app-doc/doxygen
+		app-text/doxygen
 		qthelp? ( dev-qt/qthelp:5 )
 	)
 "
@@ -77,6 +77,7 @@ src_configure() {
 		-DCOIN_BUILD_DOCUMENTATION_MAN=$(usex man)
 		-DCOIN_BUILD_DOCUMENTATION_QTHELP=$(usex qthelp)
 		-DCOIN_BUILD_DOCUMENTATION_CHM=OFF
+		-DCOIN_BUILD_EGL=$(usex egl)
 
 		-DCOIN_THREADSAFE=$(usex threads)
 		-DHAVE_VRML97=ON
