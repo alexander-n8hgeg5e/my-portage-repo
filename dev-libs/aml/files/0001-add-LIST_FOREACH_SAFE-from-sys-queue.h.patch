@@ -1,0 +1,28 @@
+From 6ce1bef5c7779262a95513f7f80d245288749449 Mon Sep 17 00:00:00 2001
+From: alexander-n8hgeg5e <alexander.w.email@gmail.com>
+Date: Sun, 19 Feb 2023 17:49:59 +0100
+Subject: [PATCH] add LIST_FOREACH_SAFE from sys/queue.h
+
+---
+ src/aml.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/src/aml.c b/src/aml.c
+index 48253fc..2687254 100644
+--- a/src/aml.c
++++ b/src/aml.c
+@@ -39,6 +39,11 @@
+ #define MIN(a, b) ((a) < (b) ? (a) : (b))
+ #endif
+ 
++#define	LIST_FOREACH_SAFE(var, head, field, tvar)			\
++	for ((var) = LIST_FIRST((head));				\
++	    (var) && ((tvar) = LIST_NEXT((var), field), 1);		\
++	    (var) = (tvar))
++
+ enum aml_obj_type {
+ 	AML_OBJ_UNSPEC = 0,
+ 	AML_OBJ_AML,
+-- 
+2.39.1
+
