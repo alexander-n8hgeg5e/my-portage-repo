@@ -1,2 +1,1 @@
-dev-vcs/git perl 
-virtual/perl-libnet ssl
+dev-vcs/git curl perl pcre pcre-jit gpg highlight blksha1 test

@@ -1,0 +1,12 @@
+#  r /var/src/portage/sets/essential
+app-misc/mydefaults
+sys-apps/openrc-init-scripts
+app-admin/sudo
+app-admin/sysklogd
+acct-group/logdaemon
+acct-user/logdaemon
+sys-apps/busybox
+app-misc/shortcuts
+app-misc/tmux
+app-editors/vim
+app-misc/rind

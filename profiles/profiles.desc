@@ -13,8 +13,12 @@ amd64       default/linux/amd64/17.1                             				    dev
 amd64       default/linux/amd64/17.1/no-multilib                				    dev
 amd64       default/linux/amd64/17.1/no-multilib/lowmem            				    dev
 amd64       default/linux/amd64/17.1/no-multilib/ui-node        				    dev
+amd64       default/linux/amd64/17.1/no-multilib/ui-node/lowmem    				    dev
+amd64       default/linux/amd64/17.1/no-multilib/display-node        				dev
+amd64       default/linux/amd64/17.1/no-multilib/display-node/lowmem    			dev
 amd64       default/linux/amd64/17.1/no-multilib/boot-node      				    dev
 amd64       default/linux/amd64/17.1/no-multilib/app-node       				    dev
 amd64       default/linux/amd64/17.1/no-multilib/boot-ui-node   				    dev
+amd64       default/linux/amd64/17.1/no-multilib/boot-ui-node/lowmem			    dev
 amd64       default/linux/amd64/17.1/no-multilib/boot-ui-app-node                   dev
 amd64       default/linux/amd64/17.1/no-multilib/boot-ui-app-node/lowmem            dev

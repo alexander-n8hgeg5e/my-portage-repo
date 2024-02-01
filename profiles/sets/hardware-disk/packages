@@ -1,0 +1,3 @@
+# r /var/src/portage/sets/hardware-disk
+sys-apps/smartmontools
+sys-apps/hdparm

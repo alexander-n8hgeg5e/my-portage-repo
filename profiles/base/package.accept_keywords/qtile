@@ -1,0 +1,6 @@
+#~x11-wm/qtile-0.22.1-r1
+x11-wm/qtile **
+gui-libs/wlroots
+dev-python/pywlroots
+=dev-python/pywayland-0.4*
+~dev-python/xkbcommon-0.8

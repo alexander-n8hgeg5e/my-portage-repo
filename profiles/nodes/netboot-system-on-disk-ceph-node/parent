@@ -1,0 +1,4 @@
+../netboot-node
+../system-on-disk-node
+../ceph-node
+

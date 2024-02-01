@@ -1,0 +1,4 @@
+../netboot-node
+../system-on-rbd-node
+../ceph-node
+../app-node

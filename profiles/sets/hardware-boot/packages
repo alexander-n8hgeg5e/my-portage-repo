@@ -1,0 +1,3 @@
+# r /var/src/portage/sets/hardware-boot
+sys-kernel/gentoo-sources
+sys-kernel/linux-gentoo

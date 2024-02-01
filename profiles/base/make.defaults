@@ -70,11 +70,11 @@ FEATURES="${FEATURES} distcc"
 #FEATURES="${FEATURES} ccache"
 
 USE="-* sixel asm smp openmp tcpd threads caps pie sanitize vtv nptl pch graphite ssp
-     python_targets_python3_8  python_targets_python3_9 python_targets_python3_10
-     python_single_target_python3_9
+     python_targets_python3_10
+     python_single_target_python3_10
      lua_targets_lua5-3 lua_targets_lua5-4
      lua_targets_luajit
-     ruby_targets_ruby27
+     ruby_targets_ruby30
      lua_single_target_luajit
     "
 
@@ -86,8 +86,8 @@ USE_EXPAND="${USE_EXPAND} TFTPD_FCAP_USERS"
 USE_EXPAND_IMPLICIT="${USE_EXPAND_IMPLICIT} TFTPD_FCAP_USERS"
 USE_EXPAND_VALUES_TFTPD_FCAP_USERS="dusteater skyscraper ftpscan"
 
-COMPILER_FLAGS_LOWMEM="-O2 -fomit-frame-pointer -fdiagnostics-color"
-DEFAULT_COMPILER_FLAGS="${COMPILER_FLAGS_LOWMEM} -pipe"
+COMPILER_FLAGS_LOWMEM="-O0"
+DEFAULT_COMPILER_FLAGS="-O2 -fomit-frame-pointer -fdiagnostics-color -pipe"
 CFLAGS="${DEFAULT_COMPILER_FLAGS}"
 CXXFLAGS="${DEFAULT_COMPILER_FLAGS}"
 FCFLAGS="${DEFAULT_COMPILER_FLAGS}"
@@ -117,7 +117,7 @@ http://www.ibiblio.org/pub/Linux/distributions/gentoo"
 PORTAGE_LOGDIR="${EROOT}var/log/portage"
 PORTAGE_GPG_DIR="${EROOT}etc/portage/gpg"
 SYNC=""
-PORTAGE_ELOG_CLASSES="warn error"
+PORTAGE_ELOG_CLASSES="warn error info"
 PORTAGE_ELOG_SYSTEM="echo syslog"
 PORTAGE_WORKDIR_MODE="0750"
 PORTAGE_IONICE_COMMAND="ionice -c 3 -p \${PID}"

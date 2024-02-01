@@ -1,8 +1,9 @@
+# r /var/src/portage/sets/hardware-console
 #x11-base/xorg-drivers
 #x11-base/xorg-server
 #x11-apps/xconsole
 #x11-apps/xbacklight
 #x11-base/xorg-proto::gentoo
 #x11-apps/xdpyinfo
-x11-apps/xhost
+#x11-apps/xhost
 x11-wm/qtile[wayland]

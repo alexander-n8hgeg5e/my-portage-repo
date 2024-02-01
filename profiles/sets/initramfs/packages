@@ -1,0 +1,5 @@
+#  r /var/src/portage/sets/initramfs
+app-arch/cpio
+net-misc/dropbear[static,shadow]
+dev-vcs/git
+sys-apps/busybox[static]

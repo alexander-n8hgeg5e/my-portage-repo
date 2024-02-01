@@ -1,0 +1,11 @@
+# r /var/src/portage/sets/node
+net-misc/openssh
+sys-apps/ethtool
+net-misc/chrony
+sys-devel/distcc
+net-firewall/iptables
+app-admin/sysklogd
+app-crypt/gnupg
+sys-apps/dm-integrity-utils
+# @initramfs
+# @essential

@@ -1,0 +1,3 @@
+sys-apps/smartmontools
+sys-block/nbd
+sys-fs/cryptsetup
