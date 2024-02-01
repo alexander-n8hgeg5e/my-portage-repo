@@ -494,8 +494,6 @@ dobin m1t
 dobin m20
 dobin m21
 dobin portage_repo_git_fix
-dobin power_dusteater_off
-dobin power_dusteater_on
 dobin rambuffer
 dobin read_clipboard
 dobin sed_inplace_insert_python_script_into_ebuild
@@ -514,12 +512,42 @@ dobin x2myclip
 dobin x20
 dobin x21
 dobin txt2pdf
-dobin power_ac_off
-dobin power_ac_on
 dobin power_audio_off
 dobin power_audio_on
-dobin power_esadc_off
-dobin power_esadc_on
+
+dosbin relay_control_0
+
+dosbin power_ec_on
+dosbin power_ac_on
+dosbin power_de_on
+dosbin power_dc_on
+dosbin power_sk_on
+dosbin power_wb_on
+dosbin power_tc_on
+dosbin power_fb_on
+dosbin power_ec_off
+dosbin power_ac_off
+dosbin power_de_off
+dosbin power_dc_off
+dosbin power_sk_off
+dosbin power_wb_off
+dosbin power_tc_off
+dosbin power_fb_off
+
+dosym power_ec_on  /usr/sbin/power_esadc_on
+dosym power_ec_off /usr/sbin/power_esadc_off
+dosym power_de_on  /usr/sbin/power_dusteater_on
+dosym power_de_off /usr/sbin/power_dusteater_off
+dosym power_fb_on  /usr/sbin/power_flatbox_on
+dosym power_fb_off /usr/sbin/power_flatbox_off
+dosym power_sk_on  /usr/sbin/power_skyscraper_on
+dosym power_sk_off /usr/sbin/power_skyscraper_off
+
+dosbin power_all_nodes_on
+dosbin power_all_nodes_off
+dosbin power_disknodes_on
+dosbin power_disknodes_off
+
 dobin power_fan_off
 dobin power_fan_on
 dobin power_klima_off
@@ -549,14 +577,7 @@ dobin vglrl
 dobin vglrr
 dobin cge
 dobin start_Xvnc
-dosbin relay_control_0
-dosbin power_all_nodes_on
-dosbin power_disknodes_on
-dosbin power_disknodes_off
-dosbin power_all_nodes_off
-dosbin power_dc_on
-dosbin power_dc_off
-dosbin power_tc_off
+
 dosbin cluster_standby
 dosbin cluster_shutdown
 }
