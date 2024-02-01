@@ -1,8 +1,9 @@
-sys-cluster/ceph fuse diskprediction cephfs mgr lua_single_target_lua5-3 sqlite tcmalloc
+sys-cluster/ceph fuse diskprediction cephfs mgr lua_single_target_lua5-3 sqlite tcmalloc system-boost
+dev-libs/boost zlib context python
 dev-libs/leveldb snappy tcmalloc
 dev-python/numpy lapack
 virtual/mpi fortran
 dev-libs/xmlsec openssl
-dev-libs/boost context python
 dev-libs/nettle gmp
 sys-devel/gcc fortran
+net-misc/curl http2

@@ -34,7 +34,7 @@
 
 EROOT="/"
 ## software
-#ACCEPT_LICENSE="-* @FREE"
+ACCEPT_LICENSE="-* @FREE vim.org bonnie unRAR free-noncomm"
 
 # files and dir here allowed
 #CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/env.d/shortcuts"
@@ -43,7 +43,7 @@ EROOT="/"
 #CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/ssh/ssh_config"
 #CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/vim"
 #
-##CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/portage/package.use"
+CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/portage/package.use/zzz_autounmask"
 #CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/portage/package.accept_keywords"
 #CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/portage/package.mask"
 #CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/portage/package.unmask"
@@ -69,31 +69,29 @@ FEATURES="${FEATURES} parallel-install parallel-fetch python-trace cgroup"      
 FEATURES="${FEATURES} distcc"
 #FEATURES="${FEATURES} ccache"
 
-USE="-* sixel asm smp openmp tcpd threads caps pie jit \
-    -pam \
-	-gnome-keyring \
-    python_targets_python3_8  python_targets_python3_9 python_targets_python3_10 \
-    python_single_target_python3_9 \
-    lua_targets_lua5-3 lua_targets_lua5-4 \
-    lua_targets_luajit \
-    ruby_targets_ruby26 \
-    lua_single_target_luajit \
+USE="-* sixel asm smp openmp tcpd threads caps pie sanitize vtv nptl pch graphite ssp
+     python_targets_python3_8  python_targets_python3_9 python_targets_python3_10
+     python_single_target_python3_9
+     lua_targets_lua5-3 lua_targets_lua5-4
+     lua_targets_luajit
+     ruby_targets_ruby27
+     lua_single_target_luajit
     "
-# these are not working with above USE="-* ..."
-# except by adding lines like RUBY_TARGETS="${RUBY_TARGETS}"
-# to /etc/portage/make.conf
-#RUBY_TARGETS="ruby26"
-#LUA_TARGETS="lua5-2 lua5-3 lua5-4"
-#LUA_SINGLE_TARGET="lua5-3"
-#PYTHON_SINGLE_TARGET="python3_8"
-#PYTHON_TARGETS="python3_8 python3_9"
+
+LC_MESSAGES=C
+#L10N="en"
+#LINGUAS="en"
 
 USE_EXPAND="${USE_EXPAND} TFTPD_FCAP_USERS"
 USE_EXPAND_IMPLICIT="${USE_EXPAND_IMPLICIT} TFTPD_FCAP_USERS"
 USE_EXPAND_VALUES_TFTPD_FCAP_USERS="dusteater skyscraper ftpscan"
 
-#L10N="en"
-#LINGUAS="en"
+COMPILER_FLAGS_LOWMEM="-O2 -fomit-frame-pointer -fdiagnostics-color"
+DEFAULT_COMPILER_FLAGS="${COMPILER_FLAGS_LOWMEM} -pipe"
+CFLAGS="${DEFAULT_COMPILER_FLAGS}"
+CXXFLAGS="${DEFAULT_COMPILER_FLAGS}"
+FCFLAGS="${DEFAULT_COMPILER_FLAGS}"
+FFLAGS="${DEFAULT_COMPILER_FLAGS}"
 
 ## some vars
 CODEDIR="${EROOT}var/src"
@@ -127,21 +125,10 @@ PORTAGE_NICENESS=19
 
 EMERGE_DEFAULT_OPTS="\
                      --keep-going y                          \
-                     --quiet-build                           \
-                     --backtrack=30"
-#                     --autounmask-continue n                 \
-#                     --autounmask-keep-keywords y            \
-#                     --autounmask-keep-masks y               \
-#                     --autounmask-write n                    \
-#                     --autounmask-backtrack y                \
-#                    --autounmask n                           \
-#                     --complete-graph                        \
-#                     --use-ebuild-visibility"                \
-#                     --newrepo                               \
-#                     --rebuild-if-new-slot y                 \
-#                     --rebuild-if-unbuilt y                  \
-#                     --rebuild-if-new-rev y                  \
-#                     --rebuild-if-new-ver y                  \
+                     --quiet-build y                         \
+                     --backtrack=30                          \
+                     --load-average 1                        \
+                     --jobs 1"
 
 #----------#
 #  ccache  #

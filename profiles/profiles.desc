@@ -4,12 +4,17 @@
 # DO NOT ADD PROFILES WITH A "die" or "exit" IN THEM OR IT KILLS REPOMAN
 #
 #layout:
-#arch       profile_directory                                    status
+#arch       profile_directory                                   				 status
 
-amd64       default/linux/amd64/17.1/no-multilib                    dev
-amd64       default/linux/amd64/17.1/no-multilib/ui-node            dev
-amd64       default/linux/amd64/17.1                                dev
-amd64       default/linux/amd64/17.1/ui-node                        dev
-amd64       default/linux/amd64/17.0/no-multilib                    dev
-amd64       default/linux/amd64/17.0                                dev
-x86         default/linux/x86/17.0                                  dev
+amd64       default/linux/amd64/17.0                             				    dev
+amd64       default/linux/amd64/17.0/no-multilib                				    dev
+amd64       default/linux/amd64/17.0/no-multilib/lowmem            				    dev
+amd64       default/linux/amd64/17.1                             				    dev
+amd64       default/linux/amd64/17.1/no-multilib                				    dev
+amd64       default/linux/amd64/17.1/no-multilib/lowmem            				    dev
+amd64       default/linux/amd64/17.1/no-multilib/ui-node        				    dev
+amd64       default/linux/amd64/17.1/no-multilib/boot-node      				    dev
+amd64       default/linux/amd64/17.1/no-multilib/app-node       				    dev
+amd64       default/linux/amd64/17.1/no-multilib/boot-ui-node   				    dev
+amd64       default/linux/amd64/17.1/no-multilib/boot-ui-app-node                   dev
+amd64       default/linux/amd64/17.1/no-multilib/boot-ui-app-node/lowmem            dev

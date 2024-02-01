@@ -1,0 +1,7 @@
+#  # sanitize needs
+#  sys-devel/clang-runtime compiler-rt
+#  # and wants me to select more flags of 
+#  sys-libs/compiler-rt-sanitizers
+
+sys-devel/clang-runtime -sanitize
+

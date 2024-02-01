@@ -1,0 +1,1 @@
+USE="udev usb sound X vulkan dri dri3 aptx bluetooth alsa xorg"

@@ -1,1 +1,1 @@
-media-sound/pulseaudio -system-wide
+media-sound/pulseaudio-daemon -system-wide

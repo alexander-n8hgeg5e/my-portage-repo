@@ -1,0 +1,4 @@
+USE="opengl pulseaudio sound threads usb python
+     ncurses openh264 eme-free caps colordiff system-llvm 
+	 ffmpeg neovim github pyopen rind mp3 occ jit x264 x265
+	"

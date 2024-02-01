@@ -1,1 +1,1 @@
-sys-kernel/linux-gentoo mount-boot eat-the-cat set-perms
+sys-kernel/linux-gentoo mount-boot eat-the-cat set-perms kernel-inst-method-copy2boot set-kernel-source-link backup

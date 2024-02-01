@@ -1,0 +1,3 @@
+sys-fs/btrfs-progs static
+dev-libs/lzo static-libs
+app-arch/zstd static-libs

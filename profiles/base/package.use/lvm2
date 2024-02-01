@@ -1,1 +1,1 @@
-sys-fs/lvm2 static
+sys-fs/lvm2 static -udev

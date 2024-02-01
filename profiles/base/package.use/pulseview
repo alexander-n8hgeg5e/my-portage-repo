@@ -1,0 +1,4 @@
+sci-electronics/pulseview decode
+sci-libs/libsigrok cxx
+x11-libs/libxcb xkb
+dev-libs/libpcre2 pcre16 unicode

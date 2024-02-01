@@ -1,2 +1,2 @@
 dev-lang/python xml
-sys-apps/systemd-utils tmpfiles
+sys-apps/systemd-utils tmpfiles udev
