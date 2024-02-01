@@ -580,4 +580,12 @@ dobin start_Xvnc
 
 dosbin cluster_standby
 dosbin cluster_shutdown
+dosbin cluster_down_mds
+dosbin cluster_down_nfs
+dosbin cluster_down_rbd
+dosbin cluster_shutdown_disknodes
+dobin start_wayvnc
+dobin start_Xvnc
+dobin anrestart_wayvnc_on_dusteater
+dobin anrestart_Xvnc_on_dusteater
 }
