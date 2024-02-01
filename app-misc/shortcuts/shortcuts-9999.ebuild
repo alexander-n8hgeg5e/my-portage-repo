@@ -588,4 +588,6 @@ dobin start_wayvnc
 dobin start_Xvnc
 dobin anrestart_wayvnc_on_dusteater
 dobin anrestart_Xvnc_on_dusteater
+dosbin cgroup2_find_path
+dosbin _cgroup2_find_path
 }
