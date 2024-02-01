@@ -63,6 +63,7 @@ FEATURES="${FEATURES} preserve-libs protect-owned buildsyspkg"                  
 FEATURES="${FEATURES} clean-logs"                                                 # function
 FEATURES="${FEATURES} buildpkg buildpkg-live binpkg-multi-instance"               # function
 FEATURES="${FEATURES} sandbox usersandbox userpriv"                               # security
+#FEATURES="${FEATURES} strict suidctl binpkg-request-signature"                    # security
 FEATURES="${FEATURES} strict suidctl"                                             # security
 FEATURES="${FEATURES} parallel-install parallel-fetch python-trace"               # speed
 
@@ -70,9 +71,10 @@ FEATURES="${FEATURES} distcc"
 #FEATURES="${FEATURES} ccache"
 
 USE="-* sixel asm smp openmp tcpd threads caps pie sanitize vtv nptl pch graphite ssp
+     gdbm
      python_targets_python3_10
      python_targets_python3_11
-     python_single_target_python3_10
+     python_single_target_python3_11
      lua_targets_lua5-3 lua_targets_lua5-4
      lua_targets_luajit
      lua_single_target_luajit
@@ -87,7 +89,7 @@ USE_EXPAND="${USE_EXPAND} TFTPD_FCAP_USERS"
 USE_EXPAND_IMPLICIT="${USE_EXPAND_IMPLICIT} TFTPD_FCAP_USERS"
 USE_EXPAND_VALUES_TFTPD_FCAP_USERS="dusteater skyscraper ftpscan"
 
-COMPILER_FLAGS_LOWMEM="-O0"
+COMPILER_FLAGS_LOWMEM="-O0 -fomit-frame-pointer"
 DEFAULT_COMPILER_FLAGS="-O2 -fomit-frame-pointer -fdiagnostics-color -pipe"
 CFLAGS="${DEFAULT_COMPILER_FLAGS}"
 CXXFLAGS="${DEFAULT_COMPILER_FLAGS}"
@@ -130,6 +132,7 @@ EMERGE_DEFAULT_OPTS="\
                      --backtrack=30                          \
                      --load-average 1                        \
                      --jobs 1"
+#                     --getbinpkg                             \
 
 #----------#
 #  ccache  #

@@ -1,4 +1,4 @@
-gui-libs/wlroots xwayland
+gui-libs/wlroots xwayland session
 
 # required by gui-wm/cage-9999::my[xwayland]     
 >=gui-libs/wlroots-0.16.2 X                      

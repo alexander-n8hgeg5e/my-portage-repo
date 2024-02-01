@@ -10,3 +10,4 @@ app-misc/shortcuts
 app-misc/tmux
 app-editors/vim
 app-misc/rind
+app-misc/colordiff
