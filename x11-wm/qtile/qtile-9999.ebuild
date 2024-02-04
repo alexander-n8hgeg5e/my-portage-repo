@@ -37,6 +37,7 @@ RDEPEND="
 	wayland? ( dev-python/pywlroots[${PYTHON_USEDEP}] )
 	wayland? ( gui-libs/wlroots[libinput] )
 "
+#wayland? ( >=dev-python/pywlroots-0.16.4[${PYTHON_USEDEP}] <dev-python/pywlroots-0.17[${PYTHON_USEDEP}] )
 BDEPEND="
 	dev-python/setuptools-scm[${PYTHON_USEDEP}]
 	test? (
