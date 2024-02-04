@@ -252,6 +252,7 @@ dobin conky_all
 dobin parse_xrandr_conf
 python_foreach_impl python_doscript setup_xrandr
 dobin set_max_cpu_f
+dobin set_eco_cpu_f
 dobin maups
 dobin gsb
 dobin gsc
