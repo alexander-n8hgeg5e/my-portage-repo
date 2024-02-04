@@ -13,7 +13,7 @@ HOMEPAGE="http://www.qtile.org/"
 
 if [[ ${PV} == 9999 ]]; then
 	inherit git-r3
-	EGIT_REPO_URI="https://github.com/qtile/qtile.git"
+	EGIT_REPO_URI="${CODEDIR}/${PN} ${MYGITHUB_URIBASE}${PN}.git"
 else
 	inherit pypi
 	KEYWORDS="~amd64 ~riscv ~x86"
