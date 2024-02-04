@@ -30,7 +30,7 @@ RDEPEND="dev-python/pexpect[${PYTHON_USEDEP}]
 			serial? ( dev-python/pyserial[${PYTHON_USEDEP}] )
 		"
 
-BDEPEND="dev-util/scons[${PYTHON_USEDEP}]"
+BDEPEND="dev-build/scons[${PYTHON_USEDEP}]"
 
 #src_configure(){
 #	true;
