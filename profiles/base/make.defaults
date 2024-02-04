@@ -44,6 +44,7 @@ ACCEPT_LICENSE="-* @FREE vim.org bonnie unRAR free-noncomm"
 #CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/vim"
 #
 CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/portage/package.use/zzz_autounmask"
+CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/portage/package.use/zz_autounmask"
 #CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/portage/package.accept_keywords"
 #CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/portage/package.mask"
 #CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/portage/package.unmask"
@@ -77,7 +78,7 @@ USE="-* sixel asm smp openmp tcpd threads caps pie sanitize vtv nptl pch graphit
      python_single_target_python3_11
      lua_targets_lua5-3 lua_targets_lua5-4
      lua_targets_luajit
-     lua_single_target_luajit
+     lua_single_target_lua5-4
      ruby_targets_ruby31
     "
 
@@ -129,9 +130,10 @@ PORTAGE_NICENESS=19
 EMERGE_DEFAULT_OPTS="\
 --keep-going=y \
 --quiet-build=y \
---backtrack=30 \
+--backtrack=500 \
 --load-average=1 \
---getbinpkg=y \
+--getbinpkg n \
+--autounmask-continue y \
 --jobs 1"
 
 #----------#
