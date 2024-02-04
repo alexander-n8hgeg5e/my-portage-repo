@@ -55,7 +55,7 @@ app-admin/sysklogd
 net-fs/sshfs
 sys-fs/dosfstools
 net-dns/bind-tools
-dev-util/scons
+dev-build/scons
 dev-python/pylib
 dev-vcs/git_hooks
 dev-util/ctags
