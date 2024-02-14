@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
-PYTHON_COMPAT=( python3_{6,7,8,9,10} )
+PYTHON_COMPAT=( python3_{6,7,8,9,10,11} )
 inherit git-r3 python-r1
 DESCRIPTION="rind"
 HOMEPAGE="https://github.com/alexander-n8hgeg5e/rind"
