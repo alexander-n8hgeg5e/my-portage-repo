@@ -64,8 +64,8 @@ FEATURES="${FEATURES} preserve-libs protect-owned buildsyspkg"                  
 FEATURES="${FEATURES} clean-logs"                                                 # function
 FEATURES="${FEATURES} buildpkg buildpkg-live binpkg-multi-instance"               # function
 FEATURES="${FEATURES} sandbox usersandbox userpriv"                               # security
-FEATURES="${FEATURES} strict suidctl binpkg-request-signature"                    # security
-#FEATURES="${FEATURES} strict suidctl"                                             # security
+#FEATURES="${FEATURES} strict suidctl binpkg-request-signature"                    # security
+FEATURES="${FEATURES} strict suidctl"                                             # security
 FEATURES="${FEATURES} parallel-install parallel-fetch python-trace"               # speed
 
 FEATURES="${FEATURES} distcc"
