@@ -128,6 +128,7 @@ PORTAGE_IONICE_COMMAND="ionice -c 3 -p \${PID}"
 PORTAGE_NICENESS=19
 
 EMERGE_DEFAULT_OPTS="\
+--buildpkg \
 --keep-going=y \
 --quiet-build=y \
 --backtrack=500 \
