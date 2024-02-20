@@ -64,12 +64,17 @@ FEATURES="${FEATURES} preserve-libs protect-owned buildsyspkg"                  
 FEATURES="${FEATURES} clean-logs"                                                 # function
 FEATURES="${FEATURES} buildpkg buildpkg-live binpkg-multi-instance"               # function
 FEATURES="${FEATURES} sandbox usersandbox userpriv"                               # security
-#FEATURES="${FEATURES} strict suidctl binpkg-request-signature"                    # security
 FEATURES="${FEATURES} strict suidctl"                                             # security
 FEATURES="${FEATURES} parallel-install parallel-fetch python-trace"               # speed
 
 FEATURES="${FEATURES} distcc"
 #FEATURES="${FEATURES} ccache"
+
+#FEATURES="${FEATURES} binpkg-request-signature"
+FEATURES="${FEATURES} binpkg-signing"
+BINPKG_GPG_SIGNING_GPG_HOME="/etc/portage/gnupg"
+BINPKG_GPG_SIGNING_KEY="C03A82393808E320A5ED84BE6A4889B083B49CF6"
+
 
 USE="-* sixel asm smp openmp tcpd threads caps pie sanitize vtv nptl pch graphite ssp
      gdbm
