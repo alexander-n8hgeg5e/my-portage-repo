@@ -1,4 +1,4 @@
-sys-fs/btrfs-progs static
+sys-fs/btrfs-progs static -udev
 dev-libs/lzo static-libs
 app-arch/zstd static-libs
 sys-libs/zlib static-libs
