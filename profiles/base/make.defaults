@@ -66,8 +66,7 @@ FEATURES="${FEATURES} buildpkg buildpkg-live binpkg-multi-instance"             
 FEATURES="${FEATURES} sandbox usersandbox userpriv"                               # security
 FEATURES="${FEATURES} strict suidctl"                                             # security
 FEATURES="${FEATURES} parallel-install parallel-fetch python-trace"               # speed
-
-FEATURES="${FEATURES} distcc"
+#FEATURES="${FEATURES} distcc"
 #FEATURES="${FEATURES} ccache"
 
 #FEATURES="${FEATURES} binpkg-request-signature"
