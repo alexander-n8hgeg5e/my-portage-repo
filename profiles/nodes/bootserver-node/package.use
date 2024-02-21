@@ -1,0 +1,2 @@
+net-misc/dhcp -ipv6
+net-ftp/tftp-hpa server
