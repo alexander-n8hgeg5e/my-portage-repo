@@ -4,7 +4,7 @@
 EAPI=7
 EGIT_REPO_URI="${CODEDIR}/${PN} https://github.com/alexander-n8hgeg5e/${PN}.git"
 
-PYTHON_COMPAT=( python3_{6,7,8,9,10} )
+PYTHON_COMPAT=( python3_{6,7,8,9,10,11,12} )
 inherit git-r3 python-r1
 
 DESCRIPTION=""
