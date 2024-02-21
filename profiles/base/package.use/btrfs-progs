@@ -1,1 +1,1 @@
-sys-fs/btrfs-progs zstd
+sys-fs/btrfs-progs zstd -convert
