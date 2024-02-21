@@ -1,1 +1,1 @@
-sys-apps/smartmontools daemon
+sys-apps/smartmontools daemon -update-drivedb
