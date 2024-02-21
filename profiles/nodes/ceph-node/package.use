@@ -1,7 +1,7 @@
 # ceph 17.2.6
 dev-libs/boost nls
 
-sys-cluster/ceph fuse diskprediction cephfs mgr sqlite tcmalloc system-boost
+sys-cluster/ceph fuse diskprediction cephfs mgr sqlite tcmalloc system-boost -parquet
 sys-cluster/ceph lua_single_target_lua5-4
 dev-lang/python sqlite
 #<sys-cluster/ceph-17.2.0 lua_single_target_lua5-3
