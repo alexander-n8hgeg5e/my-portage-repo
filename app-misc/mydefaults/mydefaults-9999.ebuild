@@ -54,6 +54,14 @@ if ! use prefix ; then
 	doins   "${etc_portage_repos_conf_dir}/"*
 fi
 
+# binrepos.conf
+if ! use prefix ; then
+	etc_portage_binrepos_conf_dir="etc/portage/binrepos.conf"
+	dodir "${etc_portage_binrepos_conf_dir}"
+	insinto "${etc_portage_binrepos_conf_dir}"
+	doins   "${etc_portage_binrepos_conf_dir}/"*
+fi
+
 # /etc/profile.d
 etc_profiled_dir="etc/profile.d"
 dodir "${etc_profiled_dir}"
