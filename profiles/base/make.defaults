@@ -75,15 +75,8 @@ BINPKG_GPG_SIGNING_GPG_HOME="/etc/portage/gnupg"
 BINPKG_GPG_SIGNING_KEY="C03A82393808E320A5ED84BE6A4889B083B49CF6"
 
 
-USE="-* sixel asm smp openmp tcpd threads caps pie sanitize vtv nptl pch graphite ssp
-     gdbm
-     python_targets_python3_10
-     python_targets_python3_11
-     python_single_target_python3_11
-     lua_targets_lua5-3 lua_targets_lua5-4
-     lua_targets_luajit
-     lua_single_target_lua5-4
-     ruby_targets_ruby31
+USE="sixel asm smp openmp tcpd threads caps pie sanitize nptl pch jit graphite vtv ssp
+     gdbm -systemd acl -pam
     "
 
 LC_MESSAGES=C
