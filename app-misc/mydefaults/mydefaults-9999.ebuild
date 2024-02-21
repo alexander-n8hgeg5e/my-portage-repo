@@ -50,9 +50,9 @@ doins "etc/git-mailmap"
 doins "etc/tmux.conf"
 doins "etc/etc-update.conf"
 
-# etc/mirror
-dodir "etc"
-doins "etc/mirror"
+# etc/portage/mirrors
+dodir "etc/portage"
+doins "etc/portage/mirrors"
 dodir "var/gentoo-mirror"
 dosym ../db/distfiles /var/gentoo-mirror/distfiles
 
