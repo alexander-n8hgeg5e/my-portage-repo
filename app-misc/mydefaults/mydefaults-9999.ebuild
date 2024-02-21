@@ -46,6 +46,12 @@ doins "etc/git-mailmap"
 doins "etc/tmux.conf"
 doins "etc/etc-update.conf"
 
+# etc/mirror
+dodir "etc"
+doins "etc/mirror"
+dodir "var/gentoo-mirror"
+dosym ../db/distfiles /var/gentoo-mirror/distfiles
+
 # repos.conf
 if ! use prefix ; then
 	etc_portage_repos_conf_dir="etc/portage/repos.conf"
