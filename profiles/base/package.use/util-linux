@@ -1,1 +1,1 @@
-sys-apps/util-linux -su
+sys-apps/util-linux -su -cramfs
