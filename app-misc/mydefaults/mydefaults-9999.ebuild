@@ -19,6 +19,8 @@ DEPEND="app-misc/shortcuts[${PYTHON_USEDEP}]"
 RDEPEND="${DEPEND}"
 RDEPEND="${RDEPEND}  acct-user/distfilesync"
 RDEPEND="${RDEPEND} acct-group/distfilesync"
+RDEPEND="${RDEPEND}  acct-user/reposync"
+RDEPEND="${RDEPEND} acct-group/reposync"
 BDEPEND="sys-apps/portage[${PYTHON_USEDEP}]"
 
 src_prepare(){
