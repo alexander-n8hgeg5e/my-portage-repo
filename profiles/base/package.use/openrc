@@ -1,1 +1,1 @@
-sys-apps/openrc netifrc ncurses sysv-utils
+sys-apps/openrc netifrc ncurses sysv-utils -unicode
