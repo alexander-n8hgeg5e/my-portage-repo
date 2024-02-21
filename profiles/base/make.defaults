@@ -76,7 +76,7 @@ BINPKG_GPG_SIGNING_KEY="C03A82393808E320A5ED84BE6A4889B083B49CF6"
 
 
 USE="sixel asm smp openmp tcpd threads caps pie sanitize nptl pch jit graphite vtv ssp
-     -systemd acl -pam -nls -ipv6 -webdav
+     -systemd acl -pam -nls -ipv6 -webdav -man
     "
 
 LC_MESSAGES=C
