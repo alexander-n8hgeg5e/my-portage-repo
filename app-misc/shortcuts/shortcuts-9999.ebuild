@@ -233,7 +233,7 @@ dobin gcb
 dobin get_dotf_gitdirs
 dobin get_root_gitdirs
 dobin get_home_gitdirs
-python_foreach_impl python_doscript pp
+python_foreach_impl python_newscript pp gpp
 dobin gh
 dobin ds
 dobin gsu
