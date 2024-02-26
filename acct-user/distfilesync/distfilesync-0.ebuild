@@ -7,6 +7,7 @@ inherit acct-user
 
 DESCRIPTION="User for local distfile download."
 ACCT_USER_ID=19788
+ACCT_USER_ENFORCE_ID=1
 ACCT_USER_GROUPS=( distfilesync portage )
 ACCT_USER_HOME="/var/lib/distfilesync/home"
 
@@ -22,8 +23,8 @@ src_install(){
 
 pkg_preinst(){
 	acct-user_pkg_preinst
-	fowners distfilesync:distfilesync /var/lib/distfilesync/home/.ssh
-	fowners distfilesync:distfilesync /var/lib/distfilesync/home/.ssh/authorized_keys
+	fowners "${ACCT_USER_ID}" /var/lib/distfilesync/home/.ssh
+	fowners "${ACCT_USER_ID}" /var/lib/distfilesync/home/.ssh/authorized_keys
 	fperms 2750 /var/lib/distfilesync/home
 	fperms 0700 /var/lib/distfilesync/home/.ssh
 	fperms 0700 /var/lib/distfilesync/home/.ssh/authorized_keys
