@@ -13,12 +13,6 @@ KEYWORDS="~amd64 ~x86"
 
 DEPEND=""
 RDEPEND="${DEPEND} sys-apps/openrc
-	acct-user/in_tftpd_skyscraper
-	acct-user/in_tftpd_dusteater
-	acct-group/in_tftpd_skyscraper
-	acct-group/in_tftpd_dusteater
-	acct-user/in_tftpd_esadc
-	acct-group/in_tftpd_esadc
 	acct-group/cg_bg
 	acct-group/cg_realtime
 "
@@ -37,18 +31,8 @@ src_install(){
 	insinto "${etc_confd_dir}"
 	doins "${etc_confd_dir}/bootmisc"
 
-	rel_inst_path="usr/sbin"
-	for username in $(cat /etc/nodelist);do
-		name="in_tftpd_${username}"
-		#dosym "in_tftpd_node" "etc/init.d/${name}"
-		#if ! use_if_iuse "tftpd_fcap_users_${username}";then
-			dosym "in.tftpd" "${rel_inst_path}/${name}"
-		#fi
-	done
-	#if ! use_if_iuse "tftpd_fcap_users_${username}";then
-		name="in_tftpd_all"
-		dosym "in.tftpd" "${rel_inst_path}/${name}"
-	#fi
+	name="in_tftpd_all"
+	dosym "in.tftpd" "${rel_inst_path}/${name}"
 
 	# set_netifnames tool
 	dosbin usr/sbin/set_netifnames
