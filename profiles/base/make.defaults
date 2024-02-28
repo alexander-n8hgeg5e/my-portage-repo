@@ -128,10 +128,13 @@ EMERGE_DEFAULT_OPTS="\
 --buildpkg \
 --keep-going=y \
 --quiet-build=y \
---backtrack=500 \
+--backtrack=5000 \
 --load-average=1 \
 --getbinpkg n \
 --autounmask-continue y \
+--autounmask-use y \
+--autounmask-keep-masks y \
+--autounmask-keep-keywords y \
 --jobs 1"
 
 #----------#
