@@ -1,0 +1,8 @@
+..
+../../../../../../nodes/diskboot-node
+../../../../../../nodes/system-on-disk-node
+../../../../../../nodes/bootserver-node
+../../../../../../nodes/ceph-node
+../../../../../../nodes/syslogger-node
+../../../../../../nodes/ui-node
+../../../../../../nodes/app-node
