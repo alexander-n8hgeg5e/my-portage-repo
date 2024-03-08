@@ -5,7 +5,7 @@ EAPI=6
 inherit git-r3
 DESCRIPTION="pyopen opens files with configured app"
 HOMEPAGE=""
-EGIT_REPO_URI="${CODEDIR}""/pyopen"
+EGIT_REPO_URI="${CODEDIR}/${PN} https://github.com/alexander-n8hgeg5e/${PN}.git"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64"
