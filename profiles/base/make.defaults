@@ -58,6 +58,8 @@ CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/portage/package.use/zz_a
 ##CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/locale.conf"
 #CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} ${EROOT}etc/locale.gen"
 
+CONFIG_PROTECT="/var/lib/binpkgsync/home/.ssh/authorized_keys /var/lib/reposync/home/.ssh/authorized_keys /var/lib/distfilesync/home/.ssh/authorized_keys"
+
 FEATURES="${FEATURES} candy"                                                      # look
 FEATURES="${FEATURES} python-trace unknown-features-warn"                         # debugging
 FEATURES="${FEATURES} preserve-libs protect-owned buildsyspkg"                    # function
