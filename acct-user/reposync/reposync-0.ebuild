@@ -10,6 +10,7 @@ ACCT_USER_ID=47838
 ACCT_USER_ENFORCE_ID=1
 ACCT_USER_GROUPS=( reposync portage )
 ACCT_USER_HOME="/var/lib/reposync/home"
+ACCT_USER_SHELL="/bin/sh"
 
 acct-user_add_deps
 

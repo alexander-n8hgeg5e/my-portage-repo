@@ -10,6 +10,7 @@ ACCT_USER_ID=47357
 ACCT_USER_ENFORCE_ID=1
 ACCT_USER_GROUPS=( binpkgsync portage )
 ACCT_USER_HOME="/var/lib/binpkgsync/home"
+ACCT_USER_SHELL="/bin/sh"
 
 acct-user_add_deps
 
