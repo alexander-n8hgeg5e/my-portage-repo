@@ -100,6 +100,7 @@ FFLAGS="${DEFAULT_COMPILER_FLAGS}"
 ## some vars
 CODEDIR="${EROOT}var/src"
 MYGITHUB_URIBASE="https://github.com/alexander-n8hgeg5e/"
+EGIT_MIRROR_URI="ssh://distfilesync@tc/var/db/distfiles/git3-src/" 
 
 ## portage config
 GENTOO_MIRRORS="${GENTOO_MIRRORS} \
