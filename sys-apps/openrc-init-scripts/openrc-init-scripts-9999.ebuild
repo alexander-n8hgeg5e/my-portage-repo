@@ -31,8 +31,8 @@ src_install(){
 	insinto "${etc_confd_dir}"
 	doins "${etc_confd_dir}/bootmisc"
 
-	name="in_tftpd_all"
-	dosym "in.tftpd" "${rel_inst_path}/${name}"
+	"usr/sbin/in_tftpd_all"
+	dosym "in.tftpd" "usr/sbin/in_tftpd_all"
 
 	# set_netifnames tool
 	dosbin usr/sbin/set_netifnames
