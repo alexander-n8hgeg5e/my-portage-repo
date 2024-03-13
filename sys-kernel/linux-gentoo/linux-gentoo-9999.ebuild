@@ -7,7 +7,7 @@ inherit git-r3
 DESCRIPTION="Linux kernel installation ebuild.
 	Read the ebuild! I't contains further important description."
 
-#	Experimental ebuild that may eat the cat and so on.
+#	Experimental ebuild that may destroy the computer.
 #	Version 999935 installs the version
 #	the symlink \"${EROOT}/usr/linux\" points at.
 #	Version 9999 pulls in sys-kernel/gentoo-sources-9999 as dependency.
@@ -52,7 +52,7 @@ LICENSE=""
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE="${IUSE} -test -set-perms kernel-inst-method-copy2boot kernel-inst-method-mkinstall\
-	kernel_install_method-sbin-instkern +backup mount-boot -eat-the-cat"
+	kernel_install_method-sbin-instkern +backup mount-boot"
 
 DEPEND=""
 RDEPEND="${DEPEND}"
@@ -115,12 +115,6 @@ pkg_setup(){
 
 	# choose the kernel installation method
 	# this need to fit the system
-	use eat-the-cat || \
-		die \
-			"Read the code of this ebuild to ensure the code will do
-			what you want.
-			Set the eat the cat flag to confirm you checked the code."
-
 	if use kernel-inst-method-copy2boot;then
 		kernel_install_method="copy2boot"
 		einfo "Kernel install method copy2boot choosen."
@@ -246,7 +240,7 @@ pkg_preinst(){
 	# mount the boot partition
 	use mount-boot && mount /boot && mounted_boot=1 || mounted_boot=0
 
-	if use backup && use eat-the-cat ; then
+	if use backup; then
 
 		# alright, doing backup
 
@@ -275,8 +269,7 @@ pkg_preinst(){
 
 	elif use backup;then
 		die \
-			"To enable backupmethods, read the code and check for whether it will do what you want,
-			Confirm that you read the code, by setting the eat-the-cat flag"
+			"To enable backupmethods, read the code and check if it will do what you want."
 	else
 		ewarn "Warning: No kernel backup will be made."
 	fi
