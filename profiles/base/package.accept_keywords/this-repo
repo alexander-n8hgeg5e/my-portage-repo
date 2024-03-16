@@ -74,3 +74,5 @@ x11-wm/spectrwm
 =x11-misc/keyev-9999
 =dev-python/github3-1.3.0
 sys-apps/dm-integrity-utils **
+
+=sys-power/pyfancontrol-9999::my
