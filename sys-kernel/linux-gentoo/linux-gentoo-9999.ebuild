@@ -165,6 +165,7 @@ pkg_setup(){
 }
 
 src_unpack(){
+    EGIT_MIRROR_URI=""
 	git-r3_src_unpack || die
 	einfo "preparing build dir..."
 	rsync --info=none,progress2 -ac --delete --partial \
