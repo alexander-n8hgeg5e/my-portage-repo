@@ -1,1 +1,1 @@
-www-client/firefox hwaccel system-jpeg system-sqlite pgo lto -clang llvm system-webp system-av1 openh264 pulseaudio hardened system-harfbuzz system-icu system-libevent eme-free system-libvpx system-jpeg
+www-client/firefox hwaccel system-jpeg system-sqlite pgo lto -clang llvm system-webp system-av1 openh264 pulseaudio hardened system-harfbuzz system-icu system-libevent eme-free system-libvpx system-jpeg -geckodriver -gmp-autoupdate system-png system-python-libs -bindist
