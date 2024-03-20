@@ -53,7 +53,8 @@ doins "etc/tmux.conf"
 doins "etc/etc-update.conf"
 
 # etc/portage/mirrors
-dodir "etc/portage"
+dodir   "etc/portage"
+insinto "etc/portage"
 doins "etc/portage/mirrors"
 dodir "var/gentoo-mirror"
 dosym ../db/distfiles /var/gentoo-mirror/distfiles
