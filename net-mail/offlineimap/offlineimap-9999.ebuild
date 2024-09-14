@@ -4,7 +4,7 @@
 EAPI=7
 
 DISTUTILS_USE_SETUPTOOLS=no
-PYTHON_COMPAT=( python3_{8,9,10} )
+PYTHON_COMPAT=( python3_{8,9,10,11,12} )
 PYTHON_REQ_USE="sqlite,ssl?"
 
 inherit distutils-r1 git-r3
