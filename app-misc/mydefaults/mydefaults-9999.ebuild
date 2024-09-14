@@ -154,4 +154,9 @@ etc_ssh_dir="etc/ssh"
 dodir   "${etc_ssh_dir}"
 insinto "${etc_ssh_dir}"
 doins   "${etc_ssh_dir}/"*
+
+etc_gtk3_settings_dir="etc/gtk-3.0"
+dodir   "${etc_gtk3_settings_dir}"
+insinto "${etc_gtk3_settings_dir}"
+doins   "${etc_gtk3_settings_dir}/"*
 }
