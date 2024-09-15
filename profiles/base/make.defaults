@@ -70,9 +70,12 @@ FEATURES="${FEATURES} parallel-install parallel-fetch python-trace"             
 #FEATURES="${FEATURES} ccache"
 
 #FEATURES="${FEATURES} binpkg-request-signature"
-FEATURES="${FEATURES} binpkg-signing"
-BINPKG_GPG_SIGNING_GPG_HOME="/etc/portage/gnupg"
-BINPKG_GPG_SIGNING_KEY="D6EA3A097890851DF1D213CBC611BCF5CBCCFFEA"
+#FEATURES="${FEATURES} binpkg-signing"
+
+#GPG_VERIFY_GROUP_DROP="portage"
+#GPG_VERIFY_USER_DROP="portage"
+#BINPKG_GPG_SIGNING_GPG_HOME="/etc/portage/gnupg"
+#BINPKG_GPG_SIGNING_KEY="D6EA3A097890851DF1D213CBC611BCF5CBCCFFEA"
 
 
 USE="sixel asm smp openmp tcpd threads caps pie sanitize nptl pch jit graphite vtv ssp
