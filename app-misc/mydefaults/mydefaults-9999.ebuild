@@ -21,6 +21,8 @@ RDEPEND="${RDEPEND}  acct-user/distfilesync"
 RDEPEND="${RDEPEND} acct-group/distfilesync"
 RDEPEND="${RDEPEND}  acct-user/reposync"
 RDEPEND="${RDEPEND} acct-group/reposync"
+RDEPEND="${RDEPEND}  acct-user/binpkgsync"
+RDEPEND="${RDEPEND} acct-group/binpkgsync"
 BDEPEND="sys-apps/portage[${PYTHON_USEDEP}]"
 
 src_prepare(){
