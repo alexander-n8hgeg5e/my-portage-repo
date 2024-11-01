@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
-PYTHON_COMPAT=( python3_{6,7,8,9,10,11} )
+PYTHON_COMPAT=( python3_{6,7,8,9,10,11,12} )
 inherit git-r3 python-r1 scons-utils toolchain-funcs
 DESCRIPTION="shortcuts"
 HOMEPAGE=""
