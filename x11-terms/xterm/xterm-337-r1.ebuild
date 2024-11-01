@@ -1,7 +1,7 @@
 # Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 inherit desktop flag-o-matic multilib
 
@@ -12,7 +12,7 @@ SRC_URI="ftp://ftp.invisible-island.net/${PN}/${P}.tgz"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~hppa ia64 ~mips ppc ppc64 s390 ~sh ~sparc x86 ~amd64-fbsd ~x86-fbsd ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~sparc-solaris ~sparc64-solaris ~x64-solaris ~x86-solaris"
-IUSE="+openpty toolbar truetype unicode Xaw3d xinerama sixel"
+IUSE="+openpty toolbar truetype unicode Xaw3d xinerama sixel kernel_FreeBSD"
 
 BDEPEND="virtual/pkgconfig
 	x11-base/xorg-proto"

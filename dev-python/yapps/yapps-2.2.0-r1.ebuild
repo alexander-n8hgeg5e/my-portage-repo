@@ -1,10 +1,10 @@
 # Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="7"
-PYTHON_COMPAT=( python3_{8,9,10} pypy )
+EAPI=8
+PYTHON_COMPAT=( python3_{8,9,10,11,12} pypy )
 
-inherit eutils distutils-r1
+inherit distutils-r1
 
 MY_PN="Yapps"
 MY_P="${MY_PN}-${PV}"

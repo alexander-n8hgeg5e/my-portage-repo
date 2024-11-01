@@ -3,8 +3,6 @@
 
 EAPI=7
 
-inherit eutils
-
 DESCRIPTION="A tool for manipulating PDF documents"
 HOMEPAGE="http://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/"
 SRC_URI="http://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/${P}-src.zip"

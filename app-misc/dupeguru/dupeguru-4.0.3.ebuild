@@ -2,12 +2,12 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=7
+EAPI=8
 
-PYTHON_COMPAT=( python3_{6,7,8,9,10} )
+PYTHON_COMPAT=( python3_{6,7,8,9,10,11,12} )
 PYTHON_REQ_USE="sqlite"
 
-inherit eutils python-single-r1
+inherit distutils-r1
 
 DESCRIPTION="Find duplicate files on your system"
 HOMEPAGE="https://hardcoded.net/dupeguru"

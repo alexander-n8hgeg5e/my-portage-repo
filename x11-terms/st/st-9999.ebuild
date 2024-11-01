@@ -1,8 +1,8 @@
 # Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
-inherit eutils git-r3 multilib savedconfig toolchain-funcs
+EAPI=8
+inherit git-r3 multilib savedconfig toolchain-funcs
 
 DESCRIPTION="simple terminal implementation for X"
 HOMEPAGE="https://st.suckless.org/"

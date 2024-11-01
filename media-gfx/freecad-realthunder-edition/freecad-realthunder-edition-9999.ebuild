@@ -1,11 +1,11 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
-PYTHON_COMPAT=( python3_{8,9} )
+PYTHON_COMPAT=( python3_{8,9,10,11,12} )
 
-inherit check-reqs cmake desktop eapi8-dosym optfeature python-single-r1 xdg
+inherit check-reqs cmake desktop optfeature python-single-r1 xdg
 
 DESCRIPTION="QT based Computer Aided Design application"
 HOMEPAGE="https://www.freecadweb.org/ https://github.com/FreeCAD/FreeCAD"
@@ -285,10 +285,10 @@ src_install() {
 	cmake_src_install
 
 	if ! use headless; then
-		dosym8 -r /usr/$(get_libdir)/${PN}/bin/FreeCAD /usr/bin/freecad
+		dosym -r /usr/$(get_libdir)/${PN}/bin/FreeCAD /usr/bin/freecad
 		mv "${ED}"/usr/$(get_libdir)/freecad/share/* "${ED}"/usr/share || die "failed to move shared ressources"
 	fi
-	dosym8 -r /usr/$(get_libdir)/${PN}/bin/FreeCADCmd /usr/bin/freecadcmd
+	dosym -r /usr/$(get_libdir)/${PN}/bin/FreeCADCmd /usr/bin/freecadcmd
 
 	python_optimize "${ED}"/usr/share/${PN}/data/Mod/Start/StartPage "${ED}"/usr/$(get_libdir)/${PN}{/Ext,/Mod}/
 	# compile main package in python site-packages as well

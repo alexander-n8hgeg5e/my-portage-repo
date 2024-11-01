@@ -7,7 +7,7 @@ EAPI=7
 EGIT_REPO_URI=https://github.com/mjanusz/v86d
 EGIT_TAG=45e0d487c04fb2899155c35018740e465f234e8f
 
-inherit eutils flag-o-matic linux-info multilib git-r3
+inherit flag-o-matic linux-info multilib git-r3
 
 DESCRIPTION="A daemon to run x86 code in an emulated environment"
 HOMEPAGE="https://dev.gentoo.org/~spock/projects/uvesafb/"
