@@ -1,9 +1,9 @@
 # Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=8
 
-inherit eutils multilib toolchain-funcs vcs-snapshot
+inherit multilib toolchain-funcs vcs-snapshot
 
 DESCRIPTION="Small dynamic tiling window manager for X11"
 HOMEPAGE="https://github.com/conformal/spectrwm"
