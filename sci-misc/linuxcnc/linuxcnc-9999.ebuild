@@ -6,7 +6,7 @@ EAPI=7
 
 PYTHON_COMPAT=( python3_{8,9,10} )
 
-inherit autotools eutils git-r3 python-r1
+inherit autotools git-r3 python-r1
 
 DESCRIPTION="LinuxCNC "
 HOMEPAGE="http://linuxcnc.org/"
