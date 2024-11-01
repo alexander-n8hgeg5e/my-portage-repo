@@ -1,3 +1,4 @@
-~dev-python/columnize-0.3.9 ~*
+~dev-python/columnize-0.3.9  ~*
+~dev-python/columnize-0.3.11 ~*
 ~sys-fs/bees-0.6.4
 #dev-python/columnize::my
