@@ -1,1 +1,3 @@
 sys-fs/lvm2 static -udev
+dev-libs/libaio static-libs
+sys-apps/util-linux static-libs
