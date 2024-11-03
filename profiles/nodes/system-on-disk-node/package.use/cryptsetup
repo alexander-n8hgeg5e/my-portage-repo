@@ -6,3 +6,4 @@ sys-fs/cryptsetup luks1_default openssl static -kernel -udev
 >=dev-libs/openssl-1.1.1l-r1 static-libs
 >=sys-fs/lvm2-2.02.188-r2 static-libs
 >=dev-libs/libaio-0.3.112 static-libs
+app-crypt/argon2 static-libs
