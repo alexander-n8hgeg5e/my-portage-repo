@@ -22,3 +22,7 @@ amd64       default/linux/amd64/17.1/no-multilib/netboot-system-on-disk-lowmem-c
 amd64       default/linux/amd64/17.1/no-multilib/netboot-system-on-disk-ceph-node                                         dev
 amd64       default/linux/amd64/17.1/no-multilib/netboot-system-on-disk-lowmem-node                                       dev
 amd64       default/linux/amd64/17.1/no-multilib/netboot-system-on-rbd-ceph-app-node                                      dev
+amd64       default/linux/amd64/23.0/no-multilib                                                                          dev
+amd64       default/linux/amd64/23.0/no-multilib/netboot-system-on-rbd-ceph-app-node                                      dev
+amd64       default/linux/amd64/23.0/split-usr/no-multilib                                                                dev
+amd64       default/linux/amd64/23.0/split-usr/no-multilib/netboot-system-on-rbd-ceph-app-node                            dev
