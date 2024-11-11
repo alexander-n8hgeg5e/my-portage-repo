@@ -56,7 +56,7 @@ IUSE="${IUSE} -test -set-perms kernel-inst-method-copy2boot kernel-inst-method-m
 
 DEPEND=""
 RDEPEND="${DEPEND}"
-BDEPEND="	dev-vcd/git
+BDEPEND="	dev-vcs/git
 			virtual/linux-sources
 			app-misc/shortcuts
 			>net-misc/rsync-3
