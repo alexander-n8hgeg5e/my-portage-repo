@@ -9,12 +9,13 @@ inherit vim-plugin git-r3
 EGIT_REPO_URI="${CODEDIR}/${PN} https://github.com/alexander-n8hgeg5e/${PN}.git"
 
 DESCRIPTION="vim plugin: A tree explorer plugin for navigating the filesystem"
+
 LICENSE="WTFPL-2"
+
 KEYWORDS="~amd64"
 
-VIM_PLUGIN_HELPFILES="NERDTree.txt"
+LICENSE="WTFPL-2"
 
-src_prepare() {
-	rm LICENCE screenshot.png || die
-	default
-}
+VIM_PLUGIN_HELPFILES="NERD_Tree"
+
+DOCS=( CHANGELOG.md README.markdown )
