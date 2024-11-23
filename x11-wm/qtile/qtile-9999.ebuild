@@ -34,7 +34,9 @@ RDEPEND="
 	x11-libs/libnotify[introspection]
 	x11-libs/pango
 	pulseaudio? ( media-libs/libpulse )
-	wayland? ( dev-python/pywlroots[${PYTHON_USEDEP}] )
+	wayland? ( >=dev-python/pywayland-0.4.17[${PYTHON_USEDEP}] )
+	wayland? ( >=dev-python/pywlroots-17[${PYTHON_USEDEP}] )
+	wayland? ( <dev-python/pywlroots-18[${PYTHON_USEDEP}] )
 	wayland? ( gui-libs/wlroots[libinput] )
 "
 #wayland? ( >=dev-python/pywlroots-0.16.4[${PYTHON_USEDEP}] <dev-python/pywlroots-0.17[${PYTHON_USEDEP}] )
